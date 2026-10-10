@@ -46,6 +46,8 @@ def run(seed=42):
 
 
 if __name__ == "__main__":
+    for folder in ["reports/tables", "reports/runs", "archive/audit"]:
+        (ROOT / folder).mkdir(parents=True, exist_ok=True)
     rows = []
     for seed in [11, 42, 73, 101, 202]:
         row, ns = run(seed)
