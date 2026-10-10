@@ -2,9 +2,10 @@
 
 import argparse
 import json
-from pathlib import Path
 import sys
-from .io import load_config, read_table, save_table, provenance
+from pathlib import Path
+
+from .io import load_config, provenance, read_table, save_table
 
 
 def main(argv=None):
@@ -16,6 +17,14 @@ def main(argv=None):
     research.add_argument("--config", default="configs/default.yaml")
     research.add_argument("--output", default="reports")
     research.add_argument("--quick", action="store_true")
+    viewt = sub.add_parser("viewt")
+    viewt.add_argument("--input", help="Canonical XLSX or CSV directory")
+    viewt.add_argument("--demo", action="store_true")
+    viewt.add_argument("--district", default="마포구")
+    viewt.add_argument("--weight", type=float, default=0.5)
+    viewt.add_argument("--hours", type=int, nargs="+")
+    viewt.add_argument("--replicates", type=int, default=200)
+    viewt.add_argument("--output", default="reports/viewt")
     sub.add_parser("fetch-public")
     sub.add_parser("public-analysis")
     for name in ["validate", "analyze"]:
@@ -32,6 +41,19 @@ def main(argv=None):
             from .research import run_research
 
             run_research(args.config, args.output, args.quick)
+        elif args.command == "viewt":
+            from .viewt import demo_bundle, read_bundle
+            from .viewt_report import export_study
+
+            if bool(args.input) == args.demo:
+                raise ValueError("Choose exactly one: --input or --demo")
+            bundle = (
+                demo_bundle(args.district) if args.demo else read_bundle(args.input)
+            )
+            manifest = export_study(
+                bundle, args.output, args.weight, args.hours, args.replicates
+            )
+            print(json.dumps(manifest, ensure_ascii=False, indent=2))
         elif args.command == "fetch-public":
             from .sources import acquire_public
 
@@ -43,8 +65,8 @@ def main(argv=None):
 
             print(json.dumps(analyze_public(), indent=2))
         else:
-            from .quality import normalize_gps
             from .pipeline import analyze
+            from .quality import normalize_gps
 
             d = read_table(args.gps)
             cfg = load_config(args.config)

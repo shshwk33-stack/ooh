@@ -15,6 +15,12 @@ jobs:
         run: bash scripts/setup.sh
       - name: Offline synthetic end-to-end smoke
         run: bash scripts/run.sh transit-ooh research --quick
+      - name: Held-out detector comparison figures
+        run: bash scripts/run.sh python scripts/revision_summary.py
+      - name: View-T file adapter and district experiment smoke
+        run: bash scripts/run.sh transit-ooh viewt --demo --replicates 10
+      - name: Python lint
+        run: bash scripts/run.sh ruff check src app tests scripts
       - name: Unit, regression, scientific checks and Streamlit interactions
         run: bash scripts/run.sh pytest --junitxml=reports/runs/ci-tests.xml
       - uses: actions/upload-artifact@v4

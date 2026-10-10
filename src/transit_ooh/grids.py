@@ -1,7 +1,10 @@
 """Metric grid with fixed global origin; exact straight-segment time allocation."""
 
 from __future__ import annotations
+
+import itertools
 from dataclasses import dataclass
+
 import numpy as np
 import pandas as pd
 from pyproj import CRS, Transformer
@@ -39,7 +42,7 @@ class Grid:
         d["x"], d["y"] = Transformer.from_crs(4326, self.crs, always_xy=True).transform(
             lon, lat
         )
-        d["grid_id"] = [self.key(x, y) for x, y in zip(d.x, d.y)]
+        d["grid_id"] = [self.key(x, y) for x, y in zip(d.x, d.y, strict=False)]
         return d
 
     def key(self, x, y):
@@ -70,7 +73,7 @@ class Grid:
                     "grid_id": k,
                     "longitude": lon,
                     "latitude": lat,
-                    "polygon": list(map(list, zip(lo, la))),
+                    "polygon": list(map(list, zip(lo, la, strict=False))),
                 }
             )
         return pd.DataFrame(
@@ -92,7 +95,7 @@ class Grid:
             )
         cuts = sorted(set(cuts))
         out = []
-        for a, b in zip(cuts[:-1], cuts[1:]):
+        for a, b in itertools.pairwise(cuts):
             mid = (a + b) / 2
             out.append((self.key(x0 + (x1 - x0) * mid, y0 + (y1 - y0) * mid), b - a))
         return out

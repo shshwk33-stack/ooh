@@ -1,10 +1,12 @@
 """Explicit provenance, portable tables, and immutable run manifests."""
 
 from __future__ import annotations
+
 import hashlib
 import json
 import math
 from pathlib import Path
+
 import pandas as pd
 import yaml
 
@@ -22,7 +24,9 @@ def read_table(path):
         return pd.read_parquet(p)
     if p.suffix.lower() == ".csv":
         return pd.read_csv(p)
-    raise ValueError("Expected CSV or Parquet")
+    if p.suffix.lower() == ".xlsx":
+        return pd.read_excel(p, engine="openpyxl")
+    raise ValueError("Expected CSV, Excel (.xlsx), or Parquet")
 
 
 def sha256(path):

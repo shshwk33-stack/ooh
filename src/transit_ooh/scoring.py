@@ -1,9 +1,10 @@
 """Transparent decision indices, never fitted advertising-effect predictions."""
 
 from __future__ import annotations
+
 import numpy as np
 import pandas as pd
-from scipy.stats import spearmanr, kendalltau
+from scipy.stats import kendalltau, spearmanr
 
 NEW_FEATURES = ["moving_seconds", "stop_seconds", "visit_frequency"]
 LEGACY_FEATURES = ["visit_frequency", "total_dwell_minutes", "repeat_visits"]
@@ -33,7 +34,7 @@ class MinMax:
         return out
 
 
-def score(frame, alpha=0.6, normalizer=None, omit=None):
+def score(frame, alpha=0.5, normalizer=None, omit=None):
     if not 0 <= alpha <= 1:
         raise ValueError("Mobility weight must be within [0,1]")
     d = frame.copy()

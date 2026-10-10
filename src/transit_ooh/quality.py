@@ -1,6 +1,7 @@
 """Audit original order before sorting; never bridge invalid GPS intervals."""
 
 from __future__ import annotations
+
 import numpy as np
 import pandas as pd
 from pyproj import Geod
@@ -14,6 +15,9 @@ def normalize_gps(
     max_gap_seconds=180,
     max_speed_kmh=130,
     max_accuracy_m=100,
+    gap_policy="fixed",
+    gap_multiplier=3.0,
+    max_adaptive_gap_seconds=900,
 ):
     missing = set(REQUIRED) - set(frame)
     if missing:
@@ -65,6 +69,40 @@ def normalize_gps(
         .drop_duplicates(["vehicle_id", "timestamp"])
         .reset_index(drop=True)
     )
+    if gap_policy not in {"fixed", "adaptive"}:
+        raise ValueError("gap_policy must be fixed or adaptive")
+    if max_gap_seconds <= 0 or gap_multiplier < 1:
+        raise ValueError("Positive gap limit and multiplier >= 1 required")
+    # Remove only a geometrically isolated spike with valid normal neighbours.
+    # Recompute all intervals afterward, bounded by the same gap policy below.
+    geod = Geod(ellps="WGS84")
+    spikes = []
+    for _, g in d.groupby("vehicle_id", sort=False):
+        if len(g) < 5:
+            continue
+        for pos in range(2, len(g) - 2):
+            before, point, after = g.iloc[pos - 1], g.iloc[pos], g.iloc[pos + 1]
+            dt1 = (point.timestamp - before.timestamp).total_seconds()
+            dt2 = (after.timestamp - point.timestamp).total_seconds()
+            dist1 = geod.inv(
+                before.longitude, before.latitude, point.longitude, point.latitude
+            )[2]
+            dist2 = geod.inv(
+                point.longitude, point.latitude, after.longitude, after.latitude
+            )[2]
+            bridge = geod.inv(
+                before.longitude, before.latitude, after.longitude, after.latitude
+            )[2]
+            if (
+                dt1 > 0
+                and dt2 > 0
+                and dist1 / dt1 * 3.6 > max_speed_kmh
+                and dist2 / dt2 * 3.6 > max_speed_kmh
+                and bridge / (dt1 + dt2) * 3.6 <= max_speed_kmh
+            ):
+                spikes.append(point.name)
+    checks["isolated_spike_points_removed"] = len(spikes)
+    d = d.drop(index=spikes).reset_index(drop=True)
     prev = d.groupby("vehicle_id")[["latitude", "longitude", "timestamp"]].shift()
     dt = (d.timestamp - prev.timestamp).dt.total_seconds()
     _, _, dist = Geod(ellps="WGS84").inv(
@@ -82,19 +120,34 @@ def normalize_gps(
         * 3.6
     )
     jump = d.speed_kmh > max_speed_kmh
+    nominal = (
+        d.assign(positive_dt=dt.where(dt > 0))
+        .groupby("vehicle_id")
+        .positive_dt.transform("median")
+    )
+    limits = pd.Series(float(max_gap_seconds), index=d.index)
+    if gap_policy == "adaptive":
+        # Do not turn multi-hour/day gaps into evidence: cap the inferred limit.
+        limits = (
+            (gap_multiplier * nominal)
+            .clip(lower=max_gap_seconds, upper=max_adaptive_gap_seconds)
+            .fillna(max_gap_seconds)
+        )
+    d["gap_limit_seconds"] = limits
+    d["nominal_sample_seconds"] = nominal
     accuracy = pd.to_numeric(
         d.get("accuracy", pd.Series(0, index=d.index)), errors="coerce"
     )
     d["point_valid"] = ~(jump | (accuracy > max_accuracy_m))
     d["interval_valid"] = (
         (dt > 0)
-        & (dt <= max_gap_seconds)
+        & (dt <= limits)
         & ~jump
         & d.point_valid
         & d.groupby("vehicle_id").point_valid.shift(fill_value=False).astype(bool)
     )
     checks["gps_jump_intervals"] = int(jump.sum())
-    checks["gap_intervals"] = int((dt > max_gap_seconds).sum())
+    checks["gap_intervals"] = int((dt > limits).sum())
     checks["poor_accuracy_points"] = int((accuracy > max_accuracy_m).sum())
     checks["retained_rows"] = len(d)
     checks["valid_intervals"] = int(d.interval_valid.sum())

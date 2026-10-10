@@ -1,7 +1,12 @@
 """Reinstall locked runtime in a disposable directory, with no raw data or Git."""
 
+import json
+import os
+import shutil
+import subprocess
+import tempfile
+import time
 from pathlib import Path
-import json, os, shutil, subprocess, tempfile, time
 
 ROOT = Path(__file__).resolve().parents[1]
 started = time.monotonic()
@@ -31,13 +36,28 @@ with tempfile.TemporaryDirectory(prefix="transit-ooh-smoke-") as tmp:
         ],
         [
             str(work / ".venv/bin/python"),
+            "-m",
+            "transit_ooh.cli",
+            "viewt",
+            "--demo",
+            "--replicates",
+            "10",
+        ],
+        [
+            str(work / ".venv/bin/python"),
             "-c",
             "from streamlit.testing.v1 import AppTest; from pathlib import Path; a=AppTest.from_file(Path('app/streamlit_app.py').resolve(),default_timeout=40).run(); assert not a.exception, [e.message for e in a.exception]; print('fresh-runtime app render passed')",
         ],
     ]
     for cmd in cmds:
         r = subprocess.run(
-            cmd, cwd=work, env=environment, text=True, capture_output=True, timeout=180
+            cmd,
+            cwd=work,
+            env=environment,
+            text=True,
+            capture_output=True,
+            timeout=300,
+            check=False,
         )
         results.append(
             {

@@ -5,9 +5,14 @@ grid_size_m: 200
 stop_radius_m: 30
 min_stop_seconds: 120
 max_gap_seconds: 180
+gap_policy: adaptive
+gap_multiplier: 3
+max_adaptive_gap_seconds: 900
+stop_detector: robust
+max_stop_radius_m: 90
 max_speed_kmh: 130
 max_accuracy_m: 100
-mobility_weight: 0.6
+mobility_weight: 0.5
 top_k: 5
 synthetic:
   vehicles: 6
@@ -15,7 +20,10 @@ synthetic:
   sample_seconds: 30
   noise_m: 5
   start_date: '2026-09-21'
+  scenario: mixed_delivery
+  scenario_seed: 1001
 experiments:
   seeds: [11, 42, 73]
   bootstrap_replicates: 100
   placebo_replicates: 100
+  heldout_scenario_seeds: [101, 202, 303]

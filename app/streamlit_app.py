@@ -1,15 +1,24 @@
 """Research-first GIS interface. Public observations are never mixed into the demo."""
 
-from pathlib import Path
 import json
+from dataclasses import replace
+from pathlib import Path
+
 import pandas as pd
-import streamlit as st
 import pydeck as pdk
+import streamlit as st
+
+from transit_ooh.experiments import (
+    cluster_bootstrap,
+    compare_models,
+    holdout,
+    weight_sensitivity,
+)
 from transit_ooh.io import load_config
-from transit_ooh.synthetic import generate
 from transit_ooh.pipeline import analyze
 from transit_ooh.scoring import score
 from transit_ooh.stops import evaluate_stops
+from transit_ooh.synthetic import generate
 
 ROOT = Path(__file__).resolve().parents[1]
 st.set_page_config(
@@ -45,6 +54,16 @@ def load_demo(grid_size, radius, min_seconds):
     return a, truth, meta, m
 
 
+@st.cache_data(show_spinner=False)
+def current_gps_decisions(grid_size, radius, minimum, alpha):
+    a, _, _, _ = load_demo(grid_size, radius, minimum)
+    s, _ = score(a.features, alpha, a.normalizer)
+    current = replace(a, scores=s, mobility_weight=alpha)
+    weights, ranks = weight_sensitivity(current)
+    _, stability = cluster_bootstrap(current, n=100)
+    return compare_models(current), weights, ranks, stability, holdout(current)
+
+
 def table(name):
     p = ROOT / "reports/tables" / f"{name}.csv"
     return pd.read_csv(p) if p.exists() else pd.DataFrame()
@@ -52,8 +71,18 @@ def table(name):
 
 with st.sidebar:
     st.header("분석 설정")
-    mode = st.radio("자료 구분", ["합성 GT 연구 데모", "실제 공개 자료 · 별도 분석"])
+    mode = st.radio(
+        "자료 구분",
+        ["View-T · 자치구 의사결정", "합성 GT 연구 데모", "실제 공개 자료 · 별도 분석"],
+        key="app_mode",
+    )
     st.caption("실측 자료와 합성 데모는 서로 결합하지 않습니다.")
+
+if mode == "View-T · 자치구 의사결정":
+    from viewt_page import render
+
+    render()
+    st.stop()
 
 if mode == "실제 공개 자료 · 별도 분석":
     st.info(
@@ -127,10 +156,10 @@ with st.sidebar:
     size = st.selectbox("미터 격자 크기", [100, 200, 400], index=1)
     radius = st.slider("정차 반경 (m)", 10, 80, 30, 5)
     minimum = st.selectbox("최소 정차시간 (초)", [60, 120, 300], index=1)
-    alpha = st.slider("이동정보 가중치 α", 0.0, 1.0, 0.6, 0.05)
+    alpha = st.slider("이동정보 가중치 α", 0.0, 1.0, 0.5, 0.05)
     model = st.selectbox("지도 점수", ["Integrated", "Static-only", "Mobility-only"])
     st.caption(
-        "EPSG:32652 · UTC 저장 / Asia/Seoul 표시\n최대 연결 간격 180초 · GT와 독립 탐지"
+        "EPSG:32652 · UTC 저장 / Asia/Seoul 표시\n표본주기 적응형 연결 한도 180–900초 · GT와 독립 탐지"
     )
 with st.spinner("합성 시나리오 분석 중…"):
     analysis, truth, meta, metrics = load_demo(size, radius, minimum)
@@ -138,8 +167,13 @@ scores, _ = score(analysis.features, alpha, analysis.normalizer)
 scores = scores.merge(analysis.grid.cells(scores.grid_id), on="grid_id")
 scores["observation_type"] = "synthetic"
 scores["score_type"] = "assumed_decision_index"
-scores["source"] = "synthetic_schedule_v1 + synthetic_independent_spatial_field"
+scores["source"] = (
+    " + ".join(sorted(analysis.gps.source.unique())) + " + " + meta["source"]
+)
 scores["mobility_weight"] = alpha
+comparison, live_weights, live_ranks, live_stability, live_holdout = (
+    current_gps_decisions(size, radius, minimum, alpha)
+)
 st.warning(
     "SYNTHETIC · 이 화면의 GPS·인구·POI는 모두 합성 데이터입니다. 점수는 상대적 의사결정 지표이며 실제 광고효과나 국내 배송 실증 결과가 아닙니다."
 )
@@ -174,7 +208,7 @@ with research_tab:
             "z: 같은 후보군 min–max. 가중치는 가정이며 최적값이 아닙니다. 반복방문은 중복계상 진단을 위해 기본식에서 제외했습니다."
         )
         st.dataframe(
-            table("model_comparison").drop(columns=["run_id"], errors="ignore"),
+            comparison,
             hide_index=True,
         )
     with right:
@@ -184,7 +218,7 @@ with research_tab:
             "1:1 시간 IoU≥0.5 매칭. MAE는 매칭된 episode만 포함합니다. 미탐·오탐은 F1에 반영됩니다. 배송 정차와 긴 신호정차는 목적 정보 없이 구분할 수 없습니다."
         )
     st.info(
-        "아래 보고서의 실험표는 기본 설정으로 실행한 고정 결과입니다. 왼쪽 설정 변경은 현재 지도·후보 점수·정차 검증에 적용되며 전체 강건성 실험을 다시 실행하지 않습니다."
+        "모델 비교·가중치 민감도·선정확률·holdout은 현재 설정으로 계산합니다. 다운로드 보고서와 노이즈 강건성 표는 별도로 실행한 고정 결과입니다."
     )
     report = ROOT / "reports/RESEARCH_RESULTS.md"
     if report.exists():
@@ -301,7 +335,10 @@ with compare_tab:
     ranked = scores.sort_values(
         ["integrated_score", "grid_id"], ascending=[False, True]
     )
-    st.dataframe(ranked[columns], hide_index=True)
+    limit = st.radio(
+        "GPS 후보 목록", [5, 10, len(ranked)], horizontal=True, key="gps_topk"
+    )
+    st.dataframe(ranked[columns].head(limit), hide_index=True)
     chosen = st.multiselect(
         "비교할 후보", ranked.grid_id.tolist(), default=ranked.grid_id.head(5).tolist()
     )
@@ -321,7 +358,18 @@ with compare_tab:
     )
 
 with stress_tab:
-    st.subheader("기본 설정으로 실행한 민감도·강건성 결과")
+    st.subheader("현재 설정의 가중치·선정 안정성")
+    live = {
+        "weight_sensitivity": live_weights,
+        "selection_stability": live_stability,
+        "holdout": live_holdout,
+    }
+    st.line_chart(
+        live_ranks.pivot(index="mobility_weight", columns="grid_id", values="rank")
+    )
+    st.caption(
+        "차량 전체 관측일을 묶어 100회 복원추출합니다. 정적 맥락 고정의 영향이 포함되며 광고효과 신뢰구간이 아닙니다."
+    )
     for name, title in [
         ("weight_sensitivity", "가중치 변화"),
         ("selection_stability", "차량 단위 bootstrap 선정확률"),
@@ -329,7 +377,9 @@ with stress_tab:
         ("robustness", "GPS 노이즈·표본주기·표본 규모"),
     ]:
         with st.expander(title, expanded=name == "weight_sensitivity"):
-            d = table(name)
+            d = live[name] if name in live else table(name)
+            if name == "robustness":
+                st.caption("이 노이즈 표는 저장된 기본 실험 결과입니다.")
             if len(d):
                 st.dataframe(d.drop(columns="run_id", errors="ignore"), hide_index=True)
             else:

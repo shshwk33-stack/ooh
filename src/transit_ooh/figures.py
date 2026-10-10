@@ -1,8 +1,8 @@
 """Exportable research figures, with provenance labels in every figure."""
 
-from pathlib import Path
 import os
 import tempfile
+from pathlib import Path
 
 os.environ.setdefault(
     "XDG_CACHE_HOME", str(Path(tempfile.gettempdir()) / "transit-ooh-cache")
@@ -10,8 +10,8 @@ os.environ.setdefault(
 os.environ.setdefault(
     "MPLCONFIGDIR", str(Path(tempfile.gettempdir()) / "transit-ooh-mpl")
 )
-import numpy as np
 import matplotlib
+import numpy as np
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -49,7 +49,7 @@ def research_figures(analysis, truth, tables, out):
         plt.close(fig)
 
     fig, ax = plt.subplots(figsize=(9, 7))
-    for (v, day), d in analysis.gps.groupby(
+    for (_v, _day), d in analysis.gps.groupby(
         ["vehicle_id", analysis.gps.timestamp.dt.date]
     ):
         ax.plot(d.x, d.y, alpha=0.22, lw=0.8)
@@ -104,6 +104,7 @@ def research_figures(analysis, truth, tables, out):
             "spatial_contribution",
         ],
         ["#367ca5", "#1caa92", "#e8a048", "#243653"],
+        strict=False,
     ):
         axes[1].bar(
             np.arange(len(top)),
@@ -115,7 +116,8 @@ def research_figures(analysis, truth, tables, out):
         bottom += top[c].to_numpy()
     axes[1].set_xticks(np.arange(len(top)), top.grid_id, rotation=35, ha="right")
     axes[1].set(title="Top-5 score contributions", ylabel="Assumed index")
-    axes[1].legend(fontsize=8)
+    axes[1].legend(fontsize=8, loc="upper left", ncol=2)
+    axes[1].set_ylim(0, max(float(bottom.max()) * 1.35, 0.1))
     save(fig, "model_comparison_contributions")
     fig, axes = plt.subplots(1, 2, figsize=(10, 4))
     w = tables["weight_sensitivity"]
@@ -123,7 +125,9 @@ def research_figures(analysis, truth, tables, out):
     axes[0].plot(w.mobility_weight, w.spearman, "o-", label="Spearman")
     axes[0].plot(w.mobility_weight, w.top_k_overlap, "s-", label="Top-5 overlap")
     axes[0].set(
-        xlabel="Mobility weight", ylabel="Stability vs 0.6", title="Weight sensitivity"
+        xlabel="Mobility weight",
+        ylabel=f"Stability vs {analysis.mobility_weight:g}",
+        title="Weight sensitivity",
     )
     axes[0].legend()
     axes[1].bar(np.arange(len(g)), g.top_k_overlap, color="#377e9d")
@@ -141,7 +145,7 @@ def research_figures(analysis, truth, tables, out):
     subset = r[r.scenario == "sampling_noise"]
     pivot = subset.groupby(["noise_m", "sample_seconds"]).f1.mean().unstack()
     fig, ax = plt.subplots(figsize=(7, 4))
-    im = ax.imshow(pivot, vmin=0, vmax=1, cmap="viridis")
+    im = ax.imshow(pivot, vmin=0, vmax=1, cmap="viridis", aspect="auto")
     ax.set_xticks(range(len(pivot.columns)), pivot.columns)
     ax.set_yticks(range(len(pivot.index)), pivot.index)
     ax.set(

@@ -1,6 +1,7 @@
 """Spatial dwell episodes; elapsed timestamps, never point count × nominal interval."""
 
 from __future__ import annotations
+
 import numpy as np
 import pandas as pd
 from scipy.optimize import linear_sum_assignment
@@ -19,29 +20,78 @@ STOP_COLS = [
 ]
 
 
-def detect_stops(gps, radius_m=30, min_seconds=120):
+def detect_stops(
+    gps,
+    radius_m=30,
+    min_seconds=120,
+    method="robust",
+    accuracy_multiplier=1.5,
+    max_radius_m=90,
+):
+    if method not in {"anchor", "robust"}:
+        raise ValueError("Unknown stop detector")
+    if radius_m <= 0 or min_seconds <= 0 or max_radius_m < radius_m:
+        raise ValueError("Invalid stop thresholds")
     rows = []
     for vehicle, g in gps.groupby("vehicle_id", sort=True):
         g = g.reset_index(drop=True)
         xy = g[["x", "y"]].to_numpy()
-        ts = g.timestamp.astype("int64").to_numpy() / 1e9
+        # pandas preserves s/ms/us/ns resolution; integer casts are unit-dependent.
+        ts = (g.timestamp - g.timestamp.iloc[0]).dt.total_seconds().to_numpy()
         valid = g.point_valid.to_numpy()
         links = g.interval_valid.to_numpy()
+        accuracy = (
+            pd.to_numeric(
+                g.get("accuracy", pd.Series(0.0, index=g.index)), errors="coerce"
+            )
+            .fillna(0)
+            .clip(lower=0)
+            .to_numpy()
+        )
         i = 0
         while i < len(g):
             if not valid[i]:
                 i += 1
                 continue
             j = i + 1
-            while (
-                j < len(g)
-                and links[j]
-                and valid[j]
-                and np.linalg.norm(xy[j] - xy[i]) <= radius_m
-            ):
-                j += 1
+            while j < len(g) and links[j] and valid[j]:
+                center = xy[i] if method == "anchor" else np.median(xy[i:j], axis=0)
+                gate = (
+                    radius_m
+                    if method == "anchor"
+                    else min(
+                        max_radius_m,
+                        max(
+                            radius_m,
+                            accuracy_multiplier * np.median(accuracy[i : j + 1]),
+                        ),
+                    )
+                )
+                if np.linalg.norm(xy[j] - center) <= gate:
+                    j += 1
+                elif (
+                    method == "robust"
+                    and j + 1 < len(g)
+                    and links[j + 1]
+                    and valid[j + 1]
+                    and ts[j + 1] - ts[j - 1] <= 120
+                    and np.linalg.norm(xy[j + 1] - center) <= gate
+                ):
+                    # One transient excursion is uncertain stationary presence;
+                    # it cannot cross a broken/invalid interval.
+                    j += 2
+                else:
+                    break
             end = j - 1
-            if end > i and ts[end] - ts[i] >= min_seconds:
+            drift_ok = True
+            if method == "robust" and end - i >= 3:
+                third = max(1, (end - i + 1) // 3)
+                drift = np.linalg.norm(
+                    np.median(xy[i : i + third], axis=0)
+                    - np.median(xy[end - third + 1 : end + 1], axis=0)
+                )
+                drift_ok = drift <= max(radius_m, gate * 0.75)
+            if end > i and ts[end] - ts[i] >= min_seconds and drift_ok:
                 part = g.iloc[i:j]
                 rows.append(
                     {
@@ -92,7 +142,7 @@ def evaluate_stops(predicted, truth, iou_threshold=0.5):
         r, c = linear_sum_assignment(
             -((ious >= iou_threshold).astype(float) * 1000 + ious)
         )
-        for i, j in zip(r, c):
+        for i, j in zip(r, c, strict=False):
             if ious[i, j] >= iou_threshold:
                 matches.append(
                     {

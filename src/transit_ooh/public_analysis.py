@@ -2,11 +2,12 @@
 
 import json
 from pathlib import Path
-import pandas as pd
-from .sources import amazon_stops, lade_events, osm_xml_points
-from .io import save_table, write_json, sha256
-from .grids import Grid
 
+import pandas as pd
+
+from .grids import Grid
+from .io import save_table, sha256, write_json
+from .sources import amazon_stops, lade_events, osm_xml_points
 
 PUBLIC_OUTPUTS = {
     "amazon": ["public_amazon_station_summary", "public_amazon_spatial_coverage"],

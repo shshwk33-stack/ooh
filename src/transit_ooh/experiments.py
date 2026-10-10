@@ -1,15 +1,18 @@
-"""Preregistered sensitivity and selection-stability analyses without fake labels."""
+"""Declared sensitivity and selection-stability analyses without fake labels."""
 
 from __future__ import annotations
+
 import itertools
+
 import numpy as np
 import pandas as pd
-from .synthetic import generate
-from .pipeline import analyze
+
 from .features import aggregate
-from .scoring import score, rank_metrics, top_keys, NEW_FEATURES, LEGACY_FEATURES
 from .grids import Grid
+from .pipeline import analyze
+from .scoring import LEGACY_FEATURES, NEW_FEATURES, rank_metrics, score, top_keys
 from .stops import evaluate_stops
+from .synthetic import generate
 
 
 def compare_models(analysis, k=5):
@@ -41,6 +44,7 @@ def weight_sensitivity(analysis, k=5):
         rows.append(
             {
                 "mobility_weight": float(alpha),
+                "is_reference": bool(np.isclose(alpha, analysis.mobility_weight)),
                 **rank_metrics(analysis.scores, s, k=k),
                 "selected": ";".join(sorted(top_keys(s, k=k))),
             }
@@ -95,7 +99,7 @@ def collinearity(analysis):
     f = analysis.features
     cols = list(
         dict.fromkeys(
-            NEW_FEATURES + ["repeat_visits", "unique_vehicles", "active_days"]
+            [*NEW_FEATURES, "repeat_visits", "unique_vehicles", "active_days"]
         )
     )
     rows = []
@@ -113,8 +117,8 @@ def collinearity(analysis):
             }
         )
     vifs = []
-    for c in NEW_FEATURES + ["repeat_visits"]:
-        others = [v for v in NEW_FEATURES + ["repeat_visits"] if v != c]
+    for c in [*NEW_FEATURES, "repeat_visits"]:
+        others = [v for v in [*NEW_FEATURES, "repeat_visits"] if v != c]
         x = np.column_stack([np.ones(len(f)), f[others].to_numpy()])
         y = f[c].to_numpy()
         pred = x @ np.linalg.lstsq(x, y, rcond=None)[0]
@@ -143,7 +147,18 @@ def permutation_placebo(analysis, n=100, seed=42, k=5):
                 "replicate": rep,
                 "design": "joint_mobility_row_permutation",
                 "meaning": "decision_sensitivity_not_accuracy",
+                "changed_mobility_rows": int(
+                    (f[cols].to_numpy() != analysis.features[cols].to_numpy())
+                    .any(axis=1)
+                    .sum()
+                ),
                 **rank_metrics(analysis.scores, s, k=k),
+                **{
+                    f"mobility_{key}": val
+                    for key, val in rank_metrics(
+                        analysis.scores, s, "mobility_score", "mobility_score", k
+                    ).items()
+                },
                 "overlap_with_static": rank_metrics(
                     s, s, "static_score", "integrated_score", k
                 )["top_k_overlap"],
@@ -166,7 +181,8 @@ def cluster_bootstrap(analysis, n=100, seed=42, k=5):
     ]
     for rep in range(n):
         parts = []
-        for j, v in enumerate(rng.choice(vehicles, len(vehicles), replace=True)):
+        draws = rng.choice(vehicles, len(vehicles), replace=True)
+        for j, v in enumerate(draws):
             d = detail[detail.vehicle_id == v].copy()
             d["vehicle_id"] = f"bootstrap-{j}"
             parts.append(d)
@@ -181,7 +197,15 @@ def cluster_bootstrap(analysis, n=100, seed=42, k=5):
             {
                 "replicate": rep,
                 "cluster_count": len(vehicles),
+                "unique_drawn_clusters": len(set(draws)),
+                "drawn_clusters": ";".join(draws),
                 **rank_metrics(analysis.scores, s, k=k),
+                **{
+                    f"mobility_{key}": val
+                    for key, val in rank_metrics(
+                        analysis.scores, s, "mobility_score", "mobility_score", k
+                    ).items()
+                },
             }
         )
     arr = pd.DataFrame(all_scores)
@@ -253,6 +277,12 @@ def holdout(analysis, k=5):
                 "normalization": "fit_train_rates_per_vehicle_day",
                 "metric_scope": "same_candidates_train_vs_holdout_decision_stability",
                 **rank_metrics(sa, sb, k=k),
+                **{
+                    f"mobility_{key}": val
+                    for key, val in rank_metrics(
+                        sa, sb, "mobility_score", "mobility_score", k
+                    ).items()
+                },
             }
         )
     # Held-out region: train normalization on west, compare models ONLY within east.
@@ -329,13 +359,17 @@ def robustness(config, quick=False):
         baselines = {}
         for v in variants:
             args = {k: val for k, val in v.items() if k != "name"}
-            gps, gt, ctx, meta, _ = generate(seed=seed, **args)
+            gps, gt, ctx, meta, _ = generate(
+                seed=seed, scenario="mixed_delivery", scenario_seed=seed, **args
+            )
             a = analyze(gps, config, ctx, meta)
             metrics, _ = evaluate_stops(a.stops, gt)
             key = (args["vehicles"], args["days"])
             if key not in baselines:
                 bg, _, bc, bm, _ = generate(
                     seed=seed,
+                    scenario="mixed_delivery",
+                    scenario_seed=seed,
                     vehicles=key[0],
                     days=key[1],
                     noise_m=0,
@@ -350,6 +384,16 @@ def robustness(config, quick=False):
                     **args,
                     **metrics,
                     **rank_metrics(base.scores, a.scores, k=config["top_k"]),
+                    **{
+                        f"mobility_{key}": val
+                        for key, val in rank_metrics(
+                            base.scores,
+                            a.scores,
+                            "mobility_score",
+                            "mobility_score",
+                            config["top_k"],
+                        ).items()
+                    },
                     "rank_reference": "same_fleet_period_seed_noiseless_30s",
                     "valid_intervals": int(a.gps.interval_valid.sum()),
                     "gps_rows": len(gps),
@@ -379,4 +423,66 @@ def grid_sensitivity(gps, context, meta, config, baseline):
                 **rank_metrics(anchors, mapped, k=config["top_k"]),
             }
         )
+    return pd.DataFrame(rows)
+
+
+def detector_benchmark(config, quick=False):
+    """Paired algorithm comparison on independently generated held-out schedules.
+
+    Thresholds are held fixed. These are synthetic physical stops, including long
+        signals, not delivery-purpose labels. Seeds generate routes as well as noise.
+    """
+    from .quality import normalize_gps
+    from .stops import detect_stops
+
+    rows = []
+    seeds = config["experiments"].get("heldout_scenario_seeds", [101, 202, 303])
+    if quick:
+        seeds = seeds[:1]
+    for scene_seed in seeds:
+        for scenario in ["mixed_delivery", "slow_traffic", "warehouse"]:
+            for noise, accuracy, correlated in [
+                (5, "reported", False),
+                (15, "reported", True),
+                (35, "missing", True),
+                (35, "overconfident", True),
+            ]:
+                gps, gt, _, _, _ = generate(
+                    seed=scene_seed + 7000,
+                    vehicles=2,
+                    days=2,
+                    scenario=scenario,
+                    scenario_seed=scene_seed,
+                    noise_m=noise,
+                    accuracy_mode=accuracy,
+                    correlated_noise=correlated,
+                )
+                clean, _ = normalize_gps(
+                    gps, gap_policy=config.get("gap_policy", "fixed")
+                )
+                projected = Grid(
+                    config["projected_crs"], config["grid_size_m"]
+                ).project(clean)
+                for method in ["anchor", "robust"]:
+                    predicted = detect_stops(
+                        projected,
+                        method=method,
+                        radius_m=config["stop_radius_m"],
+                        min_seconds=config["min_stop_seconds"],
+                        max_radius_m=config.get("max_stop_radius_m", 90),
+                    )
+                    metrics, _ = evaluate_stops(predicted, gt)
+                    rows.append(
+                        {
+                            "scenario_seed": scene_seed,
+                            "schedule": scenario,
+                            "noise_m": noise,
+                            "accuracy_mode": accuracy,
+                            "correlated_noise": correlated,
+                            "method": method,
+                            "thresholds": "fixed_before_heldout_evaluation",
+                            "truth_scope": "physical_stops_ge120s_including_long_signals",
+                            **metrics,
+                        }
+                    )
     return pd.DataFrame(rows)

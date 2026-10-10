@@ -4,10 +4,13 @@ An AOI is the provider's grouping key, NOT a matched OSM polygon. Counts measure
 recorded tasks/fixes, not visits, dwell, vehicle exposure, or advertising impact.
 """
 
+import itertools
+
 import numpy as np
 import pandas as pd
-from .scoring import rank_metrics, top_keys
+
 from .io import save_table
+from .scoring import rank_metrics, top_keys
 
 
 def lade_event_study(events, output, replicates=200, seed=42):
@@ -86,7 +89,7 @@ def lade_event_study(events, output, replicates=200, seed=42):
     )
     rows = []
     months = sorted(d.month.unique())
-    for train_month, test_month in zip(months[:-1], months[1:]):
+    for train_month, test_month in itertools.pairwise(months):
         a = (
             d[d.month == train_month]
             .groupby("site_key")

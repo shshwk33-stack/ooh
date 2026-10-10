@@ -1,0 +1,119 @@
+{
+  "schema_version": "transit-ooh-viewt-1",
+  "district_code": "11440",
+  "spatial_support_id": "DEMO-11440-v1",
+  "spatial_unit": "synthetic_candidate_zone",
+  "timezone": "Asia/Seoul",
+  "year": 2025,
+  "start_date": "2025-10-01",
+  "end_date": "2025-10-14",
+  "hours": [
+    8,
+    9,
+    10,
+    12,
+    14,
+    16,
+    18
+  ],
+  "population_basis": "segments",
+  "components": {
+    "population_segments": {
+      "year": 2025,
+      "timezone": "Asia/Seoul",
+      "spatial_support_id": "DEMO-11440-v1",
+      "spatial_unit": "synthetic_candidate_zone",
+      "start_date": "2025-10-01",
+      "end_date": "2025-10-14",
+      "source": "Transit OOH synthetic generator; NOT View-T",
+      "source_url": "synthetic://transit-ooh/viewt-demo-v1",
+      "observation_type": "synthetic",
+      "unit": "person_trips",
+      "coverage": "complete_with_structural_zeros",
+      "statistic": "period_total",
+      "hours": [
+        8,
+        9,
+        10,
+        12,
+        14,
+        16,
+        18
+      ]
+    },
+    "population_od": {
+      "year": 2025,
+      "timezone": "Asia/Seoul",
+      "spatial_support_id": "DEMO-11440-v1",
+      "spatial_unit": "synthetic_candidate_zone",
+      "start_date": "2025-10-01",
+      "end_date": "2025-10-14",
+      "source": "Transit OOH synthetic generator; NOT View-T",
+      "source_url": "synthetic://transit-ooh/viewt-demo-v1",
+      "observation_type": "synthetic",
+      "unit": "person_trips",
+      "coverage": "complete_with_structural_zeros",
+      "statistic": "period_total",
+      "hours": [
+        8,
+        9,
+        10,
+        12,
+        14,
+        16,
+        18
+      ]
+    },
+    "vehicle_paths": {
+      "year": 2025,
+      "timezone": "Asia/Seoul",
+      "spatial_support_id": "DEMO-11440-v1",
+      "spatial_unit": "synthetic_candidate_zone",
+      "start_date": "2025-10-01",
+      "end_date": "2025-10-14",
+      "source": "Transit OOH synthetic generator; NOT View-T",
+      "source_url": "synthetic://transit-ooh/viewt-demo-v1",
+      "observation_type": "synthetic",
+      "unit": "vehicle_trips",
+      "coverage": "complete_with_structural_zeros",
+      "statistic": "period_total",
+      "hours": [
+        8,
+        9,
+        10,
+        12,
+        14,
+        16,
+        18
+      ],
+      "path_semantics": "estimated_zone_sequence"
+    },
+    "poi": {
+      "year": 2025,
+      "timezone": "Asia/Seoul",
+      "spatial_support_id": "DEMO-11440-v1",
+      "spatial_unit": "synthetic_candidate_zone",
+      "start_date": "2025-10-01",
+      "end_date": "2025-10-14",
+      "source": "Transit OOH synthetic generator; NOT View-T",
+      "source_url": "synthetic://transit-ooh/viewt-demo-v1",
+      "observation_type": "synthetic",
+      "unit": "poi_count",
+      "coverage": "complete_with_structural_zeros",
+      "statistic": "period_total",
+      "hours": [
+        8,
+        9,
+        10,
+        12,
+        14,
+        16,
+        18
+      ],
+      "valid_from": "2025-10-01",
+      "valid_to": "2025-10-14"
+    }
+  },
+  "seed": 42,
+  "boundary_note": "Approximate district-centred demonstration; not official administrative boundaries"
+}

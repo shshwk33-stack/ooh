@@ -2,6 +2,7 @@
 
 import numpy as np
 import pandas as pd
+
 from .grids import Grid
 
 METRICS = [
@@ -13,6 +14,13 @@ METRICS = [
     "active_days",
     "passages",
 ]
+
+
+def next_local_hour(timestamp, timezone):
+    local = timestamp.tz_convert(timezone)
+    # Hour boundaries belong to the local clock (including half-hour offsets).
+    remaining = 3600 - (local.minute * 60 + local.second + local.microsecond / 1e6)
+    return timestamp + pd.Timedelta(seconds=remaining)
 
 
 def extract_features(gps, stops, grid: Grid, candidates=None, timezone="Asia/Seoul"):
@@ -28,7 +36,7 @@ def extract_features(gps, stops, grid: Grid, candidates=None, timezone="Asia/Seo
             # Split stop duration at local hour boundaries for time-of-day validity.
             current = e.start_time
             while current < e.end_time:
-                end = min(e.end_time, current.floor("h") + pd.Timedelta(hours=1))
+                end = min(e.end_time, next_local_hour(current, timezone))
                 local = current.tz_convert(timezone)
                 records.append(
                     {
@@ -55,7 +63,7 @@ def extract_features(gps, stops, grid: Grid, candidates=None, timezone="Asia/Seo
             end_total = row.timestamp
             dt = (end_total - current).total_seconds()
             while current < end_total:
-                end = min(end_total, current.floor("h") + pd.Timedelta(hours=1))
+                end = min(end_total, next_local_hour(current, timezone))
                 a = (current - prev.timestamp).total_seconds() / dt
                 b = (end - prev.timestamp).total_seconds() / dt
                 x0 = prev.x + (row.x - prev.x) * a

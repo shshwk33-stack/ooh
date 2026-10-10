@@ -1,31 +1,35 @@
 """Run, export and document measured results from executed experiments."""
 
 from __future__ import annotations
-from datetime import datetime, timezone
+
 import importlib.metadata
 import json
-from pathlib import Path
-import subprocess
 import shutil
+import subprocess
+from datetime import UTC, datetime
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
-from .io import load_config, save_table, write_json, sha256
-from .synthetic import generate
-from .pipeline import analyze
-from .stops import evaluate_stops
+
 from .experiments import (
-    compare_models,
-    weight_sensitivity,
     ablation,
-    collinearity,
-    permutation_placebo,
     cluster_bootstrap,
-    holdout,
-    robustness,
+    collinearity,
+    compare_models,
+    detector_benchmark,
     grid_sensitivity,
+    holdout,
+    permutation_placebo,
+    robustness,
+    weight_sensitivity,
 )
-from .figures import research_figures, public_figures
+from .figures import public_figures, research_figures
+from .io import load_config, save_table, sha256, write_json
+from .pipeline import analyze
 from .public_analysis import analyze_public
+from .stops import evaluate_stops
+from .synthetic import generate
 
 
 def code_snapshot():
@@ -54,7 +58,7 @@ def run_research(config_path="configs/default.yaml", output="reports", quick=Fal
     out = Path(output)
     (out / "tables").mkdir(parents=True, exist_ok=True)
     (out / "runs").mkdir(exist_ok=True)
-    stamp = datetime.now(timezone.utc)
+    stamp = datetime.now(UTC)
     run_id = stamp.strftime("%Y%m%dT%H%M%S%fZ") + f"_seed{config['seed']}"
     run = out / "runs" / run_id
     run.mkdir()
@@ -67,6 +71,7 @@ def run_research(config_path="configs/default.yaml", output="reports", quick=Fal
     gps.to_parquet(data / "gps.parquet", index=False)
     truth.to_parquet(data / "truth_stops.parquet", index=False)
     context.to_parquet(data / "context.parquet", index=False)
+    schedule.to_parquet(data / "schedule.parquet", index=False)
     write_json(data / "context_metadata.json", meta)
     a = analyze(gps, config, context, meta)
     metrics, matches = evaluate_stops(a.stops, truth)
@@ -103,6 +108,7 @@ def run_research(config_path="configs/default.yaml", output="reports", quick=Fal
     ].sum()
     print("Running sampling, noise, fleet, period and grid robustness...", flush=True)
     tables["robustness"] = robustness(config, quick)
+    tables["detector_benchmark"] = detector_benchmark(config, quick)
     tables["grid_sensitivity"] = grid_sensitivity(gps, context, meta, config, a)
     detector = []
     for radius in [15, 30, 60]:
@@ -259,7 +265,7 @@ def write_report(out, a, t, manifest):
 - 가중치 α∈[0,1] 11개 실험에서 기준 대비 Top-K overlap 범위 {weights.top_k_overlap.min():.2f}–{weights.top_k_overlap.max():.2f}.
 - 차량 전체 관측일을 묶은 cluster bootstrap {len(t["bootstrap_replicates"])}회; 선정확률≥0.8인 후보 {len(strong)}개. 점수 분위수는 현재 합성 설계에 조건부인 안정성 범위이며 도시 모집단의 신뢰구간이 아니다. {sample["vehicles"]}개 차량 cluster의 작은 유효 표본수를 유의해야 한다.
 - 이동특성 벡터를 통째로 다른 격자에 배치하는 placebo {len(t["placebo"])}회로 특성 간 공분산을 보존했다. 광고 라벨이 없어 유의확률·예측정확도 검증으로 해석하지 않는다.
-- 노이즈·표본주기·차량수·관측일수·불규칙/누락 {len(robustness)}개 실행. 가장 낮은 F1={worst.f1:.3f} (noise={worst.noise_m:g}m, sampling={worst.sample_seconds:g}s, seed={int(worst.seed)}). 최대 연결 간격 180초보다 드문 300초 표본은 연결하지 않아 정차를 놓칠 수 있다. 통과한 것처럼 숨기지 않았다.
+- 노이즈·표본주기·차량수·관측일수·불규칙/누락 {len(robustness)}개 실행. 가장 낮은 F1={worst.f1:.3f} (noise={worst.noise_m:g}m, sampling={worst.sample_seconds:g}s, seed={int(worst.seed)}). 연결 간격은 차량별 표본주기의 3배를 180–900초로 제한하는 적응형 정책이다. 300초 표본도 분석하나 짧은 정차는 관측되지 않을 수 있다. 별도 detector_benchmark.csv는 미사용 경로 생성 seed 3개에서 짧은 배송·긴 신호·저속 주행·창고 정차와 정확도 누락/과신, 상관 노이즈를 시험한다.
 - 100/200/400m 격자와 50/100m 원점 이동을 비교했다. 크기가 다른 격자 ID를 억지로 비교하지 않고 고정 200m 중심점의 공통 지지영역에서 점수를 비교한다. 경계에서 제외된 후보 수는 표에 드러난다.
 - 기간·차량·오전/오후 holdout: 훈련 표본의 차량-일당 활동과 min–max 범위를 고정하고 동일 후보들의 순위 안정성을 비교. 공간 holdout: 서쪽에서 정규화, 동쪽 내부에서 두 모델 비교. 계절 검증은 다계절 실측이 없어 **미실행**.
 

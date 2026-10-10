@@ -11,7 +11,7 @@ dependencies = [
   "numpy>=2.2,<2.4", "pandas>=2.2,<3", "scipy>=1.15,<2",
   "pyproj>=3.7,<4", "shapely>=2.1,<3", "matplotlib>=3.10,<4",
   "pyarrow>=19,<24", "PyYAML>=6,<7", "requests>=2.32,<3",
-  "streamlit>=1.45,<2", "pydeck>=0.9,<1",
+  "streamlit>=1.45,<2", "pydeck>=0.9,<1", "openpyxl>=3.1,<4",
 ]
 
 [project.scripts]
@@ -26,3 +26,17 @@ addopts = "-ra"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/transit_ooh"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "UP", "B", "RUF"]
+allowed-confusables = ["α", "×", "–", "−"]
+
+[tool.ruff.lint.per-file-ignores]
+# Matplotlib environment/backend must be configured before pyplot import.
+"src/transit_ooh/figures.py" = ["E402"]
+"src/transit_ooh/viewt_report.py" = ["E402"]
+"scripts/revision_summary.py" = ["E402"]

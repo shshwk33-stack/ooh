@@ -1,6 +1,7 @@
 """Context joins only via projected geometry, with temporal/provenance guards."""
 
 import pandas as pd
+
 from .grids import Grid
 
 
@@ -24,10 +25,17 @@ def spatial_features(context, metadata, grid: Grid, candidates, gps):
         context.observation_type
     ) != {metadata["observation_type"]}:
         raise ValueError("Do not combine synthetic and observed context/trajectories")
-    if (
-        pd.Timestamp(metadata["valid_from"]) > gps.timestamp.min()
-        or pd.Timestamp(metadata["valid_to"]) < gps.timestamp.max()
-    ):
+    start, end = (
+        pd.Timestamp(metadata["valid_from"]),
+        pd.Timestamp(metadata["valid_to"]),
+    )
+    if start.tzinfo is None or end.tzinfo is None:
+        raise ValueError(
+            "Context valid_from/valid_to must include an explicit timezone"
+        )
+    if start > end:
+        raise ValueError("Context validity interval is reversed")
+    if start > gps.timestamp.min() or end < gps.timestamp.max():
         raise ValueError("Context does not cover trajectory observation period")
     c = grid.project(context)
     features = [k for k in ["population", "poi_count"] if k in c]

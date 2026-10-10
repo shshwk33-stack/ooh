@@ -1,10 +1,11 @@
 """Audit preserved notebook without modifying it. Execute cells in a fresh namespace."""
 
-from pathlib import Path
+import ast
 import contextlib
+import hashlib
 import io
 import json
-import hashlib
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -27,7 +28,22 @@ def run(seed=42):
     stops = ns["valid_stops"]
     result = ns["comparison"]
     # Scheduled stop durations from original generator calls; no inference from detector.
-    scheduled = sum([15, 20, 20, 10, 15, 20, 15, 10, 10, 15, 15])
+    scheduled = 0
+    for cell in nb["cells"]:
+        if cell["cell_type"] != "code":
+            continue
+        for node in ast.walk(ast.parse("".join(cell["source"]))):
+            if (
+                isinstance(node, ast.Call)
+                and isinstance(node.func, ast.Name)
+                and node.func.id == "add_stop"
+            ):
+                duration = (
+                    node.args[3]
+                    if len(node.args) > 3
+                    else next(k.value for k in node.keywords if k.arg == "duration_min")
+                )
+                scheduled += ast.literal_eval(duration)
     return {
         "seed": seed,
         "vehicles": int(gps.vehicle_id.nunique()),

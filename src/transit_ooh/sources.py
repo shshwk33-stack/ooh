@@ -1,13 +1,16 @@
 """Bounded, verified public downloads and source-specific non-GPS adapters."""
 
 from __future__ import annotations
-from datetime import datetime, timezone
+
 import json
-from pathlib import Path
-import requests
-import pandas as pd
 import xml.etree.ElementTree as ET
-from .io import sha256, write_json, provenance
+from datetime import UTC, datetime
+from pathlib import Path
+
+import pandas as pd
+import requests
+
+from .io import provenance, sha256, write_json
 
 
 class SourceError(RuntimeError):
@@ -58,7 +61,7 @@ def download(url, path, max_bytes=50_000_000, expected_sha256=None, session=None
                 "sha256": digest,
                 "bytes": size,
                 "status": "downloaded",
-                "retrieved_at_utc": datetime.now(timezone.utc).isoformat(),
+                "retrieved_at_utc": datetime.now(UTC).isoformat(),
                 "tls_verified": True,
                 "expected_sha256": expected_sha256,
                 "etag": response.headers.get("ETag"),

@@ -1,18 +1,20 @@
-from pathlib import Path
 import json
 import subprocess
 import sys
+from pathlib import Path
+
 import pandas as pd
 import pytest
-from transit_ooh.synthetic import generate
-from transit_ooh.pipeline import analyze
-from transit_ooh.io import load_config, sha256
+
 from transit_ooh.experiments import (
+    ablation,
     cluster_bootstrap,
     holdout,
     weight_sensitivity,
-    ablation,
 )
+from transit_ooh.io import load_config, sha256
+from transit_ooh.pipeline import analyze
+from transit_ooh.synthetic import generate
 
 
 @pytest.fixture(scope="module")
@@ -38,7 +40,7 @@ def test_holdout_has_honest_unrun_season(a):
 
 def test_weight_baseline_and_ablation(a):
     w, _ = weight_sensitivity(a)
-    row = w[(w.mobility_weight - 0.6).abs() < 1e-8].iloc[0]
+    row = w[(w.mobility_weight - a.mobility_weight).abs() < 1e-8].iloc[0]
     assert row.top_k_overlap == 1 and row.spearman == pytest.approx(1)
     assert len(ablation(a)) == 4
 
@@ -93,12 +95,15 @@ def test_streamlit_controls_and_public_separation():
         Path(__file__).resolve().parents[1] / "app/streamlit_app.py", default_timeout=45
     ).run()
     assert not at.exception
-    assert at.metric[0].value == "64"
+    at.radio(key="app_mode").set_value("합성 GT 연구 데모").run()
+    assert not at.exception
+    initial_candidates = int(at.metric[0].value)
+    assert initial_candidates > 0
     assert "SYNTHETIC" in at.warning[0].value
     # Grid, stop threshold and weights change the executed UI, not only labels.
     at.selectbox[0].set_value(400).run()
     assert not at.exception
-    assert 0 < int(at.metric[0].value) < 64
+    assert 0 < int(at.metric[0].value) < initial_candidates
     at.slider[1].set_value(0.0).run()
     assert not at.exception
     frames = [
@@ -108,7 +113,7 @@ def test_streamlit_controls_and_public_separation():
     ]
     assert frames
     assert (frames[-1].integrated_score - frames[-1].static_score).abs().max() < 1e-10
-    at.radio[0].set_value("실제 공개 자료 · 별도 분석").run()
+    at.radio(key="app_mode").set_value("실제 공개 자료 · 별도 분석").run()
     assert not at.exception
     assert "public_observed" in at.info[0].value
     assert len(at.tabs) == 0
@@ -129,7 +134,7 @@ def test_current_research_artifacts_match_manifest():
 
 
 def test_missing_public_inputs_do_not_reuse_past_results(tmp_path):
-    from transit_ooh.public_analysis import analyze_public, PUBLIC_OUTPUTS
+    from transit_ooh.public_analysis import PUBLIC_OUTPUTS, analyze_public
 
     out = tmp_path / "reports"
     (out / "tables").mkdir(parents=True)

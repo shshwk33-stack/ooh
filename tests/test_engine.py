@@ -1,19 +1,21 @@
 import copy
 import importlib.util
 from pathlib import Path
+
 import numpy as np
 import pandas as pd
 import pytest
 from pyproj import Transformer
-from transit_ooh.io import load_config, provenance, read_table
-from transit_ooh.quality import normalize_gps
+
 from transit_ooh.grids import Grid
+from transit_ooh.io import load_config, provenance, read_table
+from transit_ooh.pipeline import analyze
+from transit_ooh.quality import normalize_gps
+from transit_ooh.scoring import MinMax, rank_metrics, score, top_keys
+from transit_ooh.sources import SourceError, amazon_stops, download
+from transit_ooh.spatial import spatial_features
 from transit_ooh.stops import detect_stops, evaluate_stops
 from transit_ooh.synthetic import generate
-from transit_ooh.pipeline import analyze
-from transit_ooh.scoring import score, rank_metrics, MinMax, top_keys
-from transit_ooh.spatial import spatial_features
-from transit_ooh.sources import amazon_stops, download, SourceError
 
 
 @pytest.fixture(scope="module")
@@ -165,8 +167,8 @@ def test_no_predictions_is_not_passing(sample):
 
 
 def test_sparse_sampling_no_valid_intervals_remains_numeric():
-    gps, gt, ctx, meta, _ = generate(vehicles=1, days=1, sample_seconds=300)
-    a = analyze(gps, load_config(), ctx, meta)
+    gps, _gt, ctx, meta, _ = generate(vehicles=1, days=1, sample_seconds=300)
+    a = analyze(gps, {**load_config(), "gap_policy": "fixed"}, ctx, meta)
     assert len(a.stops) == 0 and a.gps.interval_valid.sum() == 0
     assert (a.scores.mobility_score == 0).all()
     assert rank_metrics(a.scores, a.scores)["spearman"] == pytest.approx(1.0)
@@ -183,7 +185,7 @@ def test_presence_conservation(analysis):
 
 
 def test_spatial_join_invariant_to_row_order(sample, analysis):
-    gps, _, ctx, meta, _ = sample
+    _gps, _, ctx, meta, _ = sample
     g = analysis.grid
     a = spatial_features(ctx, meta, g, analysis.scores.grid_id, analysis.gps)
     b = spatial_features(
@@ -217,7 +219,9 @@ def test_mismatched_context_rejected(sample, analysis, key, value):
 def test_models_formula_and_contributions(analysis):
     s = analysis.scores
     np.testing.assert_allclose(
-        s.integrated_score, 0.6 * s.mobility_score + 0.4 * s.static_score
+        s.integrated_score,
+        analysis.mobility_weight * s.mobility_score
+        + (1 - analysis.mobility_weight) * s.static_score,
     )
     np.testing.assert_allclose(
         s.integrated_score,
@@ -305,7 +309,7 @@ def test_external_failure_is_explicit(tmp_path):
 
 def test_legacy_regression_facts():
     spec = importlib.util.spec_from_file_location(
-        "legacy", Path("scripts/audit_legacy.py")
+        "legacy", Path(__file__).resolve().parents[1] / "scripts/audit_legacy.py"
     )
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
@@ -325,7 +329,7 @@ def test_legacy_regression_facts():
 )
 def test_original_poc_dwell_should_equal_schedule():
     spec = importlib.util.spec_from_file_location(
-        "legacy", Path("scripts/audit_legacy.py")
+        "legacy", Path(__file__).resolve().parents[1] / "scripts/audit_legacy.py"
     )
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
