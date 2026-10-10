@@ -1,0 +1,20 @@
+{
+  "checks_passed": 14,
+  "synthetic_gis_roundtrip": "passed: exact native coordinates, Korean attributes, holes and multipart geometries",
+  "selected_polygon_and_dbf_record_bytes": "preserved exactly",
+  "virtual_large_shp_size_bytes": 125829448,
+  "virtual_large_shp_bytes_read": 320,
+  "ui_validation": "Generated inline scripts executed with Node DOM stubs; real browser screenshot not performed",
+  "uploaded_dbf_prj_shx_metadata_probe": "passed guards up to selected polygon payload read",
+  "actual_uploaded_polygon_payload_validation": "pending; SHP not received",
+  "boundary_2023_2024_equivalence": "not established",
+  "institution_source_data_published": false,
+  "tested_sources": {
+    "tools/boundary_helper/core.js": "f3b62f3ebf5e820e245b743e914fd0de2d3c403db39516b4e37013f83209f3f3",
+    "tools/boundary_helper/page.html": "80d1b3aae66f90fdfe345f2b05893157d9676d6164aad14c6782f48d3d0abe8b",
+    "tools/boundary_helper/check_core.cjs": "a1d0ae287a8aff83c04b043c3a6929482329073711d5a28e5a9efb7c615055d0",
+    "scripts/package_boundary_helper.py": "8eb20a839698530854ce2c6182e4cc24872812e43e7aa8c0c0c8d970d5bebb6c",
+    "scripts/check_boundary_helper.py": "9358590aecd5c847bb714578d26eba0fea67e5dbf00433dfe0ea5f4baf287ee2",
+    "deliverables/Mapo_boundary_helper.zip": "32c92f47339cd2a178c11e74bf7327bab49cf58a5f4df156d7d809ae6d4828ca"
+  }
+}
