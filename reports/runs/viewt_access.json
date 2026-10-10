@@ -1,0 +1,36 @@
+[
+  {
+    "url": "https://viewt.ktdb.go.kr",
+    "status": "ProxyError",
+    "tunnel_403": true
+  },
+  {
+    "url": "https://www.ktdb.go.kr",
+    "status": "ProxyError",
+    "tunnel_403": true
+  },
+  {
+    "url": "https://www.data.go.kr/tcs/dss/selectDataSetList.do?keyword=View-T",
+    "status": 503,
+    "bytes": 91,
+    "final_url": "https://www.data.go.kr/tcs/dss/selectDataSetList.do?keyword=View-T"
+  },
+  {
+    "source": "viewt",
+    "url": "https://viewt.ktdb.go.kr",
+    "status": "ProxyError",
+    "tunnel_403": true
+  },
+  {
+    "source": "ktdb",
+    "url": "https://www.ktdb.go.kr",
+    "status": "ProxyError",
+    "tunnel_403": true
+  },
+  {
+    "source": "koti",
+    "url": "https://www.koti.re.kr",
+    "status": "ProxyError",
+    "tunnel_403": true
+  }
+]

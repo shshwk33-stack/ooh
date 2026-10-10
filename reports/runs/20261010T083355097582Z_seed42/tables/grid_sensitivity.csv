@@ -1,0 +1,6 @@
+grid_size_m,origin_offset_m,native_candidates,comparison_support,n_candidates,spearman,kendall,top_k,top_k_overlap,run_id,observation_type
+100,0,256,fixed_200m_anchor_centers; common covered anchors only,64,0.39196558328101394,0.2768941127736002,5,0.4,20261010T083355097582Z_seed42,synthetic
+200,0,64,fixed_200m_anchor_centers; common covered anchors only,64,0.9999999999999998,0.9999999999999999,5,1.0,20261010T083355097582Z_seed42,synthetic
+400,0,12,fixed_200m_anchor_centers; common covered anchors only,48,0.5715560892428033,0.40681453484852675,5,0.2,20261010T083355097582Z_seed42,synthetic
+200,50,49,fixed_200m_anchor_centers; common covered anchors only,49,0.4813265306122449,0.3435374149659864,5,0.4,20261010T083355097582Z_seed42,synthetic
+200,100,49,fixed_200m_anchor_centers; common covered anchors only,49,0.08959183673469386,0.06122448979591836,5,0.0,20261010T083355097582Z_seed42,synthetic

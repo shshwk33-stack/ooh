@@ -1,0 +1,10 @@
+{
+  "before_fix": {
+    "baseline_stops": 6,
+    "microsecond_stops": 0,
+    "baseline_f1": 1.0,
+    "spike_stops": 7,
+    "spike_f1": 0.7692307692307692,
+    "spike_invalid_points": 2
+  }
+}

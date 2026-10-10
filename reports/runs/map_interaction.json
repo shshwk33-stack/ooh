@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "layer_types": [
+    "HeatmapLayer",
+    "ScatterplotLayer",
+    "PathLayer"
+  ],
+  "alpha_before": 0.5,
+  "alpha_after": 1,
+  "before_color": [
+    237,
+    61,
+    56,
+    210
+  ],
+  "after_color": [
+    240,
+    60,
+    55,
+    210
+  ],
+  "scope": "Streamlit emitted deck.gl data, not browser WebGL rendering"
+}

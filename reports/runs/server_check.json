@@ -1,8 +1,16 @@
 {
-  "health_status": 200,
-  "health_body": "ok",
-  "root_status": 200,
-  "serves_streamlit_shell": true,
-  "checked_at_utc": "2026-10-10T02:35:23.940116+00:00",
-  "functional_app_validation": "Streamlit AppTest: render + grid/weight controls + public/synthetic switch tested separately"
+  "checked_at": "2026-10-10T08:29:15.284803+00:00",
+  "results": [
+    {
+      "path": "/_stcore/health",
+      "status": 200,
+      "check": true
+    },
+    {
+      "path": "/",
+      "status": 200,
+      "check": true
+    }
+  ],
+  "note": "HTTP health plus separate AppTest functional checks; browser WebGL rendering not automated"
 }

@@ -1,0 +1,6 @@
+train_month,heldout_month,n_candidates,spearman,kendall,top_k,top_k_overlap,comparison,claim,source,observation_type
+5,6,356,0.5477540769618554,0.4247372768456204,10,0.3,adjacent_month_event_count_ranking_same_observed_AOI_panel,descriptive_stability_not_predictive_accuracy,LaDe-D Jilin 2022,public_observed
+6,7,356,0.5779637498156013,0.4557401895564068,10,0.8,adjacent_month_event_count_ranking_same_observed_AOI_panel,descriptive_stability_not_predictive_accuracy,LaDe-D Jilin 2022,public_observed
+7,8,356,0.6396426049817558,0.5007105959635854,10,0.9,adjacent_month_event_count_ranking_same_observed_AOI_panel,descriptive_stability_not_predictive_accuracy,LaDe-D Jilin 2022,public_observed
+8,9,356,0.7487573185772755,0.6050406149925832,10,0.9,adjacent_month_event_count_ranking_same_observed_AOI_panel,descriptive_stability_not_predictive_accuracy,LaDe-D Jilin 2022,public_observed
+9,10,356,0.39823637975124454,0.310035184724823,10,0.2,adjacent_month_event_count_ranking_same_observed_AOI_panel,descriptive_stability_not_predictive_accuracy,LaDe-D Jilin 2022,public_observed

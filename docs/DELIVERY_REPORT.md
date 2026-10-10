@@ -23,7 +23,7 @@
 
 ### GPS 엔진 — 합성 물리 정차 검증
 
-실행 `20261010T082200419093Z_seed42`. 6대×6일, GPS 4,167점, GT 248개 물리 정차, 탐지 214개, TP 214 / FP 0 / FN 34. **F1 0.9264**, precision 1.0000, recall 0.8629, 매칭된 정차시간 MAE 8.69초. 실제 배송 목적 분류나 서울 실증 수치가 아니다.
+실행 `20261010T083355097582Z_seed42`. 6대×6일, GPS 4,167점, GT 248개 물리 정차, 탐지 214개, TP 214 / FP 0 / FN 34. **F1 0.9264**, precision 1.0000, recall 0.8629, 매칭된 정차시간 MAE 8.69초. 실제 배송 목적 분류나 서울 실증 수치가 아니다.
 
 이전 쉬운 합성 경로의 F1 0.9885와 직접적인 성능 향상 비교를 하지 않는다. 이번 기본 경로는 짧은 배송과 긴 신호 정차를 포함해 난도가 달라졌다. 경로 생성 seed까지 분리한 72회 paired 비교 결과:
 
@@ -60,6 +60,7 @@ LaDe Jilin 기사 작업 이벤트 31,415건·57명, Amazon 방문지/순서 3,0
 | 통계 테스트 | 훈련 정규화 재사용, 실제 복원추출/순열, UTC 대신 현지 시간, IoU 경계, 비교 기준 분리 | [pytest XML](../reports/runs/tests.xml) |
 | 전체 pytest | **68 passed, 1 xfailed, 0 failed** | 원본 점 수×5분 오류만 strict xfail |
 | 의도적 연구 오류 삽입 | **선언한 10개 모두 검출**, import/수집 오류로 통과시킨 사례 없음 | [mutation_checks.json](../reports/runs/mutation_checks.json) |
+| 수치 재현·산출물 무결성 | 최종/직전 실행 표 29개 정확 일치(run_id 제외), 현재 소스 및 산출물 해시 일치 | [revision_reproducibility.json](../reports/runs/revision_reproducibility.json) |
 | 새 환경 | 독립 venv 설치→GPS quick→View-T→AppTest 통과, 48.38초 | [clean_smoke.json](../reports/runs/clean_smoke.json) |
 | 서버 | health/root 모두 HTTP 200, 앱 조작 검사는 별도 AppTest 통과 | [server_check.json](../reports/runs/server_check.json) |
 | 정적 검사 | Ruff E4/E7/E9/F/I/UP/B/RUF, format 통과 | pyproject.toml / CI |

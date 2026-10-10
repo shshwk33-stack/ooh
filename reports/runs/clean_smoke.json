@@ -1,24 +1,24 @@
 {
   "status": "passed",
-  "elapsed_seconds": 33.08,
+  "elapsed_seconds": 48.38,
   "fresh_virtual_environment": true,
   "original_raw_data_present": false,
   "git_metadata_present": false,
   "public_data": "not_acquired; no silent synthetic replacement",
   "sample": {
-    "gps_rows": 6094,
+    "gps_rows": 4167,
     "vehicles": 6,
     "days": 6,
-    "truth_episodes": 216,
+    "truth_episodes": 248,
     "candidates": 64,
     "observation_type": "synthetic"
   },
   "executed_experiments": {
-    "quality": 11,
+    "quality": 12,
     "scores": 64,
-    "stops": 219,
+    "stops": 214,
     "stop_validation": 1,
-    "stop_matches": 215,
+    "stop_matches": 214,
     "model_comparison": 4,
     "weight_sensitivity": 11,
     "weight_ranks": 704,
@@ -29,8 +29,9 @@
     "selection_stability": 64,
     "placebo": 10,
     "holdout": 5,
-    "hourly_activity": 6,
+    "hourly_activity": 7,
     "robustness": 19,
+    "detector_benchmark": 24,
     "grid_sensitivity": 5,
     "detector_sensitivity": 9
   },
@@ -44,7 +45,7 @@
       ],
       "exit_code": 0,
       "stdout_tail": "",
-      "stderr_tail": " kiwisolver==1.5.1\n + markupsafe==3.0.4\n + matplotlib==3.11.2\n + narwhals==2.26.0\n + numpy==2.3.5\n + packaging==26.3\n + pandas==2.3.3\n + pillow==12.3.0\n + protobuf==7.36.2\n + pyarrow==23.0.1\n + pydeck==0.9.3\n + pyparsing==3.3.3\n + pyproj==3.8.0\n + python-dateutil==2.9.0.post0\n + python-multipart==0.0.32\n + pytz==2026.5\n + pyyaml==6.0.3\n + referencing==0.37.0\n + requests==2.34.2\n + rpds-py==2026.9.1\n + scipy==1.18.1\n + shapely==2.2.0\n + six==1.17.0\n + starlette==1.7.0\n + streamlit==1.65.0\n + toml==0.10.2\n + transit-ooh==0.1.0 (from file:///tmp/transit-ooh-smoke-svyrxkhw)\n + typing-extensions==4.16.0\n + tzdata==2026.5\n + urllib3==2.8.0\n + uvicorn==0.54.0\n + watchdog==6.0.0\n + websockets==17.2\n"
+      "stderr_tail": " + markupsafe==3.0.4\n + matplotlib==3.11.2\n + narwhals==2.26.0\n + numpy==2.3.5\n + openpyxl==3.1.5\n + packaging==26.3\n + pandas==2.3.3\n + pillow==12.3.0\n + protobuf==7.36.2\n + pyarrow==23.0.1\n + pydeck==0.9.3\n + pyparsing==3.3.3\n + pyproj==3.8.0\n + python-dateutil==2.9.0.post0\n + python-multipart==0.0.32\n + pytz==2026.5\n + pyyaml==6.0.3\n + referencing==0.37.0\n + requests==2.34.2\n + rpds-py==2026.9.1\n + scipy==1.18.1\n + shapely==2.2.0\n + six==1.17.0\n + starlette==1.7.0\n + streamlit==1.65.0\n + toml==0.10.2\n + transit-ooh==0.1.0 (from file:///tmp/transit-ooh-smoke-to6ianpn)\n + typing-extensions==4.16.0\n + tzdata==2026.5\n + urllib3==2.8.0\n + uvicorn==0.54.0\n + watchdog==6.0.0\n + websockets==17.2\n"
     },
     {
       "command": [
@@ -55,7 +56,21 @@
         "--quick"
       ],
       "exit_code": 0,
-      "stdout_tail": "Generating labelled synthetic scenario...\nAnalyzed 6094 GPS fixes, 219 detected episodes; F1=0.989\nRunning sampling, noise, fleet, period and grid robustness...\nRendering research figures and separate public-data summaries...\nCompleted run 20261010T023350508529Z_seed42; evidence: reports/RESEARCH_RESULTS.md\n",
+      "stdout_tail": "Generating labelled synthetic scenario...\nAnalyzed 4167 GPS fixes, 214 detected episodes; F1=0.926\nRunning sampling, noise, fleet, period and grid robustness...\nRendering research figures and separate public-data summaries...\nCompleted run 20261010T082642471700Z_seed42; evidence: reports/RESEARCH_RESULTS.md\n",
+      "stderr_tail": ""
+    },
+    {
+      "command": [
+        "<fresh-workspace>/.venv/bin/python",
+        "-m",
+        "transit_ooh.cli",
+        "viewt",
+        "--demo",
+        "--replicates",
+        "10"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "5adc7e9753b417f55d4aabfece9ab\",\n    \"reports/viewt/tables/bootstrap_replicates.csv\": \"e36c09020d5a9ea9a9ae6d0c01d46864b387d8bb3490903ad3e58f18c22ef658\",\n    \"reports/viewt/tables/weight_rank_range.csv\": \"d215fc2649e7a65985dcb3a78fa69e5d3ab6033b250ad167065ec9e9cbdc1128\",\n    \"reports/viewt/tables/weight_ranks.csv\": \"762a67d640b8eca9e27ce8e2cbb043034f6132d0b895e735a2587fe464e3573f\",\n    \"reports/viewt/tables/weight_sensitivity.csv\": \"56c622b6dd0857f137043192c9cdaab570b5a6ce63380d303f585a828b76e7cf\",\n    \"reports/viewt/tables/model_comparison.csv\": \"b235928ac5707beb40d123859dc07884bf906fbdbddd18c14764b8e8843753e7\",\n    \"reports/viewt/tables/daily.csv\": \"24ae1bd2e7ec6112ef5aa7e97f00726f0233083f2958c57d251b8e73e9b82e43\",\n    \"reports/viewt/tables/scores.csv\": \"224dd59a26a8f776d02025933b095a3a683e48d57a4774b10fbad07a8139093e\",\n    \"reports/viewt/figures/model_contributions.png\": \"5acfea4e0b830304a04fdb0bd5658dd4fc09d982cfd222ac1702c0ca072bfb5e\",\n    \"reports/viewt/figures/model_contributions.svg\": \"396de75290410764bff6f394d212aaf06cf29cabeebac72561ca9ad45b4f301e\",\n    \"reports/viewt/figures/weight_sensitivity.png\": \"8a439c885f6826f9d66663f2f0228283883fd1e6d338868f899970b45be8bdb3\",\n    \"reports/viewt/figures/weight_sensitivity.svg\": \"6fc58c7f917c5694f3749d99830a4b736ce2d65def93a72e9f718e57a046b0eb\",\n    \"reports/viewt/figures/rank_trajectories.png\": \"36c0651a323316d84217fecf0b51b672640cc575e77e0cb6abade9a7c20fa8df\",\n    \"reports/viewt/figures/rank_trajectories.svg\": \"12ad694ed7432ee9dd872c58355c40f812a9ffad27e896e73d31d780a2611d58\",\n    \"reports/viewt/figures/selection_stability.png\": \"52698390f6d8942b091a8ed75e60ae04d0a256818b8434d528005942b69660ae\",\n    \"reports/viewt/figures/selection_stability.svg\": \"150001b290b869933a78840a66a228114bbbe23d8d4e44ae941643bd4ff6030f\"\n  }\n}\n",
       "stderr_tail": ""
     },
     {
@@ -66,7 +81,7 @@
       ],
       "exit_code": 0,
       "stdout_tail": "fresh-runtime app render passed\n",
-      "stderr_tail": "2026-10-10 02:34:15.139 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n"
+      "stderr_tail": "2026-10-10 08:27:18.142 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n"
     }
   ],
   "disposable_workspace_removed_after_check": true

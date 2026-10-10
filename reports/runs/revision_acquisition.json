@@ -1,0 +1,12 @@
+[
+  {
+    "name": "acs2016",
+    "status": "failed",
+    "reason": "Failed to acquire https://api.census.gov/data/2016/acs/acs5: ProxyError"
+  },
+  {
+    "name": "geometry2016",
+    "status": "failed",
+    "reason": "Failed to acquire https://www2.census.gov/geo/tiger/GENZ2016/shp/cb_2016_25_tract_500k.zip: ProxyError"
+  }
+]

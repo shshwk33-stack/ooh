@@ -1,0 +1,88 @@
+{
+  "scope": "10 explicitly declared scientific mutations, not exhaustive code coverage",
+  "baseline": "passed",
+  "mutants": [
+    {
+      "name": "timestamp_assumes_nanoseconds",
+      "test": "test_external_parquet_timestamp_units",
+      "status": "killed",
+      "failures": 3,
+      "errors": 0,
+      "exit_code": 1
+    },
+    {
+      "name": "spike_retained",
+      "test": "test_isolated_spike_does_not_duplicate_visit",
+      "status": "killed",
+      "failures": 1,
+      "errors": 0,
+      "exit_code": 1
+    },
+    {
+      "name": "bootstrap_without_replacement",
+      "test": "test_cluster_resampling_really_replaces_and_changes_selection",
+      "status": "killed",
+      "failures": 1,
+      "errors": 0,
+      "exit_code": 1
+    },
+    {
+      "name": "placebo_identity",
+      "test": "test_placebo_really_moves_joint_mobility_vectors",
+      "status": "killed",
+      "failures": 1,
+      "errors": 0,
+      "exit_code": 1
+    },
+    {
+      "name": "holdout_refits_test",
+      "test": "test_holdout_reuses_frozen_training_normalizer",
+      "status": "killed",
+      "failures": 1,
+      "errors": 0,
+      "exit_code": 1
+    },
+    {
+      "name": "reversed_static_weights",
+      "test": "test_static_weight_direction_and_rank",
+      "status": "killed",
+      "failures": 1,
+      "errors": 0,
+      "exit_code": 1
+    },
+    {
+      "name": "rank_ascending",
+      "test": "test_static_weight_direction_and_rank",
+      "status": "killed",
+      "failures": 1,
+      "errors": 0,
+      "exit_code": 1
+    },
+    {
+      "name": "utc_hour_boundaries",
+      "test": "test_local_half_hour_boundary_and_visit_not_duplicated",
+      "status": "killed",
+      "failures": 1,
+      "errors": 0,
+      "exit_code": 1
+    },
+    {
+      "name": "looser_iou_threshold",
+      "test": "test_matching_iou_threshold_is_exact_not_tunable_after_result",
+      "status": "killed",
+      "failures": 1,
+      "errors": 0,
+      "exit_code": 1
+    },
+    {
+      "name": "robustness_self_comparison",
+      "test": "test_robustness_uses_distinct_noiseless_reference",
+      "status": "killed",
+      "failures": 1,
+      "errors": 0,
+      "exit_code": 1
+    }
+  ],
+  "killed": 10,
+  "count": 10
+}

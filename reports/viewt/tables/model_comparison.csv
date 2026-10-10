@@ -1,0 +1,7 @@
+﻿model_a,model_b,n_candidates,spearman,kendall,top_k,top_k_overlap,input_observation_type,score_type
+static,mobility,16,0.11504474832710558,0.10206207261596575,5,0.2,synthetic,assumed_decision_index
+static,mobility,16,0.11504474832710558,0.10206207261596575,10,0.7,synthetic,assumed_decision_index
+static,integrated,16,0.5794117647058823,0.5,5,0.6,synthetic,assumed_decision_index
+static,integrated,16,0.5794117647058823,0.5,10,0.7,synthetic,assumed_decision_index
+mobility,integrated,16,0.8564442375462303,0.7144345083117603,5,0.6,synthetic,assumed_decision_index
+mobility,integrated,16,0.8564442375462303,0.7144345083117603,10,0.9,synthetic,assumed_decision_index

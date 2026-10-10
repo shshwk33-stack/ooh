@@ -1,6 +1,6 @@
-split,status,training_vehicle_days,heldout_vehicle_days,normalization,metric_scope,n_candidates,spearman,kendall,top_k,top_k_overlap,run_id,observation_type
-temporal,executed,18.0,18.0,fit_train_rates_per_vehicle_day,same_candidates_train_vs_holdout_decision_stability,64.0,0.9410700794432107,0.8501240694789081,5.0,0.6,20261010T023347713830Z_seed42,synthetic
-vehicle,executed,18.0,18.0,fit_train_rates_per_vehicle_day,same_candidates_train_vs_holdout_decision_stability,64.0,0.9093843723528469,0.7885856079404466,5.0,0.6,20261010T023347713830Z_seed42,synthetic
-time_of_day,executed,24.0,12.0,fit_train_rates_per_vehicle_day,same_candidates_train_vs_holdout_decision_stability,64.0,0.8284759266466724,0.7359801488833747,5.0,0.6,20261010T023347713830Z_seed42,synthetic
-spatial_east_heldout,executed,,,fit_west_apply_east,static_vs_integrated_WITHIN_heldout_region_not_transfer_accuracy,32.0,0.5133055047958474,0.46233713464954834,5.0,0.6,20261010T023347713830Z_seed42,synthetic
-season,unrun_no_multiseason_observations,,,,cannot_infer_seasonal_generalization,,,,,,20261010T023347713830Z_seed42,synthetic
+split,status,training_vehicle_days,heldout_vehicle_days,normalization,metric_scope,n_candidates,spearman,kendall,top_k,top_k_overlap,mobility_n_candidates,mobility_spearman,mobility_kendall,mobility_top_k,mobility_top_k_overlap,run_id,observation_type
+temporal,executed,18.0,18.0,fit_train_rates_per_vehicle_day,same_candidates_train_vs_holdout_decision_stability,64.0,0.9067286338972961,0.7647642679900744,5.0,0.8,64.0,0.9064007421150279,0.748822605965463,5.0,0.4,20261010T083355097582Z_seed42,synthetic
+vehicle,executed,18.0,18.0,fit_train_rates_per_vehicle_day,same_candidates_train_vs_holdout_decision_stability,64.0,0.9020124087089905,0.7528535980148883,5.0,0.8,64.0,0.888682745825603,0.7289377289377289,5.0,0.6,20261010T083355097582Z_seed42,synthetic
+time_of_day,executed,30.0,12.0,fit_train_rates_per_vehicle_day,same_candidates_train_vs_holdout_decision_stability,64.0,0.824446530369285,0.6833746898263027,5.0,0.8,64.0,0.8554118847668781,0.6829577573010646,5.0,0.4,20261010T083355097582Z_seed42,synthetic
+spatial_east_heldout,executed,,,fit_west_apply_east,static_vs_integrated_WITHIN_heldout_region_not_transfer_accuracy,32.0,0.5689120718152045,0.47048404451121445,5.0,0.6,,,,,,20261010T083355097582Z_seed42,synthetic
+season,unrun_no_multiseason_observations,,,,cannot_infer_seasonal_generalization,,,,,,,,,,,20261010T083355097582Z_seed42,synthetic

@@ -1,0 +1,15 @@
+{
+  "observation_type": "synthetic",
+  "input": "reports/tables/detector_benchmark.csv",
+  "input_sha256": "49ee4ecc44b20a80591748fd7e1fc6492fc7f01beb9d67364dab8991a74ddbad",
+  "run_ids": [
+    "20261010T083355097582Z_seed42"
+  ],
+  "threshold_selection": "fixed_before_this_benchmark",
+  "experiments": 72,
+  "artifacts": {
+    "reports/revision/heldout_detector_summary.csv": "71f0e65f4d023d74806172f3a6e8fdfd7666db68be8692abcde3fe7483e5df1b",
+    "reports/revision/heldout_detector_comparison.svg": "80e217d959bdfc88dd4cf5012f9b7b052899d6487b624221be1199f5a37f8c40",
+    "reports/revision/heldout_detector_comparison.png": "4d8d5fd879904634e41acbb988f54b7f94975430774e2201153841bfa149f84c"
+  }
+}
