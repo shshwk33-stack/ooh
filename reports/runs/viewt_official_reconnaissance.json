@@ -1,0 +1,284 @@
+{
+  "checked_at_utc": "2026-10-10T18:35:19.619949+00:00",
+  "checked_date_asia_seoul": "2026-10-11",
+  "scope": "Public official pages, API documentation, client download controls, pinned notices 875/545 and two documented public example GET requests. No board posts submitted; no authentication or downloads requiring tokens attempted; private board posts not opened.",
+  "research_data_status": "No usable Mapo View-T research data acquired. Two example API responses had empty RESULT arrays.",
+  "official_guide_545": {
+    "posted_on": "2024-03-12",
+    "pages_inspected": 9,
+    "complete_html_read": true,
+    "content": [
+      "base DB includes individual vehicle movement paths in listed provision scope; availability and timestamp/coordinate schema require institutional confirmation",
+      "Level 6 regional request eligibility includes schools for research",
+      "traffic/speed indices are annual mean day or mean-hour aggregates; guide period/coverage figures are historical descriptions",
+      "observed and estimated traffic volumes distinguished"
+    ]
+  },
+  "token_notice_875": {
+    "posted_on": "2025-06-18",
+    "required_fields": [
+      "user name",
+      "purpose",
+      "data",
+      "usage period"
+    ],
+    "quote": "토큰키 발행기간은 최대 2주입니다.",
+    "qualification": "Confirm expiry/use period and extension; do not infer processing time."
+  },
+  "expert_year_availability_display": [
+    {
+      "year": 2025,
+      "vehicle_feature": false,
+      "mobile_feature": true
+    },
+    {
+      "year": 2024,
+      "vehicle_feature": true,
+      "mobile_feature": true
+    },
+    {
+      "year": 2023,
+      "vehicle_feature": true,
+      "mobile_feature": false
+    },
+    {
+      "year": 2022,
+      "vehicle_feature": true,
+      "mobile_feature": true
+    }
+  ],
+  "compatibility_status": "Existing period_total daily-hour upload contract does not directly support official annual averages, route shares, spatial crosswalks or CSV preamble/multiple metric blocks. Separate raw-file adapters required.",
+  "interpretation_limits": [
+    "Public menu availability is not proof that all requested values are available or licensed.",
+    "Population OD and population section tool exports represent aggregate zones/OD, not pedestrian link trajectories.",
+    "API detail pages do not document key placement. Main notice says Track-linked API calls require a key requested through the board. Download tokens and API keys must not be assumed identical.",
+    "2021 FAQ restricts raw data provision to processing outputs; 2024 guide lists individual-path base DB. Request permissible anonymized processed outputs, not guaranteed unrestricted GPS.",
+    "Official policy disallows use for validation and unauthorized sharing/copying and requires destruction after use. Ask provider about model comparison, sensitivity, cloud processing, publication and reproducibility."
+  ],
+  "records": [
+    {
+      "name": "api_main",
+      "url": "https://viewt.ktdb.go.kr/cong/api/moveAPI.do?url=main",
+      "method": "POST navigation",
+      "params": {
+        "sendIp": "viewt130"
+      },
+      "status": 200,
+      "bytes": 15527,
+      "sha256": "3c02d5cd62adf89c0161a30b6e8da4f1f6279b73600654091e6a9719702c81c9"
+    },
+    {
+      "name": "data_structure",
+      "url": "https://viewt.ktdb.go.kr/cong/map/page.do",
+      "method": "POST navigation",
+      "params": {
+        "root": "datastructure"
+      },
+      "status": 200,
+      "bytes": 19513,
+      "sha256": "068cfc89205d2b9eb330dabbf1d7433648ce1001100cffc292123eccf1b5f38d"
+    },
+    {
+      "name": "indicators",
+      "url": "https://viewt.ktdb.go.kr/cong/map/page.do",
+      "method": "POST navigation",
+      "params": {
+        "root": "gipyo"
+      },
+      "status": 200,
+      "bytes": 30287,
+      "sha256": "7bebf697deec4cd33d9965b981e802fbd4d490f3c7756db6b49d961b14b52f6a"
+    },
+    {
+      "name": "analysis_tools",
+      "url": "https://viewt.ktdb.go.kr/cong/map/page.do",
+      "method": "POST navigation",
+      "params": {
+        "root": "analysis_tool"
+      },
+      "status": 200,
+      "bytes": 52396,
+      "sha256": "cdfc42e6eedc080858fafda3c1c3bb85431eda9ceb584736358906986a2585ac"
+    },
+    {
+      "name": "download_policy",
+      "url": "https://viewt.ktdb.go.kr/cong/map/page.do",
+      "method": "POST navigation",
+      "params": {
+        "root": "download_policy"
+      },
+      "status": 200,
+      "bytes": 21185,
+      "sha256": "7d1127d99d5823893a2a7cbdc8d69686a9f9f4a0c947da3ab7d17fa7d60e21d0"
+    },
+    {
+      "name": "vehicle_download",
+      "url": "https://viewt.ktdb.go.kr/cong/map/TableMove_Zeke.do",
+      "method": "POST navigation",
+      "params": {
+        "sendIp": "viewt130"
+      },
+      "status": 200,
+      "bytes": 565557,
+      "sha256": "014302635886a4fd6f456d12a7934343087eb66341993b7c6128fe95018a138a"
+    },
+    {
+      "name": "monthly_download",
+      "url": "https://viewt.ktdb.go.kr/cong/map/fasterIndicator.do",
+      "method": "POST navigation",
+      "params": {
+        "sendIp": "viewt130",
+        "userId": ""
+      },
+      "status": 200,
+      "bytes": 35617,
+      "sha256": "c9fb49f3f19d2269ffad4065d835a86d8df93e0d14db68f37edc4a8d0ca0ab81"
+    },
+    {
+      "name": "expert",
+      "url": "https://viewt.ktdb.go.kr/cong/map/second_map.do",
+      "method": "POST navigation",
+      "params": {
+        "sendIp": "viewt130"
+      },
+      "status": 200,
+      "bytes": 1886883,
+      "sha256": "8d423ebbf464ec3bbe2c3a6f29b3a6ed5dacbdabe01e0a16f0e363b01c22aed5"
+    },
+    {
+      "name": "faq",
+      "url": "https://viewt.ktdb.go.kr/cong/map/faq_Board.do",
+      "method": "POST navigation",
+      "params": {
+        "sendIp": "viewt130"
+      },
+      "status": 200,
+      "bytes": 31151,
+      "sha256": "135a140ae925606b655e8cce86d329a44e92e4f281275525127453a565b7b888"
+    },
+    {
+      "name": "api_path_road",
+      "url": "https://viewt.ktdb.go.kr/cong/api/moveAPI.do?url=detail_mainPath_road",
+      "method": "POST navigation",
+      "params": {},
+      "status": 200,
+      "bytes": 12221,
+      "sha256": "655b5a50e219f7fde209e2ab24fd87ddf302235cb26f81990cd895023ebe57b4"
+    },
+    {
+      "name": "api_path_emd",
+      "url": "https://viewt.ktdb.go.kr/cong/api/moveAPI.do?url=detail_mainPath_emd",
+      "method": "POST navigation",
+      "params": {},
+      "status": 200,
+      "bytes": 12384,
+      "sha256": "4f3b035de1f2a610580bdc1554386dbea963ad111fc2b7513564eb7fc5e0508e"
+    },
+    {
+      "name": "api_path_sgg",
+      "url": "https://viewt.ktdb.go.kr/cong/api/moveAPI.do?url=detail_mainPath_sgg",
+      "method": "POST navigation",
+      "params": {},
+      "status": 200,
+      "bytes": 12424,
+      "sha256": "8bc868bf6a57895df2d0e59c0db0a3f1a2ef21e4a96ffeca4920f8ed520ab178"
+    },
+    {
+      "name": "api_od_emd",
+      "url": "https://viewt.ktdb.go.kr/cong/api/moveAPI.do?url=detail_basedPathOD_emd2emd",
+      "method": "POST navigation",
+      "params": {},
+      "status": 200,
+      "bytes": 10204,
+      "sha256": "55ecdd934c188347fadc61439f063a5e7ab4e1c446fc8719ec54ac70772b8085"
+    },
+    {
+      "name": "api_link_road",
+      "url": "https://viewt.ktdb.go.kr/cong/api/moveAPI.do?url=detail_selectedLink_road",
+      "method": "POST navigation",
+      "params": {},
+      "status": 200,
+      "bytes": 10887,
+      "sha256": "10437f9fba8bd7294831092fa5e61c00ce371cbffb5a70fda62ec44951d5e99c"
+    },
+    {
+      "name": "network_download",
+      "url": "https://viewt.ktdb.go.kr/cong/map/moveNetworkDownload.do",
+      "method": "POST navigation",
+      "params": {
+        "sendIp": "viewt130"
+      },
+      "status": 200,
+      "bytes": 30176,
+      "sha256": "520381df6e2590f787383f23d31c088fada2cda476a4a94e1b4274fd5fc93d79"
+    },
+    {
+      "name": "track_gps",
+      "url": "https://www.atc-koti.re.kr/web/content/data/view?dataId=100&type=O&cate_id=38&cateTwo=0&cateThr=0&page=0&size=0",
+      "status": "URLError",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "name": "notice_875",
+      "url": "https://viewt.ktdb.go.kr/cong/map/participation_GetPost.do",
+      "method": "POST public notice read",
+      "params": {
+        "postSeq": "875",
+        "level": "",
+        "type": "4",
+        "postKind": "notice",
+        "sendIp": "viewt130",
+        "selectedCategory": "전체"
+      },
+      "status": 200,
+      "bytes": 25347,
+      "sha256": "a107da731231916fa77a509e3af7c5a4a6cc28b0fe6fbd08c33e301107fe4668"
+    },
+    {
+      "name": "notice_545",
+      "url": "https://viewt.ktdb.go.kr/cong/map/participation_GetPost.do",
+      "method": "POST public notice read",
+      "params": {
+        "postSeq": "545",
+        "level": "",
+        "type": "4",
+        "postKind": "notice",
+        "sendIp": "viewt130",
+        "selectedCategory": "전체"
+      },
+      "status": 200,
+      "bytes": 6177330,
+      "sha256": "af03582a40c5ec7c60c705e9c141d5631ef757eeb28836474d435ec1e25e5740"
+    },
+    {
+      "name": "sample_path_response",
+      "url": "https://viewt.ktdb.go.kr/cong/api/mainPath_road.do?DPRTR_LINKID=1000001&ARRIVE_LINKID=1000005&YEAR=2024&WEEKTYPE=1&TIME=ALL",
+      "status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "bytes": 96,
+      "sha256": "270ae04f2ba4ab04df2d0664d81523e56aa1ca597cbc9bda7a2696a7e2efc843",
+      "response_summary": {
+        "STATE": 200,
+        "MSG": "Success",
+        "CNT": 0,
+        "result_rows": 0
+      },
+      "usable_research_data_acquired": false
+    },
+    {
+      "name": "sample_od_response",
+      "url": "https://viewt.ktdb.go.kr/cong/api/basedPathOD_emd2emd.do?ZONEID=1101053&YEAR=2024&WEEKTYPE=0&TIME=ALL",
+      "status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "bytes": 87,
+      "sha256": "0f4e155ebb1e7e76de92f11b6179ba4b20ce41ac9107b4747b842e0d4f5c5cd9",
+      "response_summary": {
+        "STATE": 200,
+        "MSG": "Success",
+        "CNT": 0,
+        "result_rows": 0
+      },
+      "usable_research_data_acquired": false
+    }
+  ]
+}
