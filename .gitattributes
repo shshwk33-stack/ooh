@@ -1,0 +1,4 @@
+# Review generated charts visually; keep original SVG bytes and provenance hashes.
+reports/figures/*.svg -diff
+reports/** linguist-generated=true
+reference/** -diff

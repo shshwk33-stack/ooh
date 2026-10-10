@@ -1,0 +1,16 @@
+{
+  "checked_at_utc": "2026-10-10T02:38:25.169808+00:00",
+  "cli_validate": "passed",
+  "cli_analyze_context_exactly_matches_research": "passed",
+  "fetch_public": "four verified caches; success exit",
+  "ruff_e9_f": "passed",
+  "ruff_format": "22 files already formatted",
+  "source_hashes_verified": 21,
+  "artifacts_verified": 50,
+  "cloud_config_draft": {
+    "install_script": "saved",
+    "start_skill": "saved",
+    "requires_publish": true,
+    "future_task_restoration": "not_verified"
+  }
+}

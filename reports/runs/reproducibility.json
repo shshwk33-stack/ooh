@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "current_run": "20261010T023347713830Z_seed42",
+  "previous_run": "20261010T021043438966Z_seed42",
+  "exact_numerical_tables": [
+    "ablation.csv",
+    "bootstrap_replicates.csv",
+    "detector_sensitivity.csv",
+    "feature_correlations.csv",
+    "grid_sensitivity.csv",
+    "holdout.csv",
+    "hourly_activity.csv",
+    "model_comparison.csv",
+    "placebo.csv",
+    "quality.csv",
+    "robustness.csv",
+    "scores.csv",
+    "selection_stability.csv",
+    "stop_matches.csv",
+    "stop_validation.csv",
+    "stops.csv",
+    "vif.csv",
+    "weight_ranks.csv",
+    "weight_sensitivity.csv"
+  ],
+  "source_hashes_verified": 21,
+  "artifacts_verified": 50,
+  "scope": "Exact numerical repeatability for deterministic synthetic experiments; figures carry creation metadata"
+}

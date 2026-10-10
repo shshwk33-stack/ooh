@@ -1,0 +1,29 @@
+{
+  "archive_sha256": "fbe1ea9938b88966f3fd79dae12e9a75d8352607a33d9478d287c688dd6cc049",
+  "originals": [
+    {
+      "path": "reference/Transit_OOH_2차발표 (1)(1).pptx",
+      "bytes": 17981561,
+      "sha256": "bd434f9aff48986d899c2bb6fb0ac9f9feab71b58dee899f6b1f897d955c3bd1",
+      "matches_uploaded_archive": true
+    },
+    {
+      "path": "reference/Transit_OOH_2차발표_대본및예상QA.docx",
+      "bytes": 15762,
+      "sha256": "a2785f6bde1607339159343b3e64e05417e281beca042a2dfdf4cdc8163c8d51",
+      "matches_uploaded_archive": true
+    },
+    {
+      "path": "reference/Transit_OOH_2차발표_최종_PoC_executed (1).ipynb",
+      "bytes": 189656,
+      "sha256": "4a1e73855c295fbc976222f6f3f9612080c13f63f82ca02647105918084c308f",
+      "matches_uploaded_archive": true
+    },
+    {
+      "path": "reference/캡2-1(2).pdf",
+      "bytes": 5570838,
+      "sha256": "d014b67892c0e5f2ad2bc8d46ebe2f778af5743bce9069bd273bc3ae3d08a409",
+      "matches_uploaded_archive": true
+    }
+  ]
+}

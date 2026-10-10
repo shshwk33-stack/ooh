@@ -1,0 +1,83 @@
+{
+  "amazon": {
+    "status": "analyzed",
+    "routes": 3052,
+    "stop_records": 433231,
+    "dropoff_records": 430179,
+    "stations": 18,
+    "period": [
+      "2018-06-01",
+      "2018-10-02"
+    ],
+    "sequence_coverage": 1.0,
+    "source_sha256": "dfd8a198b9df5e3b194d3a268f6f442edcd77f028870d54a8d7397a7bc366466",
+    "observation_type": "public_observed",
+    "unit": "obfuscated_route_stop",
+    "continuous_vehicle_gps": false,
+    "stop_arrival_or_dwell_time_available": false,
+    "integration_with_seoul": "forbidden_geography_and_period_mismatch"
+  },
+  "lade": {
+    "status": "analyzed",
+    "rows": 31415,
+    "couriers": 57,
+    "cities": [
+      "Jilin"
+    ],
+    "provider_date_key_range": [
+      512,
+      1028
+    ],
+    "distinct_recorded_days": 163,
+    "sample_scope": "full_jilin_partition",
+    "duplicate_event_nearest_gps": 0,
+    "invalid_coordinates": 0,
+    "missing_delivery_gps_fields": 0,
+    "source_sha256": "ed0296b83d84f739bb91ab3d3cf1a430cf71e3793e25ddf50f88aa3ef34b51fc",
+    "observation_type": "public_observed",
+    "unit": "courier_delivery_event_nearest_gps",
+    "continuous_vehicle_gps": false,
+    "vehicle_type_known": false,
+    "crs_timezone_anonymization": "paper section 3.1 states perturbed coordinates, accuracy limited to 10m; datum/timezone unconfirmed; no metric spatial fusion",
+    "duration_rule": "accept_to_delivery_is_not_stationary_dwell",
+    "event_selection_study": {
+      "eligible_AOIs": 356,
+      "eligibility": "at_least_10_tasks_and_2_couriers_in_full_observed_panel",
+      "courier_clusters": 57,
+      "bootstrap_replicates": 200,
+      "stable_AOIs_selection_ge_0_8": 0,
+      "task_vs_distinct_event_fix_ranking": {
+        "n_candidates": 356,
+        "spearman": 1.0,
+        "kendall": 1.0,
+        "top_k": 10,
+        "top_k_overlap": 1.0
+      },
+      "adjacent_month_comparisons": 5,
+      "month_top10_overlap_range": [
+        0.2,
+        0.9
+      ],
+      "limitations": "available-panel selection; missing operations unknown; events are not continuous GPS or vehicle visits; no external value labels"
+    }
+  },
+  "osm": {
+    "status": "analyzed",
+    "amenity_nodes": 601,
+    "categories": 29,
+    "occupied_200m_cells": 12,
+    "bbox": [
+      126.975,
+      37.563,
+      126.982,
+      37.568
+    ],
+    "source_sha256": "2a0bb75291aaf3d657e2652f5060f1a1a12e77cf3e5b2ac5448b0be20377a7c0",
+    "observation_type": "public_observed",
+    "unit": "mapped_amenity_nodes",
+    "source": "© OpenStreetMap contributors",
+    "license": "ODbL-1.0",
+    "period": "current API snapshot; edit timestamps are not observation validity",
+    "integration": "spatial-only; not joined with synthetic GPS or foreign historical events"
+  }
+}

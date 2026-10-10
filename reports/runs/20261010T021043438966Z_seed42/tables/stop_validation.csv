@@ -1,0 +1,2 @@
+true_episodes,predicted_episodes,tp,fp,fn,precision,recall,f1,matched_duration_mae_seconds,true_dwell_seconds,predicted_dwell_seconds,total_dwell_error_seconds,run_id,observation_type
+216,219,215,4,1,0.9817351598173516,0.9953703703703703,0.9885057471264368,15.767441860465116,129360.0,126390.0,-2970.0,20261010T021043438966Z_seed42,synthetic

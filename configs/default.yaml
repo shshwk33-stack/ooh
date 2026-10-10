@@ -1,0 +1,21 @@
+seed: 42
+timezone: Asia/Seoul
+projected_crs: EPSG:32652
+grid_size_m: 200
+stop_radius_m: 30
+min_stop_seconds: 120
+max_gap_seconds: 180
+max_speed_kmh: 130
+max_accuracy_m: 100
+mobility_weight: 0.6
+top_k: 5
+synthetic:
+  vehicles: 6
+  days: 6
+  sample_seconds: 30
+  noise_m: 5
+  start_date: '2026-09-21'
+experiments:
+  seeds: [11, 42, 73]
+  bootstrap_replicates: 100
+  placebo_replicates: 100

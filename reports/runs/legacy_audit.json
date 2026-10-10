@@ -1,0 +1,67 @@
+[
+  {
+    "seed": 11,
+    "vehicles": 3,
+    "gps_rows": 65,
+    "occupied_grids": 17,
+    "candidate_grids": 8,
+    "stops": 11,
+    "generated_stop_minutes": 165,
+    "estimated_stop_minutes": 190.0,
+    "move_label_stop_candidates": 8,
+    "top_grid": "37.568_126.98",
+    "source_sha256": "4a1e73855c295fbc976222f6f3f9612080c13f63f82ca02647105918084c308f"
+  },
+  {
+    "seed": 42,
+    "vehicles": 3,
+    "gps_rows": 65,
+    "occupied_grids": 19,
+    "candidate_grids": 6,
+    "stops": 11,
+    "generated_stop_minutes": 165,
+    "estimated_stop_minutes": 190.0,
+    "move_label_stop_candidates": 8,
+    "top_grid": "37.568_126.98",
+    "source_sha256": "4a1e73855c295fbc976222f6f3f9612080c13f63f82ca02647105918084c308f"
+  },
+  {
+    "seed": 73,
+    "vehicles": 3,
+    "gps_rows": 65,
+    "occupied_grids": 19,
+    "candidate_grids": 6,
+    "stops": 11,
+    "generated_stop_minutes": 165,
+    "estimated_stop_minutes": 190.0,
+    "move_label_stop_candidates": 8,
+    "top_grid": "37.566_126.976",
+    "source_sha256": "4a1e73855c295fbc976222f6f3f9612080c13f63f82ca02647105918084c308f"
+  },
+  {
+    "seed": 101,
+    "vehicles": 3,
+    "gps_rows": 65,
+    "occupied_grids": 18,
+    "candidate_grids": 8,
+    "stops": 11,
+    "generated_stop_minutes": 165,
+    "estimated_stop_minutes": 190.0,
+    "move_label_stop_candidates": 8,
+    "top_grid": "37.566_126.978",
+    "source_sha256": "4a1e73855c295fbc976222f6f3f9612080c13f63f82ca02647105918084c308f"
+  },
+  {
+    "seed": 202,
+    "vehicles": 3,
+    "gps_rows": 65,
+    "occupied_grids": 19,
+    "candidate_grids": 8,
+    "stops": 11,
+    "generated_stop_minutes": 165,
+    "estimated_stop_minutes": 190.0,
+    "move_label_stop_candidates": 8,
+    "top_grid": "37.562_126.982",
+    "source_sha256": "4a1e73855c295fbc976222f6f3f9612080c13f63f82ca02647105918084c308f"
+  }
+]

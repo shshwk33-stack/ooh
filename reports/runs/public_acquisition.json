@@ -1,0 +1,191 @@
+[
+  {
+    "name": "lade_jilin",
+    "status": "failed",
+    "error": "Failed to acquire https://huggingface.co/datasets/Cainiao-AI/LaDe-D/resolve/main/data/delivery_jl-00000-of-00001-a4fbefe3c368583c.parquet: ProxyError",
+    "url": "https://huggingface.co/datasets/Cainiao-AI/LaDe-D/resolve/main/data/delivery_jl-00000-of-00001-a4fbefe3c368583c.parquet"
+  },
+  {
+    "url": "https://amazon-last-mile-challenges.s3.amazonaws.com/almrrc2021/almrrc2021-data-evaluation/model_apply_inputs/eval_route_data.json",
+    "path": "data/raw/amazon_eval_routes.json",
+    "sha256": "dfd8a198b9df5e3b194d3a268f6f442edcd77f028870d54a8d7397a7bc366466",
+    "bytes": 37777768,
+    "status": "downloaded",
+    "retrieved_at_utc": "2026-10-10T02:00:42.964640+00:00",
+    "tls_verified": true,
+    "expected_sha256": null,
+    "etag": "\"e855c8b922735ea108eea64d50a45f70-3\"",
+    "name": "amazon_routes"
+  },
+  {
+    "url": "https://amazon-last-mile-challenges.s3.amazonaws.com/almrrc2021/almrrc2021-data-evaluation/model_score_inputs/eval_actual_sequences.json",
+    "path": "data/raw/amazon_eval_sequences.json",
+    "sha256": "30e924b5f263bd5e0a4bb58a756c8f6767b49d59a6bfa718ce26d2767a2c90e9",
+    "bytes": 4625218,
+    "status": "downloaded",
+    "retrieved_at_utc": "2026-10-10T02:00:43.599490+00:00",
+    "tls_verified": true,
+    "expected_sha256": null,
+    "etag": "\"192b82dc2d238bdf1f335290e229164b\"",
+    "name": "amazon_sequences"
+  },
+  {
+    "name": "osm_seoul",
+    "status": "failed",
+    "error": "HTTPError",
+    "url": "https://overpass-api.de/api/interpreter"
+  },
+  {
+    "url": "https://www.openstreetmap.org/api/0.6/map?bbox=126.975,37.563,126.982,37.568",
+    "path": "data/raw/osm_seoul_map.osm",
+    "sha256": "2a0bb75291aaf3d657e2652f5060f1a1a12e77cf3e5b2ac5448b0be20377a7c0",
+    "bytes": 2885346,
+    "status": "downloaded",
+    "retrieved_at_utc": "2026-10-10T02:04:10.961604+00:00",
+    "tls_verified": true,
+    "expected_sha256": null,
+    "etag": null,
+    "name": "osm_seoul_api",
+    "license": "ODbL-1.0",
+    "attribution": "© OpenStreetMap contributors",
+    "observation_type": "public_observed",
+    "observation_unit": "mapped_amenity_nodes",
+    "coverage": "bbox node amenities only; polygons excluded",
+    "bbox": [
+      126.975,
+      37.563,
+      126.982,
+      37.568
+    ]
+  },
+  {
+    "url": "https://huggingface.co/datasets/Cainiao-AI/LaDe-D/resolve/main/data/delivery_jl-00000-of-00001-a4fbefe3c368583c.parquet",
+    "path": "data/raw/lade_jilin.parquet",
+    "sha256": "ed0296b83d84f739bb91ab3d3cf1a430cf71e3793e25ddf50f88aa3ef34b51fc",
+    "bytes": 2271457,
+    "status": "downloaded",
+    "retrieved_at_utc": "2026-10-10T02:08:59.646159+00:00",
+    "tls_verified": true,
+    "expected_sha256": "ed0296b83d84f739bb91ab3d3cf1a430cf71e3793e25ddf50f88aa3ef34b51fc",
+    "etag": "\"11a963726a31cd7906b9937ce38c5c902097c3306958acdbbb0a46ee1b43c357\"",
+    "name": "lade_jilin"
+  },
+  {
+    "url": "https://huggingface.co/datasets/Cainiao-AI/LaDe-D/resolve/main/data/delivery_jl-00000-of-00001-a4fbefe3c368583c.parquet",
+    "path": "data/raw/lade_jilin.parquet",
+    "sha256": "ed0296b83d84f739bb91ab3d3cf1a430cf71e3793e25ddf50f88aa3ef34b51fc",
+    "bytes": 2271457,
+    "status": "verified_cache",
+    "retrieved_at_utc": "2026-10-10T02:08:59.646159+00:00",
+    "tls_verified": true,
+    "expected_sha256": "ed0296b83d84f739bb91ab3d3cf1a430cf71e3793e25ddf50f88aa3ef34b51fc",
+    "etag": "\"11a963726a31cd7906b9937ce38c5c902097c3306958acdbbb0a46ee1b43c357\"",
+    "name": "lade_jilin"
+  },
+  {
+    "url": "https://amazon-last-mile-challenges.s3.amazonaws.com/almrrc2021/almrrc2021-data-evaluation/model_apply_inputs/eval_route_data.json",
+    "path": "data/raw/amazon_eval_routes.json",
+    "sha256": "dfd8a198b9df5e3b194d3a268f6f442edcd77f028870d54a8d7397a7bc366466",
+    "bytes": 37777768,
+    "status": "verified_cache",
+    "retrieved_at_utc": "2026-10-10T02:00:42.964640+00:00",
+    "tls_verified": true,
+    "expected_sha256": null,
+    "etag": "\"e855c8b922735ea108eea64d50a45f70-3\"",
+    "name": "amazon_routes"
+  },
+  {
+    "url": "https://amazon-last-mile-challenges.s3.amazonaws.com/almrrc2021/almrrc2021-data-evaluation/model_score_inputs/eval_actual_sequences.json",
+    "path": "data/raw/amazon_eval_sequences.json",
+    "sha256": "30e924b5f263bd5e0a4bb58a756c8f6767b49d59a6bfa718ce26d2767a2c90e9",
+    "bytes": 4625218,
+    "status": "verified_cache",
+    "retrieved_at_utc": "2026-10-10T02:00:43.599490+00:00",
+    "tls_verified": true,
+    "expected_sha256": null,
+    "etag": "\"192b82dc2d238bdf1f335290e229164b\"",
+    "name": "amazon_sequences"
+  },
+  {
+    "url": "https://www.openstreetmap.org/api/0.6/map?bbox=126.975,37.563,126.982,37.568",
+    "path": "data/raw/osm_seoul_map.osm",
+    "sha256": "2a0bb75291aaf3d657e2652f5060f1a1a12e77cf3e5b2ac5448b0be20377a7c0",
+    "bytes": 2885346,
+    "status": "verified_cache",
+    "retrieved_at_utc": "2026-10-10T02:04:10.961604+00:00",
+    "tls_verified": true,
+    "expected_sha256": null,
+    "etag": null,
+    "name": "osm_seoul_api",
+    "license": "ODbL-1.0",
+    "attribution": "© OpenStreetMap contributors",
+    "observation_type": "public_observed",
+    "observation_unit": "mapped_amenity_nodes",
+    "coverage": "bbox node amenities only; polygons excluded",
+    "bbox": [
+      126.975,
+      37.563,
+      126.982,
+      37.568
+    ]
+  },
+  {
+    "url": "https://huggingface.co/datasets/Cainiao-AI/LaDe-D/resolve/main/data/delivery_jl-00000-of-00001-a4fbefe3c368583c.parquet",
+    "path": "data/raw/lade_jilin.parquet",
+    "sha256": "ed0296b83d84f739bb91ab3d3cf1a430cf71e3793e25ddf50f88aa3ef34b51fc",
+    "bytes": 2271457,
+    "status": "verified_cache",
+    "retrieved_at_utc": "2026-10-10T02:08:59.646159+00:00",
+    "tls_verified": true,
+    "expected_sha256": "ed0296b83d84f739bb91ab3d3cf1a430cf71e3793e25ddf50f88aa3ef34b51fc",
+    "etag": "\"11a963726a31cd7906b9937ce38c5c902097c3306958acdbbb0a46ee1b43c357\"",
+    "name": "lade_jilin"
+  },
+  {
+    "url": "https://amazon-last-mile-challenges.s3.amazonaws.com/almrrc2021/almrrc2021-data-evaluation/model_apply_inputs/eval_route_data.json",
+    "path": "data/raw/amazon_eval_routes.json",
+    "sha256": "dfd8a198b9df5e3b194d3a268f6f442edcd77f028870d54a8d7397a7bc366466",
+    "bytes": 37777768,
+    "status": "verified_cache",
+    "retrieved_at_utc": "2026-10-10T02:00:42.964640+00:00",
+    "tls_verified": true,
+    "expected_sha256": null,
+    "etag": "\"e855c8b922735ea108eea64d50a45f70-3\"",
+    "name": "amazon_routes"
+  },
+  {
+    "url": "https://amazon-last-mile-challenges.s3.amazonaws.com/almrrc2021/almrrc2021-data-evaluation/model_score_inputs/eval_actual_sequences.json",
+    "path": "data/raw/amazon_eval_sequences.json",
+    "sha256": "30e924b5f263bd5e0a4bb58a756c8f6767b49d59a6bfa718ce26d2767a2c90e9",
+    "bytes": 4625218,
+    "status": "verified_cache",
+    "retrieved_at_utc": "2026-10-10T02:00:43.599490+00:00",
+    "tls_verified": true,
+    "expected_sha256": null,
+    "etag": "\"192b82dc2d238bdf1f335290e229164b\"",
+    "name": "amazon_sequences"
+  },
+  {
+    "url": "https://www.openstreetmap.org/api/0.6/map?bbox=126.975,37.563,126.982,37.568",
+    "path": "data/raw/osm_seoul_map.osm",
+    "sha256": "2a0bb75291aaf3d657e2652f5060f1a1a12e77cf3e5b2ac5448b0be20377a7c0",
+    "bytes": 2885346,
+    "status": "verified_cache",
+    "retrieved_at_utc": "2026-10-10T02:04:10.961604+00:00",
+    "tls_verified": true,
+    "expected_sha256": null,
+    "etag": null,
+    "name": "osm_seoul_api",
+    "license": "ODbL-1.0",
+    "attribution": "© OpenStreetMap contributors",
+    "observation_type": "public_observed",
+    "observation_unit": "mapped_amenity_nodes",
+    "coverage": "bbox node amenities only; polygons excluded",
+    "bbox": [
+      126.975,
+      37.563,
+      126.982,
+      37.568
+    ]
+  }
+]

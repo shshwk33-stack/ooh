@@ -1,0 +1,73 @@
+{
+  "status": "passed",
+  "elapsed_seconds": 33.08,
+  "fresh_virtual_environment": true,
+  "original_raw_data_present": false,
+  "git_metadata_present": false,
+  "public_data": "not_acquired; no silent synthetic replacement",
+  "sample": {
+    "gps_rows": 6094,
+    "vehicles": 6,
+    "days": 6,
+    "truth_episodes": 216,
+    "candidates": 64,
+    "observation_type": "synthetic"
+  },
+  "executed_experiments": {
+    "quality": 11,
+    "scores": 64,
+    "stops": 219,
+    "stop_validation": 1,
+    "stop_matches": 215,
+    "model_comparison": 4,
+    "weight_sensitivity": 11,
+    "weight_ranks": 704,
+    "ablation": 4,
+    "feature_correlations": 15,
+    "vif": 4,
+    "bootstrap_replicates": 10,
+    "selection_stability": 64,
+    "placebo": 10,
+    "holdout": 5,
+    "hourly_activity": 6,
+    "robustness": 19,
+    "grid_sensitivity": 5,
+    "detector_sensitivity": 9
+  },
+  "commands": [
+    {
+      "command": [
+        "uv",
+        "sync",
+        "--frozen",
+        "--no-dev"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "",
+      "stderr_tail": " kiwisolver==1.5.1\n + markupsafe==3.0.4\n + matplotlib==3.11.2\n + narwhals==2.26.0\n + numpy==2.3.5\n + packaging==26.3\n + pandas==2.3.3\n + pillow==12.3.0\n + protobuf==7.36.2\n + pyarrow==23.0.1\n + pydeck==0.9.3\n + pyparsing==3.3.3\n + pyproj==3.8.0\n + python-dateutil==2.9.0.post0\n + python-multipart==0.0.32\n + pytz==2026.5\n + pyyaml==6.0.3\n + referencing==0.37.0\n + requests==2.34.2\n + rpds-py==2026.9.1\n + scipy==1.18.1\n + shapely==2.2.0\n + six==1.17.0\n + starlette==1.7.0\n + streamlit==1.65.0\n + toml==0.10.2\n + transit-ooh==0.1.0 (from file:///tmp/transit-ooh-smoke-svyrxkhw)\n + typing-extensions==4.16.0\n + tzdata==2026.5\n + urllib3==2.8.0\n + uvicorn==0.54.0\n + watchdog==6.0.0\n + websockets==17.2\n"
+    },
+    {
+      "command": [
+        "<fresh-workspace>/.venv/bin/python",
+        "-m",
+        "transit_ooh.cli",
+        "research",
+        "--quick"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "Generating labelled synthetic scenario...\nAnalyzed 6094 GPS fixes, 219 detected episodes; F1=0.989\nRunning sampling, noise, fleet, period and grid robustness...\nRendering research figures and separate public-data summaries...\nCompleted run 20261010T023350508529Z_seed42; evidence: reports/RESEARCH_RESULTS.md\n",
+      "stderr_tail": ""
+    },
+    {
+      "command": [
+        "<fresh-workspace>/.venv/bin/python",
+        "-c",
+        "from streamlit.testing.v1 import AppTest; from pathlib import Path; a=AppTest.from_file(Path('app/streamlit_app.py').resolve(),default_timeout=40).run(); assert not a.exception, [e.message for e in a.exception]; print('fresh-runtime app render passed')"
+      ],
+      "exit_code": 0,
+      "stdout_tail": "fresh-runtime app render passed\n",
+      "stderr_tail": "2026-10-10 02:34:15.139 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n"
+    }
+  ],
+  "disposable_workspace_removed_after_check": true
+}

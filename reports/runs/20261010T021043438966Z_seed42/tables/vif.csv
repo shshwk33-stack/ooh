@@ -1,0 +1,5 @@
+feature,vif,perfect_or_constant,run_id,observation_type
+moving_seconds,1.0354239671084406,False,20261010T021043438966Z_seed42,synthetic
+stop_seconds,226.38065675516572,False,20261010T021043438966Z_seed42,synthetic
+visit_frequency,676.4465524161026,False,20261010T021043438966Z_seed42,synthetic
+repeat_visits,406.47908638129616,False,20261010T021043438966Z_seed42,synthetic
