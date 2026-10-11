@@ -1,4 +1,14 @@
-# 검수용 다운로드
+# 발표자료 및 검수용 다운로드
+
+## 캡스톤 3차 발표 · 10장
+
+- [PPT 직접 다운로드](https://raw.githubusercontent.com/shshwk33-stack/ooh/feat/transit-ooh-research/deliverables/capstone3/Transit_OOH_Capstone_3rd.pptx)
+- [PDF 다운로드](https://raw.githubusercontent.com/shshwk33-stack/ooh/feat/transit-ooh-research/deliverables/capstone3/Transit_OOH_Capstone_3rd.pdf)
+- [PPT·PDF·대본·예상 질문 전체 ZIP](https://raw.githubusercontent.com/shshwk33-stack/ooh/feat/transit-ooh-research/deliverables/Transit_OOH_Capstone_3rd_Package.zip)
+
+작업공간 내부 경로 대신 브라우저에서 열 수 있는 GitHub 파일 링크를 사용하세요. 링크를 클릭해 저장되지 않으면 링크를 마우스 오른쪽 버튼으로 눌러 **다른 이름으로 링크 저장**을 선택할 수 있습니다. [구성과 검수 내용](capstone3/README.md).
+
+## 개발 결과 검수
 
 [Transit_OOH_ViewT_review.zip](Transit_OOH_ViewT_review.zip)을 다운로드해 검수 모델에 올리세요. GitHub 파일 화면의 **Download raw file**도 사용할 수 있습니다.
 

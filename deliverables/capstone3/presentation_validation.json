@@ -1,0 +1,119 @@
+{
+  "deck_slides": 10,
+  "aspect_ratio": "16:9",
+  "embedded_speaker_notes": 10,
+  "planned_duration_seconds": 540,
+  "rendered_pdf_pages": 10,
+  "speaker_companion_pages": 6,
+  "all_native_paragraphs_present_in_pdf": true,
+  "shape_canvas_bounds_passed": true,
+  "replacement_characters": 0,
+  "slide_checks": [
+    {
+      "slide": 1,
+      "native_text_characters": 375,
+      "speaker_notes_characters": 393,
+      "missing_text": []
+    },
+    {
+      "slide": 2,
+      "native_text_characters": 512,
+      "speaker_notes_characters": 381,
+      "missing_text": []
+    },
+    {
+      "slide": 3,
+      "native_text_characters": 518,
+      "speaker_notes_characters": 434,
+      "missing_text": []
+    },
+    {
+      "slide": 4,
+      "native_text_characters": 373,
+      "speaker_notes_characters": 457,
+      "missing_text": []
+    },
+    {
+      "slide": 5,
+      "native_text_characters": 690,
+      "speaker_notes_characters": 437,
+      "missing_text": []
+    },
+    {
+      "slide": 6,
+      "native_text_characters": 544,
+      "speaker_notes_characters": 500,
+      "missing_text": []
+    },
+    {
+      "slide": 7,
+      "native_text_characters": 686,
+      "speaker_notes_characters": 549,
+      "missing_text": []
+    },
+    {
+      "slide": 8,
+      "native_text_characters": 585,
+      "speaker_notes_characters": 611,
+      "missing_text": []
+    },
+    {
+      "slide": 9,
+      "native_text_characters": 441,
+      "speaker_notes_characters": 556,
+      "missing_text": []
+    },
+    {
+      "slide": 10,
+      "native_text_characters": 505,
+      "speaker_notes_characters": 516,
+      "missing_text": []
+    }
+  ],
+  "files": {
+    "Transit_OOH_Capstone_3rd.pptx": {
+      "bytes": 1154490,
+      "sha256": "6acdb164b033dfbc8039418c9333a583d042046fde60efc5bff08ca2e751e2e7"
+    },
+    "Transit_OOH_Capstone_3rd.pdf": {
+      "bytes": 1695397,
+      "sha256": "35b7fb932176956138021df93d5dbf43cfb8c0702fac9c3545131dda22c78cd5"
+    },
+    "Transit_OOH_Capstone_3rd_Speaker_Notes.docx": {
+      "bytes": 42774,
+      "sha256": "6d14f778669c17476d075d0fd88e1508ded9c5c30049e693aeca7fbde5b0bd29"
+    },
+    "Transit_OOH_Capstone_3rd_Speaker_Notes.pdf": {
+      "bytes": 299303,
+      "sha256": "76bee7214eb50c1ec82dfc2b900192a60d81e3f3fda6476d6d2869edc10f8553"
+    },
+    "Transit_OOH_Capstone_3rd_Preview.png": {
+      "bytes": 1044644,
+      "sha256": "ccbe6fb6aed2dcd02747f3bac7ed0d19a5114e8bde5cd7880a330c383416bff1"
+    }
+  },
+  "evidence": {
+    "map": {
+      "source": "Korea Transport Institute / KTDB View-T, user-provided downloads",
+      "road_network_year": 2024,
+      "boundary_year": 2023,
+      "seoul_links": 8582,
+      "mapo_provider_assigned_links": 408,
+      "mapo_dongs": 16,
+      "district_filter": "provider sigungu_id=11140",
+      "map_semantics": "Reference overlay only. Cross-year boundary equivalence not verified; no scoring or GPS route inferred."
+    },
+    "browser": {
+      "app_url": "http://127.0.0.1:8503",
+      "input": "synthetic demo",
+      "browser": "system Chromium via Playwright",
+      "default_weight": "50:50",
+      "changed_weight": "60:40",
+      "result_metric_updated": true,
+      "streamlit_exceptions": 0,
+      "basemap": "disabled for offline screenshot; coordinates and synthetic layers retained"
+    },
+    "software_tests": "Existing reports/runs/tests.xml, 2026-10-10: 68 pass, 1 expected failure, 0 failures; not an advertising performance result.",
+    "scope": "Four provider file types received and locally validated. Population CSV token blocked, official annual-average app adapter pending. 2023/2024 boundary equivalence unverified."
+  }
+}
