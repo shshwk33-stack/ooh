@@ -73,10 +73,35 @@ with st.sidebar:
     st.header("분석 설정")
     mode = st.radio(
         "자료 구분",
-        ["View-T · 자치구 의사결정", "합성 GT 연구 데모", "실제 공개 자료 · 별도 분석"],
+        [
+            "View-T · 자치구 의사결정",
+            "합성 GT 연구 데모",
+            "실제 공개 자료 · 별도 분석",
+            "View-T · 공식 도로자료",
+            "View-T · 공식 인구자료",
+            "View-T · 공식 차량경로",
+        ],
         key="app_mode",
     )
-    st.caption("실측 자료와 합성 데모는 서로 결합하지 않습니다.")
+    st.caption("각 화면에서 출처와 관측·추정·합성 자료의 구분을 확인하세요.")
+
+if mode == "View-T · 공식 차량경로":
+    from viewt_routes_page import render
+
+    render()
+    st.stop()
+
+if mode == "View-T · 공식 인구자료":
+    from viewt_population_page import render
+
+    render()
+    st.stop()
+
+if mode == "View-T · 공식 도로자료":
+    from viewt_roads_page import render
+
+    render()
+    st.stop()
 
 if mode == "View-T · 자치구 의사결정":
     from viewt_page import render

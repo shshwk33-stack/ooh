@@ -4,7 +4,7 @@
 
 **검수용 다운로드:** [작은 검수 ZIP](deliverables/Transit_OOH_ViewT_review.zip) · [포함 파일과 검수 안내](deliverables/README.md)
 
-**View-T 고도화:** [공식 다운로드·신청 체크리스트](docs/VIEWT_DOWNLOAD_CHECKLIST.md) · [확보 상태·파일 입력 안내](docs/VIEWT_DATA_GUIDE.md) · [가중치 실험 결과](reports/viewt/RESULTS.md) · [독립 검증 설계](docs/VALIDATION_DESIGN.md). 2026-10-11(한국시간) 공식 화면·API 문서·신청 공지를 확인했습니다. **마포구 실자료는 아직 미확보**이며 기본 예제는 **합성**입니다. 공식 평균일·경로 비율 자료에는 별도 어댑터가 필요합니다.
+**View-T 실제 연동:** [실제 자료 확보·연동 보고](docs/VIEWT_ACQUISITION_REPORT.md) · [공식 도로 입력](docs/VIEWT_ROADS_INTEGRATION.md) · [가중치 합성 실험](reports/viewt/RESULTS.md). 2026-10-16 현재 공식 인증과 세 도구의 실제 자료 확보를 완료했습니다. 마포구 16개 동 인구·240개 동간 O/D·15개 대표 차량경로·408개 도로를 지원합니다. 일별 인구는 계획 20일 중 19일을 확보해 별도 안정성 분석을 수행했습니다. 기관 집계·추정 자료이며 실제 배송 GPS·광고 노출로 해석하지 않습니다. 동기간 공간 대응·POI와 독립적인 통합 모델 검증은 남아 있습니다.
 
 **실행 결과:** [실험보고서](reports/RESEARCH_RESULTS.md) · [인수 보고서](docs/DELIVERY_REPORT.md) · [데이터 출처](docs/DATA_SOURCES.md) · [연구 프로토콜](docs/RESEARCH_PROTOCOL.md) · [원본 감사](docs/SOURCE_AUDIT.md)
 

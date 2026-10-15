@@ -25,6 +25,25 @@ def main(argv=None):
     viewt.add_argument("--hours", type=int, nargs="+")
     viewt.add_argument("--replicates", type=int, default=200)
     viewt.add_argument("--output", default="reports/viewt")
+    roads = sub.add_parser("viewt-roads")
+    roads.add_argument(
+        "--traffic",
+        required=True,
+        help="Official annual-average TrafficVolume(LINK).xlsx",
+    )
+    roads.add_argument(
+        "--speed", required=True, help="Official annual-average AverageSpeed(LINK).xlsx"
+    )
+    roads.add_argument("--network", help="Same-year provider road shapefile ZIP")
+    roads.add_argument("--network-year", type=int)
+    roads.add_argument("--output", default="data/processed/viewt_official_roads")
+    population = sub.add_parser("viewt-population")
+    population.add_argument("--raw", default="data/raw/viewt_population")
+    population.add_argument("--output", default="data/processed/viewt_population")
+    routes = sub.add_parser("viewt-routes")
+    routes.add_argument("--raw", default="data/raw/viewt_population")
+    routes.add_argument("--network", required=True)
+    routes.add_argument("--output", default="data/processed/viewt_vehicle_paths")
     sub.add_parser("fetch-public")
     sub.add_parser("public-analysis")
     for name in ["validate", "analyze"]:
@@ -54,6 +73,48 @@ def main(argv=None):
                 bundle, args.output, args.weight, args.hours, args.replicates
             )
             print(json.dumps(manifest, ensure_ascii=False, indent=2))
+        elif args.command == "viewt-roads":
+            from .viewt_roads import combine_roads, export_context, read_official_excel
+
+            if bool(args.network) != (args.network_year is not None):
+                raise ValueError("Provide --network and --network-year together")
+            context = combine_roads(
+                read_official_excel(args.traffic, "traffic"),
+                read_official_excel(args.speed, "speed"),
+            )
+            result = export_context(
+                context, args.output, args.network, args.network_year
+            )
+            print(
+                json.dumps(
+                    {
+                        "rows": result["rows"],
+                        "year": result["year"],
+                        "statistic": result["statistic"],
+                        "mapped_links": result.get("network", {}).get(
+                            "matched_road_links", 0
+                        ),
+                    },
+                    ensure_ascii=False,
+                )
+            )
+        elif args.command == "viewt-population":
+            from .viewt_population import export_population
+
+            result = export_population(args.raw, args.output)
+            print(json.dumps({"datasets": len(result["datasets"])}))
+        elif args.command == "viewt-routes":
+            from .viewt_routes import export_routes
+
+            result = export_routes(args.raw, args.network, args.output)
+            print(
+                json.dumps(
+                    {
+                        key: result[key]
+                        for key in ["route_count", "leg_count", "unique_links"]
+                    }
+                )
+            )
         elif args.command == "fetch-public":
             from .sources import acquire_public
 
