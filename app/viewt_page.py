@@ -26,8 +26,16 @@ def demo_bytes(district):
 
 
 @st.cache_data(show_spinner=False)
-def compute(payload, alpha, hours, dates):
-    return analyze_bundle(read_bundle(payload), alpha, hours, dates, bootstrap_n=100)
+def compute(payload, alpha, hours, dates, population_weight, bootstrap_unit):
+    return analyze_bundle(
+        read_bundle(payload),
+        alpha,
+        hours,
+        dates,
+        bootstrap_n=100,
+        population_weight=population_weight,
+        bootstrap_unit=bootstrap_unit,
+    )
 
 
 def render():
@@ -40,6 +48,25 @@ def render():
         )
         weight = st.slider("Mobility 가중치 (%)", 0, 100, 50, 1, key="viewt_weight")
         st.caption(f"Spatial {100 - weight}% · 기준 50:50 / 기존 가정 60:40")
+        population_weight = st.slider(
+            "Spatial 안에서 인구통행 비중 (%)",
+            0,
+            100,
+            70,
+            5,
+            key="viewt_population_weight",
+        )
+        st.caption(
+            f"POI {100 - population_weight}% · 70:30도 검증된 최적값이 아닌 연구 가정입니다."
+        )
+        bootstrap_unit = st.selectbox(
+            "재표집 단위",
+            ["day", "week"],
+            format_func=lambda x: (
+                "날짜별" if x == "day" else "주별 · 주 안의 날짜를 함께 추출"
+            ),
+            key="viewt_bootstrap_unit",
+        )
     if source.startswith("합성"):
         payload = demo_bytes(district)
         bundle = read_bundle(payload)
@@ -129,7 +156,18 @@ def render():
         st.info("분석할 날짜와 시간대를 한 개 이상 선택하세요.")
         return
     with st.spinner("동일 후보군 점수·순위·일 단위 Bootstrap 계산 중…"):
-        result = compute(payload, weight / 100, tuple(hours), tuple(dates))
+        try:
+            result = compute(
+                payload,
+                weight / 100,
+                tuple(hours),
+                tuple(dates),
+                population_weight / 100,
+                bootstrap_unit,
+            )
+        except (ValueError, KeyError, TypeError) as exc:
+            st.error(f"분석 조건 검사 실패: {exc}")
+            return
     scores = result["scores"].sort_values(
         ["integrated_score", "grid_id"], ascending=[False, True]
     )
@@ -139,7 +177,7 @@ def render():
     b.metric("관측/시나리오 일수", len(dates))
     c.metric("Mobility : Spatial", f"{weight} : {100 - weight}")
     d.metric(
-        "Top-5 선정확률 ≥80%",
+        "Top-5 재표집 선정빈도 ≥80%",
         int((stability.top5_probability >= 0.8).sum())
         if not stability.empty
         else "미산출",
@@ -298,6 +336,29 @@ def render():
             "순위상관·중복률은 모델 간 의사결정의 차이입니다. 제안 모델의 정확도 향상이나 60:40의 최적성을 뜻하지 않습니다."
         )
     with sensitivity_tab:
+        st.subheader("가중치를 바꿔도 유지되는 후보")
+        st.caption(
+            "두 점수가 교차하는 가중치를 계산해 0~100% 전체 구간을 검사합니다. "
+            "5% 간격 표에서 놓칠 수 있는 좁은 순위 변화도 포함합니다. "
+            "weight_share는 가중치 구간의 비율이며 관측 확률이 아닙니다."
+        )
+        robust = result["robust_candidates"]
+        st.dataframe(robust.sort_values(["worst_regret", "grid_id"]), hide_index=True)
+        st.caption(
+            "worst_regret: 가중치가 달라졌을 때 1위와 벌어질 수 있는 최대 점수 차이. "
+            "necessary/possible_share: 동점을 고려한 Top-K 포함 범위. "
+            "Pareto 후보는 두 점수가 모두 다른 후보에 뒤지지는 않는 후보입니다."
+        )
+        with st.expander("순위가 바뀌는 정확한 가중치 구간"):
+            st.dataframe(result["weight_intervals"], hide_index=True)
+        with st.expander("정규화 방식·Spatial 내부 비중을 바꿔도 결과가 유지되나요?"):
+            st.dataframe(result["specification_comparison"], hide_index=True)
+            st.dataframe(result["feature_diagnostics"], hide_index=True)
+            st.caption(
+                "minmax · log1p_minmax · percentile과 인구/POI 비중 0·30·50·70·100%를 비교합니다. "
+                "같은 후보군의 순위가 얼마나 달라지는지 보는 분석이며 결과가 좋은 설정을 정답에 맞춰 선택하지 않습니다. "
+                "상수 특성에는 판별력을 부여하지 않습니다."
+            )
         w = result["weight_sensitivity"]
         st.line_chart(
             w.pivot(index="mobility_weight", columns="top_k", values="top_k_overlap")
@@ -312,7 +373,7 @@ def render():
         )
         if stability.empty:
             st.warning(
-                "일 단위 Bootstrap은 3일 이상 필요합니다. 현재 선택 구간에서는 미산출입니다."
+                "Bootstrap은 선택한 단위의 묶음이 3개 이상 필요합니다. 현재 선택 구간에서는 미산출입니다."
             )
         else:
             st.dataframe(
@@ -321,12 +382,16 @@ def render():
             )
         st.dataframe(result["temporal_holdout"], hide_index=True)
         st.caption(
-            "Bootstrap: 인구·차량을 동일 일자로 함께 복원 추출, 정규화 고정, POI 고정. 시계열 자기상관을 보정하지 않은 조건부 안정성입니다. 시간 holdout도 독립 광고효과 검증이 아닙니다."
+            "Bootstrap: 인구·차량을 같은 날짜/주 묶음으로 함께 복원 추출, 정규화·POI 고정. "
+            "주별 방식은 주 안의 상관을 보존하지만 주 사이 상관과 계절성까지 보장하지 않습니다. "
+            "현재 확보·선택 표본에 조건부인 안정성이며 시간 holdout도 독립 광고효과 검증은 아닙니다."
         )
     with source_tab:
         st.json(bundle.metadata)
         st.write(
-            "실자료 확보 상태: 공식 View-T 사이트의 이 실행환경 접속은 프록시 403으로 차단되었습니다. API·승인 메뉴를 확인하지 못했으며 자동 수집 성공을 주장하지 않습니다. docs/VIEWT_DATA_GUIDE.md를 참고하세요."
+            "공식 도로·인구·차량경로 자료는 각각의 공식자료 화면에서 확인하세요. "
+            "이 화면은 공통 공간·기간 단위가 검증된 입력 묶음의 의사결정 실험입니다. "
+            "현재 기본 예제는 합성이며, 확보한 공식 자료를 자동으로 혼합하지 않습니다."
         )
         for name, frame in result.items():
             export = frame.assign(

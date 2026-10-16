@@ -1,0 +1,17 @@
+﻿grid_id,top5_probability,top10_probability,score_p025,score_p975,replicates,day_clusters,block_count,resampling_unit,interval_scope,input_observation_type
+DEMO-11440-00,1.0,1.0,0.6849715626170002,0.7356153201288065,1000,14,3,paired_whole_week_with_replacement,conditional_stability_not_advertising_accuracy,synthetic
+DEMO-11440-01,0.0,0.0,0.18570761794790158,0.3126760622010435,1000,14,3,paired_whole_week_with_replacement,conditional_stability_not_advertising_accuracy,synthetic
+DEMO-11440-02,0.0,0.782,0.3266407137311947,0.35275999068293884,1000,14,3,paired_whole_week_with_replacement,conditional_stability_not_advertising_accuracy,synthetic
+DEMO-11440-03,0.25,1.0,0.4686066480552321,0.7566828112811395,1000,14,3,paired_whole_week_with_replacement,conditional_stability_not_advertising_accuracy,synthetic
+DEMO-11440-04,0.0,0.0,0.010122699386503068,0.07386533718803208,1000,14,3,paired_whole_week_with_replacement,conditional_stability_not_advertising_accuracy,synthetic
+DEMO-11440-05,1.0,1.0,0.8918754451680821,0.987116564417178,1000,14,3,paired_whole_week_with_replacement,conditional_stability_not_advertising_accuracy,synthetic
+DEMO-11440-06,1.0,1.0,0.6187795226679367,0.7724641013991242,1000,14,3,paired_whole_week_with_replacement,conditional_stability_not_advertising_accuracy,synthetic
+DEMO-11440-07,0.0,0.964,0.3186539591624252,0.396832850407253,1000,14,3,paired_whole_week_with_replacement,conditional_stability_not_advertising_accuracy,synthetic
+DEMO-11440-08,0.0,0.0,0.046932515337423326,0.09107740111639022,1000,14,3,paired_whole_week_with_replacement,conditional_stability_not_advertising_accuracy,synthetic
+DEMO-11440-09,0.0,1.0,0.37724152423877777,0.5735166293507629,1000,14,3,paired_whole_week_with_replacement,conditional_stability_not_advertising_accuracy,synthetic
+DEMO-11440-10,0.635,1.0,0.6774311860330275,0.694630420153384,1000,14,3,paired_whole_week_with_replacement,conditional_stability_not_advertising_accuracy,synthetic
+DEMO-11440-11,0.0,0.0,0.2506418561840534,0.3312313556690952,1000,14,3,paired_whole_week_with_replacement,conditional_stability_not_advertising_accuracy,synthetic
+DEMO-11440-12,0.863,1.0,0.5693550759196144,0.7969447949435331,1000,14,3,paired_whole_week_with_replacement,conditional_stability_not_advertising_accuracy,synthetic
+DEMO-11440-13,0.0,0.254,0.3000892463293094,0.3759215102302322,1000,14,3,paired_whole_week_with_replacement,conditional_stability_not_advertising_accuracy,synthetic
+DEMO-11440-14,0.0,0.0,0.17526943062788825,0.21109216093707905,1000,14,3,paired_whole_week_with_replacement,conditional_stability_not_advertising_accuracy,synthetic
+DEMO-11440-15,0.252,1.0,0.6626525596372866,0.692930510757807,1000,14,3,paired_whole_week_with_replacement,conditional_stability_not_advertising_accuracy,synthetic

@@ -1,0 +1,4 @@
+﻿feature,minimum,maximum,unique_values,constant_feature,input_observation_type
+population,3924.5714285714284,21273.5,16,False,synthetic
+poi_count,15.0,178.0,15,False,synthetic
+vehicle_flow,688.7142857142857,1382.857142857143,3,False,synthetic

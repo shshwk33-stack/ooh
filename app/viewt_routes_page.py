@@ -7,6 +7,8 @@ import pandas as pd
 import pydeck as pdk
 import streamlit as st
 
+from transit_ooh.route_context import summarize_route_context
+from transit_ooh.viewt_roads import load_context
 from transit_ooh.viewt_routes import load_routes
 
 LOCAL = Path(__file__).resolve().parents[1] / "data/processed/viewt_vehicle_paths"
@@ -94,6 +96,31 @@ def render():
             "선택한 대표경로에 10m를 넘는 링크 끝점 간격이 있습니다. 경로를 연속 GPS처럼 사용하지 마세요."
         )
     st.dataframe(rows, hide_index=True)
+    road_dir = LOCAL.parent / "viewt_official_roads"
+    if (road_dir / "metadata.json").exists():
+        st.subheader("동일 도로망의 교통량·속도 연결")
+        try:
+            roads, _ = load_context(road_dir)
+            context = summarize_route_context(frame, geo, meta, roads)
+            st.dataframe(context, hide_index=True)
+            st.caption(
+                "길이 가중 교통량 = Σ(링크 길이×교통량)/Σ길이. 경로 주변의 교통 맥락이며 차량 수 합계가 아닙니다. "
+                "시간 대리지표 = Σ(지도에서 계산한 링크 길이/연평균 속도). "
+                "연평균 속도의 역수는 실측 평균 소요시간과 같지 않습니다. 트럭·신호·정차·구간 연결 시간도 포함하지 않습니다."
+            )
+            incomplete = context.status.ne("complete_context").sum()
+            if incomplete:
+                st.warning(
+                    f"{incomplete}개 경로는 교통량·속도가 완전하지 않아 시간 등 일부 지표를 미산출했습니다. 빈칸을 0으로 계산하지 않습니다."
+                )
+            st.download_button(
+                "경로별 도로 맥락 CSV",
+                context.to_csv(index=False).encode("utf-8-sig"),
+                "viewt_route_context.csv",
+                "text/csv",
+            )
+        except (ValueError, KeyError, OSError) as exc:
+            st.warning(f"도로 맥락 결합 중단: {exc}")
     a, b = st.columns(2)
     a.download_button(
         "선택 경로 CSV",

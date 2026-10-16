@@ -80,10 +80,26 @@ with st.sidebar:
             "View-T · 공식 도로자료",
             "View-T · 공식 인구자료",
             "View-T · 공식 차량경로",
+            "독립 현장 검증",
         ],
         key="app_mode",
     )
     st.caption("각 화면에서 출처와 관측·추정·합성 자료의 구분을 확인하세요.")
+    package = ROOT / "deliverables/Transit_OOH_Model_Audit_Package.zip"
+    if package.is_file():
+        st.download_button(
+            "최신 코드·연구 그림·검수 ZIP",
+            package.read_bytes(),
+            package.name,
+            "application/zip",
+            key="audit_package_download",
+        )
+
+if mode == "독립 현장 검증":
+    from field_validation_page import render
+
+    render()
+    st.stop()
 
 if mode == "View-T · 공식 차량경로":
     from viewt_routes_page import render

@@ -1,0 +1,17 @@
+﻿grid_id,best_rank,worst_rank,input_observation_type
+DEMO-11440-00,2.0,10.0,synthetic
+DEMO-11440-01,9.0,13.0,synthetic
+DEMO-11440-02,5.0,12.5,synthetic
+DEMO-11440-03,5.0,8.0,synthetic
+DEMO-11440-04,12.5,16.0,synthetic
+DEMO-11440-05,1.0,2.5,synthetic
+DEMO-11440-06,2.0,6.5,synthetic
+DEMO-11440-07,3.0,12.5,synthetic
+DEMO-11440-08,12.5,15.0,synthetic
+DEMO-11440-09,6.5,14.0,synthetic
+DEMO-11440-10,2.5,11.0,synthetic
+DEMO-11440-11,7.0,12.5,synthetic
+DEMO-11440-12,3.0,6.5,synthetic
+DEMO-11440-13,6.0,12.5,synthetic
+DEMO-11440-14,12.5,14.0,synthetic
+DEMO-11440-15,2.5,12.0,synthetic

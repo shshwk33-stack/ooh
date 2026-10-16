@@ -10,6 +10,7 @@ import pandas as pd
 import pydeck as pdk
 import streamlit as st
 
+from transit_ooh.viewt_boundary import choropleth, load_boundary
 from transit_ooh.viewt_population import combine_inflow_batches, load_population
 
 LOCAL = Path(__file__).resolve().parents[1] / "data/processed/viewt_population"
@@ -132,6 +133,29 @@ def render():
                 pickable=True,
             )
         ]
+        boundary_dir = LOCAL.parent / "viewt_boundaries"
+        if (boundary_dir / "metadata.json").exists() and st.checkbox(
+            "2024년 공식 동 경계 표시", value=True, key="population_boundaries"
+        ):
+            try:
+                boundary, _ = load_boundary(boundary_dir)
+                colored = choropleth(boundary, points, meta["year"])
+                layers.insert(
+                    0,
+                    pdk.Layer(
+                        "GeoJsonLayer",
+                        colored,
+                        get_fill_color="properties.color",
+                        get_line_color=[70, 95, 120, 220],
+                        line_width_min_pixels=1,
+                        pickable=True,
+                    ),
+                )
+                st.caption(
+                    "2024년 View-T 공식 웹 지도 경계 · 인구자료와 16개 동 코드·명칭 일치. 정밀 도로 배분용으로 검증된 경계는 아닙니다."
+                )
+            except (ValueError, KeyError, OSError) as exc:
+                st.warning(f"동 경계 표시 중단: {exc}")
         if meta["kind"] == "od":
             arcs = frame.copy()
             arcs["name"] = arcs.origin_name + " → " + arcs.destination_name

@@ -1,5 +1,7 @@
 # 데이터 출처·접근·권리와 관측단위
 
+2026-10-17 추가: View-T 공식 집계·추정 인구/교통/경로와 2024년 동 지도 경계를 확보했다. 초기 조사 시점의 표와 구분하여 [실제 자료 확보 보고](VIEWT_ACQUISITION_REPORT.md), [2024년 경계·모델 고도화](MODEL_AUDIT_REPORT.md)를 참조한다. 경계 출처는 공식 `https://viewt.ktdb.go.kr/geoserver/sqlite/ows`의 `sqlite:zone_emd_2024`이며 인구 코드·전체 명칭과 일치하는 마포구 16개 동을 지도 표시용으로 사용했다. 정밀한 도로 배분과 실제 배송 GPS·광고효과의 근거로 확대하지 않는다.
+
 확인일: 2026-10-10 (Asia/Seoul). 실제 응답·해시는 `reports/runs/public_acquisition.json`, 원본별 `data/raw/*.provenance.json`에 있다. 원본은 Git 제외. 이 문서의 표본수는 실제 내려받은 파일을 읽은 값이다.
 
 | 자료 / 제공기관 | 공식 출처 | 지역·기간·관측단위 | 실제 필드·상태 | 적용과 제한 |

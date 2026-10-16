@@ -1,0 +1,4 @@
+﻿model,train_days,test_days,normalization,n_candidates,spearman,kendall,top_k,top_k_overlap,interpretation,input_observation_type
+static,7,7,train_only_frozen,16,0.9558823529411766,0.8333333333333333,5,1.0,temporal_rank_stability_NOT_independent_outcome_accuracy,synthetic
+mobility,7,7,train_only_frozen,16,1.0,1.0,5,1.0,temporal_rank_stability_NOT_independent_outcome_accuracy,synthetic
+integrated,7,7,train_only_frozen,16,0.9823529411764707,0.9166666666666666,5,0.8,temporal_rank_stability_NOT_independent_outcome_accuracy,synthetic

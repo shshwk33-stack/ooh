@@ -17,6 +17,7 @@ import numpy as np
 import pandas as pd
 from pyproj import Geod
 
+from .decision import specification_audit, weight_audit
 from .scoring import MinMax, rank_metrics, top_keys
 
 # Approximate map starting positions, NOT administrative boundaries or study sites.
@@ -531,36 +532,50 @@ def aggregate_days(bundle, daily, draws=None):
     return f.rename(columns={"zone_id": "grid_id"})
 
 
-def score_aggregate(features, alpha=0.5, normalizer=None):
-    if not 0 <= alpha <= 1:
-        raise ValueError("Weight must be within [0,1]")
+def score_aggregate(features, alpha=0.5, normalizer=None, population_weight=0.7):
+    if not 0 <= alpha <= 1 or not 0 <= population_weight <= 1:
+        raise ValueError("Weights must be within [0,1]")
     norm = normalizer or MinMax().fit(
         features, ["population", "poi_count", "vehicle_flow"]
     )
     z = norm.transform(features)
     d = features.copy()
-    d["static_score"] = 0.7 * z.population + 0.3 * z.poi_count
+    d["static_score"] = (
+        population_weight * z.population + (1 - population_weight) * z.poi_count
+    )
     d["mobility_score"] = z.vehicle_flow
     d["integrated_score"] = alpha * d.mobility_score + (1 - alpha) * d.static_score
     for name in ["static", "mobility", "integrated"]:
         d[name + "_rank"] = d[name + "_score"].rank(ascending=False, method="average")
     d["mobility_weight"] = alpha
+    d["population_weight_within_spatial"] = population_weight
     d["score_type"] = "assumed_decision_index"
     d["mobility_basis"] = "aggregate_vehicle_trip_incidence_NOT_GPS_dwell_or_visits"
     return d, norm
 
 
-def analyze_bundle(bundle, alpha=0.5, hours=None, dates=None, bootstrap_n=100, seed=42):
+def analyze_bundle(
+    bundle,
+    alpha=0.5,
+    hours=None,
+    dates=None,
+    bootstrap_n=100,
+    seed=42,
+    population_weight=0.7,
+    bootstrap_unit="day",
+):
     if not isinstance(bootstrap_n, int) or bootstrap_n < 0:
         raise ValueError("bootstrap_n must be a nonnegative integer")
     bundle = validate_bundle(bundle)
+    if bootstrap_unit not in {"day", "week"}:
+        raise ValueError("Bootstrap unit must be day or week")
     daily = daily_features(bundle, hours, dates)
     features = aggregate_days(bundle, daily)
-    scores, norm = score_aggregate(features, alpha)
+    scores, norm = score_aggregate(features, alpha, population_weight=population_weight)
     scores["input_observation_type"] = bundle.observation_type
     sensitivity, ranks, comparisons = [], [], []
     for weight in sorted(set(np.round(np.linspace(0, 1, 21), 8)) | {float(alpha), 0.6}):
-        s, _ = score_aggregate(features, weight, norm)
+        s, _ = score_aggregate(features, weight, norm, population_weight)
         for k in [5, 10]:
             sensitivity.append(
                 {
@@ -588,16 +603,27 @@ def analyze_bundle(bundle, alpha=0.5, hours=None, dates=None, bootstrap_n=100, s
                 }
             )
     days = sorted(daily.date.unique())
+    blocks = {}
+    for day in days:
+        key = (
+            day
+            if bootstrap_unit == "day"
+            else str(pd.Timestamp(day).to_period("W-SUN"))
+        )
+        blocks.setdefault(key, []).append(day)
     reps, drawscores, selection = (
         [],
         [],
         {k: {z: 0 for z in scores.grid_id} for k in [5, 10]},
     )
-    if len(days) >= 3 and bootstrap_n > 0:
+    if len(blocks) >= 3 and bootstrap_n > 0:
         rng = np.random.default_rng(seed)
         for rep in range(bootstrap_n):
-            draws = rng.choice(days, len(days), replace=True)
-            s, _ = score_aggregate(aggregate_days(bundle, daily, draws), alpha, norm)
+            chosen = rng.choice(sorted(blocks), len(blocks), replace=True)
+            draws = [day for key in chosen for day in blocks[key]]
+            s, _ = score_aggregate(
+                aggregate_days(bundle, daily, draws), alpha, norm, population_weight
+            )
             drawscores.append(s.set_index("grid_id").integrated_score)
             for k in [5, 10]:
                 for z in top_keys(s, k=k):
@@ -607,6 +633,9 @@ def analyze_bundle(bundle, alpha=0.5, hours=None, dates=None, bootstrap_n=100, s
                     "replicate": rep,
                     "drawn_days": ";".join(draws),
                     "unique_days": len(set(draws)),
+                    "drawn_blocks": ";".join(chosen),
+                    "block_count": len(blocks),
+                    "resampling_unit": bootstrap_unit,
                     **rank_metrics(scores, s, k=5),
                     "mobility_spearman": rank_metrics(
                         scores, s, "mobility_score", "mobility_score"
@@ -626,7 +655,8 @@ def analyze_bundle(bundle, alpha=0.5, hours=None, dates=None, bootstrap_n=100, s
                     "score_p975": samples[z].quantile(0.975),
                     "replicates": bootstrap_n,
                     "day_clusters": len(days),
-                    "resampling_unit": "paired_whole_day_with_replacement",
+                    "block_count": len(blocks),
+                    "resampling_unit": f"paired_whole_{bootstrap_unit}_with_replacement",
                     "interval_scope": "conditional_stability_not_advertising_accuracy",
                 }
             )
@@ -634,10 +664,15 @@ def analyze_bundle(bundle, alpha=0.5, hours=None, dates=None, bootstrap_n=100, s
     if len(days) >= 4:
         train, test = days[: len(days) // 2], days[len(days) // 2 :]
         a, fitted = score_aggregate(
-            aggregate_days(bundle, daily[daily.date.isin(train)]), alpha
+            aggregate_days(bundle, daily[daily.date.isin(train)]),
+            alpha,
+            population_weight=population_weight,
         )
         b, _ = score_aggregate(
-            aggregate_days(bundle, daily[daily.date.isin(test)]), alpha, fitted
+            aggregate_days(bundle, daily[daily.date.isin(test)]),
+            alpha,
+            fitted,
+            population_weight,
         )
         for model in ["static", "mobility", "integrated"]:
             holdout.append(
@@ -668,6 +703,8 @@ def analyze_bundle(bundle, alpha=0.5, hours=None, dates=None, bootstrap_n=100, s
         "bootstrap_replicates": pd.DataFrame(reps),
         "selection_stability": pd.DataFrame(stability),
         "temporal_holdout": pd.DataFrame(holdout),
+        **weight_audit(scores),
+        **specification_audit(features, alpha, population_weight),
     }
 
 

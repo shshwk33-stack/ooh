@@ -22,6 +22,8 @@ def main(argv=None):
     viewt.add_argument("--demo", action="store_true")
     viewt.add_argument("--district", default="마포구")
     viewt.add_argument("--weight", type=float, default=0.5)
+    viewt.add_argument("--population-weight", type=float, default=0.7)
+    viewt.add_argument("--bootstrap-unit", choices=["day", "week"], default="day")
     viewt.add_argument("--hours", type=int, nargs="+")
     viewt.add_argument("--replicates", type=int, default=200)
     viewt.add_argument("--output", default="reports/viewt")
@@ -44,6 +46,19 @@ def main(argv=None):
     routes.add_argument("--raw", default="data/raw/viewt_population")
     routes.add_argument("--network", required=True)
     routes.add_argument("--output", default="data/processed/viewt_vehicle_paths")
+    field = sub.add_parser("field-freeze")
+    field.add_argument("--scores", required=True)
+    field.add_argument("--metadata", required=True)
+    field.add_argument("--dates", nargs="+", required=True)
+    field.add_argument("--start-time", default="12:00")
+    field.add_argument("--duration", type=int, default=15)
+    field.add_argument("--weight", type=float, default=0.5)
+    field.add_argument("--output", required=True)
+    validation = sub.add_parser("field-evaluate")
+    validation.add_argument("--campaign", required=True)
+    validation.add_argument("--observations", required=True)
+    validation.add_argument("--replicates", type=int, default=1000)
+    validation.add_argument("--output", default="data/processed/field_evaluation")
     sub.add_parser("fetch-public")
     sub.add_parser("public-analysis")
     for name in ["validate", "analyze"]:
@@ -70,7 +85,13 @@ def main(argv=None):
                 demo_bundle(args.district) if args.demo else read_bundle(args.input)
             )
             manifest = export_study(
-                bundle, args.output, args.weight, args.hours, args.replicates
+                bundle,
+                args.output,
+                args.weight,
+                args.hours,
+                args.replicates,
+                args.population_weight,
+                args.bootstrap_unit,
             )
             print(json.dumps(manifest, ensure_ascii=False, indent=2))
         elif args.command == "viewt-roads":
@@ -115,6 +136,49 @@ def main(argv=None):
                     }
                 )
             )
+        elif args.command == "field-freeze":
+            import pandas as pd
+
+            from .field_validation import freeze_campaign
+
+            data = freeze_campaign(
+                pd.read_csv(args.scores, dtype={"grid_id": str}),
+                json.loads(Path(args.metadata).read_text()),
+                args.dates,
+                args.start_time,
+                args.duration,
+                args.weight,
+            )
+            Path(args.output).parent.mkdir(parents=True, exist_ok=True)
+            Path(args.output).write_bytes(data)
+            print(
+                json.dumps(
+                    {"status": "protocol_frozen_no_observations", "output": args.output}
+                )
+            )
+        elif args.command == "field-evaluate":
+            import pandas as pd
+
+            from .field_validation import evaluate_campaign
+            from .io import write_json
+
+            result = evaluate_campaign(
+                Path(args.campaign).read_bytes(),
+                pd.read_csv(
+                    args.observations, dtype={"grid_id": str, "observer_id": str}
+                ),
+                args.replicates,
+            )
+            out = Path(args.output)
+            out.mkdir(parents=True, exist_ok=True)
+            for name, value in result.items():
+                if isinstance(value, pd.DataFrame):
+                    value.to_csv(
+                        out / (name + ".csv"), index=False, encoding="utf-8-sig"
+                    )
+                else:
+                    write_json(out / (name + ".json"), value)
+            print(json.dumps(result["audit"], ensure_ascii=False))
         elif args.command == "fetch-public":
             from .sources import acquire_public
 

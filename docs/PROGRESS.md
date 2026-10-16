@@ -72,3 +72,12 @@
 - 전체 pytest **115 passed, 1 xfailed**, Ruff·diff 검사 통과. 원본의 알려진 PoC 오류만 예상 실패다. 실제 앱에서 인구 필터·O/D·재표집 단위·경로 대안 변경도 확인했다.
 - 2024년 공간 대응·동기간 POI·평일 정의·독립 결과지표는 남아 있다. 기존 GPS/가중치/Model A·B·C를 유지하며 합성 실험을 실자료 통합 검증으로 바꾸지 않았다.
 - 상세 보고: [VIEWT_ACQUISITION_REPORT.md](VIEWT_ACQUISITION_REPORT.md). 공개 검증 기록: `reports/runs/viewt_real_integration_validation.json`, `viewt_real_integration_tests.xml`. 기관 원본/개별 O/D 가공자료는 Git 제외.
+
+## 모델 의사결정·독립 검증 고도화 (2026-10-17 정리)
+
+- 공식 2024년 웹 지도 레이어에서 마포구 16개 동을 추가 확보해 인구 구역 코드·전체 명칭을 확인했다. 지도 경계의 정밀 링크 배분 적합성은 확정하지 않고 동별 색상 지도에만 사용했다.
+- 같은 도로망 해시·연도·평일·종일 조건으로 경로 링크 76개 중 75개를 교통·속도에 연결했다. 15개 경로 중 1개는 누락 링크 때문에 시간/교통 맥락을 미산출했다.
+- 기존 GPS·Mobility/Spatial 구조를 유지하며 α 연속 교차점·동점 범위·최대후회값·Pareto, 내부 인구/POI 비중 조정, 정규화 3종, 주 단위 재표집을 추가했다.
+- 합성 예제는 seed42/16후보/14일, 날짜·주별 Bootstrap 각 1,000회로 실행했다. 36개 가중치 구간·A–C Spearman .579412/Top-5 중복60%를 확인했으며 실측 성능으로 해석하지 않는다.
+- 현장 검증의 사전 점수 고정·블라인드 기록지·독립 계수 평가를 CLI와 앱으로 구현했다. 결측·미래·중복·일정 불일치를 차단하며 실제 독립 라벨 미확보 상태는 유지한다.
+- 자동검사 136 passed / 보존한 PoC 1 xfailed. 실행 근거·현장 절차·정량 결과·남은 연구 조건: [MODEL_AUDIT_REPORT.md](MODEL_AUDIT_REPORT.md), [FIELD_VALIDATION_GUIDE.md](FIELD_VALIDATION_GUIDE.md).

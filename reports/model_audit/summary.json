@@ -1,0 +1,76 @@
+{
+  "generated_at_utc": "2026-10-16T16:25:14.682729+00:00",
+  "synthetic": {
+    "seed": 42,
+    "days": 14,
+    "candidates": 16,
+    "bootstrap_replicates_each": 1000,
+    "weight_intervals": 36,
+    "pareto_candidates": 1,
+    "minimax_regret_candidates": [
+      "DEMO-11440-05"
+    ],
+    "A_C_spearman": 0.5794117647058823,
+    "A_C_top5_overlap": 0.6,
+    "top5_specification_overlap_min": 0.8,
+    "top5_specification_overlap_max": 1.0,
+    "week_blocks": 3,
+    "interpretation": "synthetic_decision_behavior_not_real_model_performance"
+  },
+  "acquired": {
+    "road_context_unique_links": 408,
+    "route_unique_links": 76,
+    "route_links_with_context": 75,
+    "complete_context_routes": 14,
+    "total_routes": 15,
+    "missing_context_links": [
+      "8902776"
+    ],
+    "boundary_dongs": 16,
+    "boundary_max_relative_area_difference": 0.0065005223090431885,
+    "boundary_scope": "choropleth_display_only"
+  },
+  "independent_field_evaluation": "not_executed_no_field_observations",
+  "real_integrated_A_B_C": "not_executed_no_reviewed_joint_support_and_contemporaneous_POI",
+  "source_hashes": {
+    "data/processed/viewt_population/manifest.json": "7867660f576b450d00ea794ad7e47cf27fe58a8c54495c48a00b322c8639e590",
+    "data/processed/viewt_official_roads/metadata.json": "81fcdb29bf982b865f5cb8b69a1a2f9677e4a5abe6e8289810ee8b77a1e0a574",
+    "data/processed/viewt_vehicle_paths/metadata.json": "d9695930cd33f0f5bf50aa43728ba29c9ade36270c585baa0a432cbaa325f34e",
+    "data/processed/viewt_boundaries/metadata.json": "a2af0d2119c74a4ae63b1a4deeac44cf4d71b7a478c6b6b65078d7e8692a8a29"
+  },
+  "code_hashes": {
+    "src/transit_ooh/decision.py": "329ee91143b48bf9fb833ef00a892dea1bac075652be5360b1b8eb37de42ef2c",
+    "src/transit_ooh/viewt.py": "55335c23f6a29a51edab19dbc96d345c803195213b61b5ffca17517caeaba6c4",
+    "src/transit_ooh/route_context.py": "e36cdb748702506d090b5755f040e3581772855464a18d315ac2e1024666a3e6",
+    "src/transit_ooh/viewt_boundary.py": "4771284c9254c88698c9c2270f0b17dfe73630aa386837d2cf63fc738cbdb488",
+    "scripts/model_audit_report.py": "1e42d850999db1047db8231f35e80ed77c9eef14af6f204385df7c457eff7095"
+  },
+  "artifacts_sha256": {
+    "tables/SYNTHETIC_weight_rank_range.csv": "16c1b9fb79d23b5d6b56bafd3d15d49f94a6d8ad4a3c9c3c24b637275a499a06",
+    "tables/SYNTHETIC_temporal_holdout.csv": "fe21ed42a6ebb0471ab6bb61477abb3135b3beb75ee5229b8458ecd3dcd1782c",
+    "tables/SYNTHETIC_scores.csv": "c6b5f67e838c50dab891429ddf5866f68ee7831b4e286c16056b77399ac88444",
+    "tables/SYNTHETIC_robust_candidates.csv": "bc3bf85da01c0afccc85e939e09d845ac2bc2400af8055741e6dfbdc527922ae",
+    "tables/SYNTHETIC_feature_diagnostics.csv": "8e5aab638f0fe8eb0464aae13e31f0b3d37c19fd2ab98bab9d9065bffaff1e48",
+    "tables/SYNTHETIC_specification_comparison.csv": "113353fc5f46caa2b4717801ee1c41242cd1759813ac1ceddaf6f8ae0b96331c",
+    "tables/SYNTHETIC_daily.csv": "54424a21cae46c6b723ed3fb3efc6d743814b1a6acc24255cfc9f3a34ff6ee0d",
+    "tables/SYNTHETIC_week_selection_stability.csv": "cbaa55ee1023b25000fdb031f33acdaf38827fa326872c0d157fde85047d7233",
+    "tables/SYNTHETIC_weight_boundaries.csv": "46bee807543cb31d8414af449195ab608a1002e3b88f19f5ee866e06a62fb498",
+    "tables/SYNTHETIC_weight_intervals.csv": "0c531fbfb350751fac4a93b6d917517026083b854f86fba299feb78e8706766d",
+    "tables/SYNTHETIC_week_bootstrap_replicates.csv": "a1cdcc755cf085d9053986459f7609697cb7d42404d687dcba277e727137eba3",
+    "tables/SYNTHETIC_selection_stability.csv": "6a6364de63a08280373b072374d48066a27cca8a7fc8bd09cac414faeae0aa9c",
+    "tables/SYNTHETIC_specification_ranks.csv": "2b361207d21e3a9bff026c3e1c0df04fd999d08ffcf2e756098d4bd415282925",
+    "tables/SYNTHETIC_model_comparison.csv": "e0f12341154c523d5a825cc0240da9d1ffce21cdbbca1c79a8f6d1bbc5e0d767",
+    "tables/SYNTHETIC_weight_sensitivity.csv": "8947f75cab1630230bb0c777411e8a2e4b613c141550b103c97653afa37537d8",
+    "tables/SYNTHETIC_bootstrap_replicates.csv": "e0533945c9f4f9c60a8e094a78bd13fa9a0524f9ae9ef11cf0c2f5b1aeea66eb",
+    "tables/ACQUIRED_route_context.csv": "2c8c330e00f3908be56306a89effd3e3f7fb0ad6f4bc0cca836aa1967e3f2bcb",
+    "tables/SYNTHETIC_weight_ranks.csv": "68370d5ba3f56212b63efd295573752b10b09d0754b296b938d80fc1668a0156",
+    "figures/SYNTHETIC_continuous_weight_robustness.png": "b625fb4ee01226727155978d24a6dc8dcc1aa02b8356033bd8128b07f7e8ae20",
+    "figures/ACQUIRED_mapo_2024_choropleth.svg": "5146d367e0a0c0af04d0db11e214cae1bd9622a208a6558d7306f7819d0a7926",
+    "figures/SYNTHETIC_specification_robustness.png": "444151c66929ff9793da4bc31b2813360954279944694d00b19a02df16c4ffbb",
+    "figures/ACQUIRED_route_context.svg": "533dd0ea9cf8f995940d1a150bd9643f42e6d70776819ea0943c466d4fd3cc76",
+    "figures/SYNTHETIC_continuous_weight_robustness.svg": "23c53496c44ab8c2b42c5c9e3d59c4fce093dde8261edba98b9e4403de6cc367",
+    "figures/SYNTHETIC_specification_robustness.svg": "087890cbdc84d4644d6f10717daadd13b35e0a69127215d8eb57fb4244a116bc",
+    "figures/ACQUIRED_route_context.png": "5d2c8208834aae212aa4997fd6d8142c2ba3210f4a42716df99606a515cf369b",
+    "figures/ACQUIRED_mapo_2024_choropleth.png": "54b29cb40c1c86831089b86f446bfa0d382681c4c7995dd824fc20a19bcaf5c8"
+  }
+}

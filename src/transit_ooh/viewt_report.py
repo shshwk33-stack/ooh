@@ -15,13 +15,26 @@ from .viewt import analyze_bundle, milk_run
 
 
 def export_study(
-    bundle, output="reports/viewt", alpha=0.5, hours=None, bootstrap_n=200
+    bundle,
+    output="reports/viewt",
+    alpha=0.5,
+    hours=None,
+    bootstrap_n=200,
+    population_weight=0.7,
+    bootstrap_unit="day",
 ):
     out = Path(output)
     tables, figures = out / "tables", out / "figures"
     tables.mkdir(parents=True, exist_ok=True)
     figures.mkdir(exist_ok=True)
-    results = analyze_bundle(bundle, alpha, hours, bootstrap_n=bootstrap_n)
+    results = analyze_bundle(
+        bundle,
+        alpha,
+        hours,
+        bootstrap_n=bootstrap_n,
+        population_weight=population_weight,
+        bootstrap_unit=bootstrap_unit,
+    )
     sorted_scores = results["scores"].sort_values(
         ["integrated_score", "grid_id"], ascending=[False, True]
     )
@@ -121,6 +134,8 @@ def export_study(
         "alpha": alpha,
         "hours": hours or bundle.metadata["hours"],
         "bootstrap_n": bootstrap_n,
+        "population_weight_within_spatial": population_weight,
+        "bootstrap_unit": bootstrap_unit,
         "candidate_count": len(sorted_scores),
         "day_count": results["daily"].date.nunique(),
         "route_status": route_status,
@@ -155,13 +170,15 @@ def export_study(
 
 ## 모델과 실험
 
-A = .7 × 정규화 인구통행 + .3 × 정규화 POI. B = 정규화 차량 통행량 대리지표. C = αB + (1−α)A, 현재 α={alpha:.2f}.
+A = {population_weight:.2f} × 정규화 인구통행 + {1 - population_weight:.2f} × 정규화 POI. B = 정규화 차량 통행량 대리지표. C = αB + (1−α)A, 현재 α={alpha:.2f}.
 기존 GPS 모델의 정차시간·방문횟수 산식은 별도 유지하며, 이 자료에서 그 지표는 측정 불가다. 인구 O/D는 목적지 유입, 통행구간 자료는 구역 통행량으로 해석한다. 둘을 합산하지 않는다. 통행량은 고유 인원·광고 노출이 아니다.
 
 A–C 순위 Spearman={pair.spearman:.4f}, Top-{int(pair.top_k)} 중복률={pair.top_k_overlap:.4f}.
 이는 의사결정 변화이며 성능 향상의 증거가 아니다. 50:50·60:40·0~100%를 같은 후보군/정규화에서 비교했다. 60:40은 과거 초기 가정이며 최적값이 아니다.
 
-동일 일자를 인구·차량 자료에 함께 재표집하는 day-cluster Bootstrap {bootstrap_n}회. 일자가 3개 미만이면 미실행한다. 점수 범위는 조건부 안정성이며 광고효과 신뢰구간이 아니다. 연속일의 자기상관은 처리하지 않아 모집단 추론에 사용할 수 없다. POI는 고정하므로 통합 점수 안정성이 높아질 수 있어 Mobility 단독 상관도 제공한다.
+인구·차량 자료를 같은 {bootstrap_unit} 묶음으로 함께 재표집하는 Bootstrap {bootstrap_n}회. 선택 단위의 묶음이 3개 미만이면 미실행한다. 점수 범위는 조건부 안정성이며 광고효과 신뢰구간이 아니다. 주 단위는 주 안의 날짜를 함께 보존하지만 묶음 사이 자기상관과 계절성은 해결하지 않는다. POI는 고정하므로 통합 점수 안정성이 높아질 수 있어 Mobility 단독 상관도 제공한다.
+
+연속 가중치 교차점 분석·Top-K 포함 구간 비율·동점 범위·최대 후회값·Pareto 후보는 `robust_candidates.csv`, `weight_intervals.csv`에 있다. 가중치 구간의 비율은 선택 확률이나 최적 가중치의 증거가 아니다. `specification_comparison.csv`는 정규화 3종과 Spatial 내부 비중의 사전 지정 시나리오를 비교하며 독립 결과에 맞춰 설정을 고르지 않는다.
 시간 holdout은 훈련 구간 정규화만 사용하지만 독립 광고 라벨 검증은 아니다. 실제 검증은 고정된 관측 지점·시간의 별도 수동 차량/보행자 계수와 운행 동의 GPS를 확보한 뒤 수행해야 한다.
 
 ## 경로와 한계

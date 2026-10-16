@@ -1,0 +1,13 @@
+{
+  "browser": "Chromium",
+  "bytes": 1078035,
+  "files": 118,
+  "sha256": "f5b9649102d1e265e36cdbf4c3ee04e0b12641fee92fd617093b11ac06bcbce1",
+  "matches_release_zip": true,
+  "crc": "passed",
+  "all_manifest_hashes_match_workspace": true,
+  "tested_application_sources_unchanged": true,
+  "secret_pattern_scan": "no_matches",
+  "app_exceptions": 0,
+  "page_errors": []
+}
