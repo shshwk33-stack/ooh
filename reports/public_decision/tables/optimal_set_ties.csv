@@ -1,0 +1,16 @@
+﻿grid_id,name,selected,in_any_optimum,in_every_optimum
+11140590,용강동,True,True,True
+11140600,대흥동,False,False,False
+11140630,신수동,False,False,False
+11140660,서교동,True,True,True
+11140680,합정동,True,True,True
+11140690,망원1동,False,False,False
+11140700,망원2동,True,True,False
+11140710,연남동,False,False,False
+11140720,성산1동,False,False,False
+11140730,성산2동,False,True,False
+11140740,상암동,True,True,True
+11140750,도화동,False,False,False
+11140760,서강동,False,False,False
+11140770,공덕동,False,False,False
+11140780,아현동,False,False,False

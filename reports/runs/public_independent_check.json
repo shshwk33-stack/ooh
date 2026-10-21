@@ -1,0 +1,47 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-10-21T12:28:22.429549+00:00",
+  "report_directory": "reports/public_decision",
+  "scope": "primary_K5_full_weight_range_only_not_advertising_outcome_validation",
+  "implementation": "Python standard library math.fsum + heapq.nlargest + pairwise dominance; no portfolio solver imports",
+  "future_outcome_files_read": false,
+  "scenario_rows": 120,
+  "candidates": 15,
+  "k": 5,
+  "sets_independently_evaluated": 3003,
+  "maximum_absolute_numeric_difference": 4.2327252813834093e-16,
+  "tolerance": 1e-12,
+  "minimum_worst_regret": 0.19999999999999996,
+  "optimal_sets": 2,
+  "optimal_ids": [
+    [
+      "11140590",
+      "11140660",
+      "11140680",
+      "11140700",
+      "11140740"
+    ],
+    [
+      "11140590",
+      "11140660",
+      "11140680",
+      "11140730",
+      "11140740"
+    ]
+  ],
+  "frontier_representatives": 4,
+  "nondominated_portfolios": 4,
+  "false_frontier_representatives": 0,
+  "uncovered_frontier_coordinates": 0,
+  "input_sha256": {
+    "tables/candidate_features.csv": "d8e4b6d1bf48d2e4cbab4a6f2522e6836b76be5edd615a948482adadfcae08f9",
+    "tables/scenario_scores.csv": "0ffc4ef71171cd41f18099655a0f171bab0a340939c45466a340c09b613f230a",
+    "tables/scenario_design.csv": "04ce6a451b8de5d49be8f418d5302af25a4372fb55b429b29debcaf7c4ca7f9a",
+    "tables/nominal_scores.csv": "016551142d41c23116b7b0f71417fa976e3394d07e2f841d2635de6a74d3fa85",
+    "tables/all_portfolios_tradeoff.csv": "3b3051dca7eccc036d6d093d8d2c3dc8829488b48f118697cf0e470dc958a05d",
+    "tables/portfolio_comparison.csv": "d383d9ad9a0d527d7a6525b0cf0ebad73d0da892d9f222e0c1b9527c55b2a0fa",
+    "tables/all_optimal_sets.csv": "251856ec4731ae8f4f3d66085fdfca70087a57ecbe61207d47c57f1eb4486f6a",
+    "tables/price_of_robustness.csv": "c2b7793bbfa9e7fb1acbf6101ec6aaa85fc5e07f1bc6bb7b34cf303e6b975085"
+  },
+  "checker_sha256": "2991c85df21209946c80736424e83d4d07609d1657d57411754491beb4b2e88c"
+}

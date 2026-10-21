@@ -1,0 +1,35 @@
+{
+  "generated_at_utc": "2026-10-21T12:30:19.348140+00:00",
+  "source_report_sha256": "0b4aac5581a8511fdf39a7b411992423e1f88f51bc8d5bbad891bd8f40d4c5ad",
+  "pptx_sha256": "82661cd8de12b95207a9209e1a0c3a39d7974c189a0e61a71b2582e12b3acf56",
+  "pdf_sha256": "4d1e0171279ea13ae443a919d053c6c527e17b77a7ea18e166c5aabd0369fd5e",
+  "pdf_pages": 15,
+  "pptx_bytes": 138060,
+  "pdf_bytes": 721298,
+  "under_10mb": true,
+  "conversion": "PPTX converted by LibreOffice soffice, then metadata stripped",
+  "identity_tokens_found": [],
+  "pptx_identity_tokens_found": [],
+  "out_of_page_text_spans": [],
+  "missing_pptx_paragraphs_in_pdf": [],
+  "intersecting_rendered_text_lines": [],
+  "pdf_author": "",
+  "has_pptx_core_properties": true,
+  "actual_data_only": true,
+  "invented_team_contributions": false,
+  "team_roles_confirmation": "User will write collaboration details separately; not a technical completion blocker",
+  "known_limitations": [
+    "Automated bounds check does not prove zero overlap; previews need visual review",
+    "Current revised historical sources; not as-of prospective prediction",
+    "Source citations are public institutions; no affiliation disclosed"
+  ],
+  "visual_review": {
+    "status": "completed",
+    "reviewed": [
+      "15-page contact sheet",
+      "detail pages 10,12,13,15"
+    ],
+    "result": "legible labels; no observed overlap or clipping; actual dashboard capture inserted",
+    "scope": "rendered PDF previews, not a Windows PowerPoint rendering test"
+  }
+}

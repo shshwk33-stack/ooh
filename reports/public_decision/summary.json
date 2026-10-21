@@ -1,0 +1,295 @@
+{
+  "generated_at_utc": "2026-10-21T12:21:13.408920+00:00",
+  "study_type": "acquired_aggregate_reduced_model_decision_study",
+  "field_observation_required": false,
+  "year_inputs": 2024,
+  "year_external_context": 2025,
+  "mapo_dongs": 16,
+  "eligible_dongs": 15,
+  "excluded": [
+    {
+      "grid_id": "11140610",
+      "name": "염리동",
+      "reason": "no_complete_reported_road_context_not_zero"
+    }
+  ],
+  "network_links_matched": 408,
+  "network_length_match": true,
+  "commercial_mapo_sector_rows": 5694,
+  "scenario_endpoint_rows": 120,
+  "unique_score_vectors": 25,
+  "primary_k": 5,
+  "combinations_evaluated": 3003,
+  "optimal_sets": 2,
+  "primary_comparison": [
+    {
+      "model": "A_stores",
+      "k": 5,
+      "weight_low": 0.0,
+      "weight_high": 1.0,
+      "selected_ids": "11140660;11140710;11140680;11140740;11140770",
+      "selected_names": "서교동;연남동;합정동;상암동;공덕동",
+      "worst_regret": 0.4142857143,
+      "mean_scenario_regret": 0.1667881235,
+      "minimum_scenario_utility": 0.3052697774
+    },
+    {
+      "model": "B_vehicle_context",
+      "k": 5,
+      "weight_low": 0.0,
+      "weight_high": 1.0,
+      "selected_ids": "11140700;11140680;11140780;11140730;11140770",
+      "selected_names": "망원2동;합정동;아현동;성산2동;공덕동",
+      "worst_regret": 0.4,
+      "mean_scenario_regret": 0.1958554845,
+      "minimum_scenario_utility": 0.0697270784
+    },
+    {
+      "model": "C50_reduced",
+      "k": 5,
+      "weight_low": 0.0,
+      "weight_high": 1.0,
+      "selected_ids": "11140660;11140700;11140680;11140770;11140780",
+      "selected_names": "서교동;망원2동;합정동;공덕동;아현동",
+      "worst_regret": 0.3142857143,
+      "mean_scenario_regret": 0.152935606,
+      "minimum_scenario_utility": 0.257879512
+    },
+    {
+      "model": "C60_reduced",
+      "k": 5,
+      "weight_low": 0.0,
+      "weight_high": 1.0,
+      "selected_ids": "11140700;11140660;11140680;11140780;11140770",
+      "selected_names": "망원2동;서교동;합정동;아현동;공덕동",
+      "worst_regret": 0.3142857143,
+      "mean_scenario_regret": 0.152935606,
+      "minimum_scenario_utility": 0.257879512
+    },
+    {
+      "model": "R_minimax",
+      "k": 5,
+      "weight_low": 0.0,
+      "weight_high": 1.0,
+      "selected_ids": "11140590;11140660;11140680;11140700;11140740",
+      "selected_names": "용강동;서교동;합정동;망원2동;상암동",
+      "worst_regret": 0.2,
+      "mean_scenario_regret": 0.0983642671,
+      "minimum_scenario_utility": 0.2711105521
+    }
+  ],
+  "all_optimal_sets": [
+    {
+      "model": "R_optimum_1",
+      "selected_ids": "11140590;11140660;11140680;11140700;11140740",
+      "selected_names": "용강동;서교동;합정동;망원2동;상암동",
+      "worst_regret": 0.2,
+      "mean_scenario_regret": 0.0983642671,
+      "minimum_scenario_utility": 0.2711105521
+    },
+    {
+      "model": "R_optimum_2",
+      "selected_ids": "11140590;11140660;11140680;11140730;11140740",
+      "selected_names": "용강동;서교동;합정동;성산2동;상암동",
+      "worst_regret": 0.2,
+      "mean_scenario_regret": 0.113807706,
+      "minimum_scenario_utility": 0.2796377814
+    }
+  ],
+  "primary_external_context": [
+    {
+      "quarter": 20251,
+      "primary": true,
+      "model": "A_stores",
+      "k": 5,
+      "eligible_dongs": 15,
+      "selected_transaction_share": 0.5727581662,
+      "target": "reported_estimated_card_transactions_not_advertising_outcomes",
+      "spearman": 0.6035714286,
+      "leave_one_dong_out_min": 0.5120879121,
+      "leave_one_dong_out_max": 0.7582417582
+    },
+    {
+      "quarter": 20251,
+      "primary": true,
+      "model": "B_vehicle_context",
+      "k": 5,
+      "eligible_dongs": 15,
+      "selected_transaction_share": 0.2101051266,
+      "target": "reported_estimated_card_transactions_not_advertising_outcomes",
+      "spearman": 0.0178571429,
+      "leave_one_dong_out_min": -0.1472527473,
+      "leave_one_dong_out_max": 0.1208791209
+    },
+    {
+      "quarter": 20251,
+      "primary": true,
+      "model": "C50_reduced",
+      "k": 5,
+      "eligible_dongs": 15,
+      "selected_transaction_share": 0.5116568965,
+      "target": "reported_estimated_card_transactions_not_advertising_outcomes",
+      "spearman": 0.3035714286,
+      "leave_one_dong_out_min": 0.1428571429,
+      "leave_one_dong_out_max": 0.4241758242
+    },
+    {
+      "quarter": 20251,
+      "primary": true,
+      "model": "C60_reduced",
+      "k": 5,
+      "eligible_dongs": 15,
+      "selected_transaction_share": 0.5116568965,
+      "target": "reported_estimated_card_transactions_not_advertising_outcomes",
+      "spearman": 0.2642857143,
+      "leave_one_dong_out_min": 0.1076923077,
+      "leave_one_dong_out_max": 0.3582417582
+    },
+    {
+      "quarter": 20251,
+      "primary": true,
+      "model": "R_minimax",
+      "k": 5,
+      "eligible_dongs": 15,
+      "selected_transaction_share": 0.6059684092,
+      "target": "reported_estimated_card_transactions_not_advertising_outcomes",
+      "spearman": null,
+      "leave_one_dong_out_min": null,
+      "leave_one_dong_out_max": null
+    }
+  ],
+  "common_transaction_industries": 18,
+  "reported_transaction_sector_range": [
+    34,
+    56
+  ],
+  "price_of_robustness": [
+    {
+      "model": "A_stores",
+      "nominal_mean_utility": 0.3448336955,
+      "nominal_loss_vs_C50": 0.0944832323,
+      "worst_regret": 0.4142857143,
+      "mean_scenario_regret": 0.1667881235,
+      "minimum_scenario_utility": 0.3052697774
+    },
+    {
+      "model": "B_vehicle_context",
+      "nominal_mean_utility": 0.3665298564,
+      "nominal_loss_vs_C50": 0.0727870715,
+      "worst_regret": 0.4,
+      "mean_scenario_regret": 0.1958554845,
+      "minimum_scenario_utility": 0.0697270784
+    },
+    {
+      "model": "C50_reduced",
+      "nominal_mean_utility": 0.4393169279,
+      "nominal_loss_vs_C50": 0.0,
+      "worst_regret": 0.3142857143,
+      "mean_scenario_regret": 0.152935606,
+      "minimum_scenario_utility": 0.257879512
+    },
+    {
+      "model": "C60_reduced",
+      "nominal_mean_utility": 0.4393169279,
+      "nominal_loss_vs_C50": 0.0,
+      "worst_regret": 0.3142857143,
+      "mean_scenario_regret": 0.152935606,
+      "minimum_scenario_utility": 0.257879512
+    },
+    {
+      "model": "R_minimax",
+      "nominal_mean_utility": 0.4273131437,
+      "nominal_loss_vs_C50": 0.0120037841,
+      "worst_regret": 0.2,
+      "mean_scenario_regret": 0.0983642671,
+      "minimum_scenario_utility": 0.2711105521
+    },
+    {
+      "model": "R_optimum_1",
+      "nominal_mean_utility": 0.4273131437,
+      "nominal_loss_vs_C50": 0.0120037841,
+      "worst_regret": 0.2,
+      "mean_scenario_regret": 0.0983642671,
+      "minimum_scenario_utility": 0.2711105521
+    },
+    {
+      "model": "R_optimum_2",
+      "nominal_mean_utility": 0.3824177527,
+      "nominal_loss_vs_C50": 0.0568991752,
+      "worst_regret": 0.2,
+      "mean_scenario_regret": 0.113807706,
+      "minimum_scenario_utility": 0.2796377814
+    }
+  ],
+  "new_2026_file_holdout": "not_run_no_2026_file_in_reviewed_official_listing; separate_API_not_verified",
+  "prior_2025_preliminary_outcomes_known": true,
+  "external_preregistration": false,
+  "full_population_vehicle_model": "not_run_weekday_definition_unresolved",
+  "sources": {
+    "stores": {
+      "page": "https://data.seoul.go.kr/dataList/OA-22172/S/1/datasetView.do",
+      "sha256": "8f9074df5ad133bf574f089a7cec646107b89e32cb1703f3199fe6e076d6b01a"
+    },
+    "sales": {
+      "page": "https://data.seoul.go.kr/dataList/OA-22175/S/1/datasetView.do",
+      "sha256": "caf8596c91ea8865bbb1fbcf940997550452e2b4de9cff8649f663972a90b279"
+    },
+    "network_sha256": "713dc621ce98a820d4ae063bbed32197ca2507fe8488fd945152a3d963107c9a",
+    "road_metadata_sha256": "81fcdb29bf982b865f5cb8b69a1a2f9677e4a5abe6e8289810ee8b77a1e0a574",
+    "provider_names_sha256": "111b97d5cd789e777f1536557669a5aa8af8d865bcd89ff91c251b19868cee14",
+    "map_display_points_sha256": "587bbd8263fea782ea79095bbd98a15f8227fc8d1025697431c17c947374e6a0"
+  },
+  "limitations": [
+    "No advertising exposure/effect observations",
+    "One district; 15 eligible aggregate candidates",
+    "Retrospective current releases and known preliminary 2025 outcomes; not prospective prediction",
+    "Provider nominal link-to-dong assignment, not precise clipped allocation",
+    "Reported industry coverage varies; missing rows not zero",
+    "Estimated transactions are commercial context, not independent ad ground truth",
+    "Regret improvements conditional on assumed utility/scenarios",
+    "Population excluded until weekday alignment is established",
+    "No route/time/cost/capacity/visibility constraints"
+  ],
+  "code_sha256": {
+    "scripts/public_decision_research.py": "6febc6442ec9c8f95f8922cfc6c19dcfc6a9f8543e50587aaf62048962396626",
+    "src/transit_ooh/public_decision.py": "cf26ea32029c318552ad5754d5d80873d0603d700094d2253ed9f2ea96d8783a",
+    "src/transit_ooh/public_sources.py": "e103d5904362fe2da6382b0114dbed0cce3c07f1bc2636acafe055393190dd64"
+  },
+  "artifacts_sha256": {
+    "figures/ACQUIRED_candidate_tradeoff.png": "441dec97532d6fb1f248226ddf5b10860fff35bef0e700c97aa70815b4c6239e",
+    "figures/ACQUIRED_candidate_tradeoff.svg": "e84afd5aa5c3e6a649c85856b1ec22344fbbec103f5001ba27e3d8a4ef13437b",
+    "figures/ACQUIRED_external_tradeoff.png": "b45b36261601fedaf6b59648758ddcdfef1ddeaec66dab70f50024d3f8d50df5",
+    "figures/ACQUIRED_external_tradeoff.svg": "df0d4b6d6d9b3958a6990ad70e49bac2d32496f4b8efef8b09b99fbb05669b7a",
+    "figures/ACQUIRED_held_out_specification.png": "d1d3548d34b3ccc32c25436cee5bfb7457d77d774db7c6ad1651e79eb1846e7c",
+    "figures/ACQUIRED_held_out_specification.svg": "3c668c7bb81291e36d3e3d9c5cdc49a793d5e8d55554bf1436ac696c2a1bfd84",
+    "figures/ACQUIRED_price_of_robustness.png": "6adf1797e8b94787cc4d0ae35f9dbaabbb32df0bfe4e75e477d73310020a4579",
+    "figures/ACQUIRED_price_of_robustness.svg": "a368d9287dc371cd355046d4b27bc9baa6998de90c6968d67f72809b952e04f4",
+    "figures/ACQUIRED_selected_dongs.png": "77c92577c361f9de7fcefb85ced1a892ff1d1150a0d70dc38d0f9920e8e717fe",
+    "figures/ACQUIRED_selected_dongs.svg": "ba74c73e0893f5d55cbdb25b4c9f6886de89115d48029b9d96750ed70381b417",
+    "figures/ACQUIRED_worst_regret.png": "153ebe5ac5b9e806e5afd20521922cd8f43740907480466a51e317eef5609c5e",
+    "figures/ACQUIRED_worst_regret.svg": "1873d67284bb746929ccdf13b1f30acab6d5730a2b6711ad868f72399c6783e0",
+    "prediction_lock.json": "206e06f00690df6cfff102eb9f4b65deae64e756a9d93e03a00ae74b783a098b",
+    "tables/all_optimal_sets.csv": "251856ec4731ae8f4f3d66085fdfca70087a57ecbe61207d47c57f1eb4486f6a",
+    "tables/all_portfolios_tradeoff.csv": "3b3051dca7eccc036d6d093d8d2c3dc8829488b48f118697cf0e470dc958a05d",
+    "tables/candidate_features.csv": "d8e4b6d1bf48d2e4cbab4a6f2522e6836b76be5edd615a948482adadfcae08f9",
+    "tables/common_transaction_sectors.csv": "ee2b64730027b74aa62980e833ac9ffdfb488e570f264e72e452e0b91448e427",
+    "tables/coverage_and_crosswalk.csv": "9862f31a93908f2471e82a808d8dbf800d137d247c6dfaee9511e766cdf2fa89",
+    "tables/external_context_all_optima.csv": "60ff48c229bd4cf1edbb8493c062ccaaf10bf22148917bb84a2ed1ed7db7fa5c",
+    "tables/external_context_association.csv": "d86c742cdd9889b348ed35e1fa4ecdff23d3e60afc9943ce941f2c78accdebf8",
+    "tables/external_context_common_sectors.csv": "2d22b86df5f5beeec456dc45277ec04f4b7c212ad29ec2073144e7a7a551226b",
+    "tables/held_out_definition_specification.csv": "3c0cefe709963ee1a27cf11a803151a415b5ea4ec52f15e1623d515b0aafc030",
+    "tables/held_out_quarter_specification.csv": "3f4526f0289f36e37ec6b8073db52faf97faf7973044d63e06ac32eae66a12ad",
+    "tables/nominal_robust_candidates.csv": "d6112964a35e6cefa5e8e161cbd1b1ec52a8baa6e2e34748bf3b0a606a1b7e8d",
+    "tables/nominal_scores.csv": "016551142d41c23116b7b0f71417fa976e3394d07e2f841d2635de6a74d3fa85",
+    "tables/nominal_weight_boundaries.csv": "5664febe08a64471a7967078f2b53412748b49828a03dae251007c21a762a4dc",
+    "tables/nominal_weight_intervals.csv": "8111c17ff66a60703f43c1cb8e1511d1661b296908b1ad63266b37743ccecc14",
+    "tables/optimal_set_ties.csv": "77eed3a3830b32b7fb948c42331327fae90054e786e7980331a58a4081f8efe3",
+    "tables/portfolio_comparison.csv": "d383d9ad9a0d527d7a6525b0cf0ebad73d0da892d9f222e0c1b9527c55b2a0fa",
+    "tables/price_of_robustness.csv": "c2b7793bbfa9e7fb1acbf6101ec6aaa85fc5e07f1bc6bb7b34cf303e6b975085",
+    "tables/reported_store_sector_coverage.csv": "fe76ea3f0108b0c7d7e167204df9226bb6e613c5e86f0879305b29555916ab0a",
+    "tables/reported_transaction_context.csv": "ccde83d21f41aa267b72311ec52d087d037621d7e37a8efcdad32633a69be1af",
+    "tables/scenario_design.csv": "04ce6a451b8de5d49be8f418d5302af25a4372fb55b429b29debcaf7c4ca7f9a",
+    "tables/scenario_scores.csv": "0ffc4ef71171cd41f18099655a0f171bab0a340939c45466a340c09b613f230a",
+    "tables/weight_sensitivity.csv": "ced59079746918e2f8b71b1c658d1f0c78ae3b9bfc64b375a7c092fe2e32f263"
+  }
+}

@@ -1,5 +1,7 @@
 # Transit OOH · 배송 이동정보의 위치가치 연구
 
+**2026-10-21 최신 — 현장관측 없는 실제 공개자료 연구:** [새 연구보고서](docs/PUBLIC_DATA_RESEARCH_REPORT.md) · [자료 확보·실행](docs/PUBLIC_DATA_ACQUISITION.md) · [익명 경진대회 발표자료](deliverables/competition2026/README.md) · [코드·표·그림 패키지](deliverables/Transit_OOH_Public_Research_Package.zip). 2024년 점포와 기관 부여 도로–동 코드를 연결한 실제 집계 사례를 추가했습니다. 앱 기본 화면은 **공개자료 · 강건한 후보 선정**입니다. 현장관측은 이번 완료 조건이 아니며, 기존 현장 도구는 선택 기능으로 유지합니다. 새 연구는 후보 행정동 K개 선정의 조건부 효용·최악후회를 비교하며 광고효과나 실제 운행 최적화를 입증하지 않습니다. 아래는 이전 개발 이력도 포함합니다.
+
 정보통신공학 캡스톤디자인2 / 산업공학회 대학생 경진대회를 위한 재현 가능한 GPS·GIS 분석 및 **후보 선정 안정성** 연구 시스템입니다. 기존 GPS 연구를 유지하며 자치구별 교통·인구 통행 자료의 의사결정 분석과 가상 밀크런 비교를 지원합니다. 광고 주목도·노출량·매출·정확도 향상을 입증했다고 주장하지 않습니다.
 
 **최신 코드·검수용 다운로드:** [모델 고도화 패키지 ZIP](deliverables/Transit_OOH_Model_Audit_Package.zip) · [고도화·실험 보고서](docs/MODEL_AUDIT_REPORT.md) · [독립 현장 검증 사용법](docs/FIELD_VALIDATION_GUIDE.md). 실행 코드·테스트·고정 의존성·가공 연구 그림·실제/합성 구분 결과표를 포함합니다. 기관 원본은 포함하지 않습니다.

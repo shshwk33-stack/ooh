@@ -1,0 +1,11 @@
+{
+  "locked_at_utc": "2026-10-21T12:21:10.056490+00:00",
+  "status": "retrospective_reproduction_prior_2025_preliminary_outcomes_known",
+  "protocol_sha256": "48501ac67e8b1befe7f0661634d413d81dd0a18fe500e62222675e7633c4ce28",
+  "features_sha256": "d8e4b6d1bf48d2e4cbab4a6f2522e6836b76be5edd615a948482adadfcae08f9",
+  "scores_sha256": "016551142d41c23116b7b0f71417fa976e3394d07e2f841d2635de6a74d3fa85",
+  "selection_sha256": "d383d9ad9a0d527d7a6525b0cf0ebad73d0da892d9f222e0c1b9527c55b2a0fa",
+  "all_optima_sha256": "251856ec4731ae8f4f3d66085fdfca70087a57ecbe61207d47c57f1eb4486f6a",
+  "outcomes_not_passed_to_solver": true,
+  "external_preregistration": false
+}

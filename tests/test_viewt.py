@@ -156,6 +156,7 @@ def test_viewt_ui_changes_weights_district_hours_and_upload_state():
     at = AppTest.from_file(
         Path(__file__).resolve().parents[1] / "app/streamlit_app.py", default_timeout=60
     ).run()
+    at.radio(key="app_mode").set_value("View-T · 자치구 의사결정").run()
     assert not at.exception
     assert "SYNTHETIC" in at.warning[0].value
     assert at.selectbox(key="viewt_district").value == "마포구"

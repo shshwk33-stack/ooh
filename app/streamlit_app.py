@@ -74,6 +74,7 @@ with st.sidebar:
     mode = st.radio(
         "자료 구분",
         [
+            "공개자료 · 강건한 후보 선정",
             "View-T · 자치구 의사결정",
             "합성 GT 연구 데모",
             "실제 공개 자료 · 별도 분석",
@@ -85,6 +86,15 @@ with st.sidebar:
         key="app_mode",
     )
     st.caption("각 화면에서 출처와 관측·추정·합성 자료의 구분을 확인하세요.")
+    public_package = ROOT / "deliverables/Transit_OOH_Public_Research_Package.zip"
+    if public_package.is_file():
+        st.download_button(
+            "공개자료 연구·전체 코드 ZIP",
+            public_package.read_bytes(),
+            public_package.name,
+            "application/zip",
+            key="public_research_package_download",
+        )
     package = ROOT / "deliverables/Transit_OOH_Model_Audit_Package.zip"
     if package.is_file():
         st.download_button(
@@ -94,6 +104,12 @@ with st.sidebar:
             "application/zip",
             key="audit_package_download",
         )
+
+if mode == "공개자료 · 강건한 후보 선정":
+    from public_decision_page import render
+
+    render()
+    st.stop()
 
 if mode == "독립 현장 검증":
     from field_validation_page import render
