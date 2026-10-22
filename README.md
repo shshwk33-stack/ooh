@@ -1,5 +1,7 @@
 # Transit OOH · 배송 이동정보의 위치가치 연구
 
+**전체 코드·결과 다운로드:** [최신 통합 ZIP](deliverables/Transit_OOH_Full_Code_and_Results.zip) · [Windows/macOS 실행 안내](CODE_PACKAGE_GUIDE.md). 분석 엔진·GIS 앱·테스트·고정 의존성·결과표·그래프와 최신 PM 스타일 PPT/PDF를 함께 제공합니다. 기관 원본과 인증키는 별도입니다.
+
 **2026-10-22 발표자료 재구성:** [PM 스타일 15쪽 PPT·PDF·대본](deliverables/competition2026_pmstyle/README.md) · [발표자료 다운로드 ZIP](deliverables/Transit_OOH_PMstyle_Presentation_Package.zip). 이전 1·2·3차 개발 흐름과 최신 실제 공개자료 실험을 연결했습니다. 기존 발표본과 연구 결과는 보존했습니다.
 
 **2026-10-21 최신 — 현장관측 없는 실제 공개자료 연구:** [새 연구보고서](docs/PUBLIC_DATA_RESEARCH_REPORT.md) · [자료 확보·실행](docs/PUBLIC_DATA_ACQUISITION.md) · [익명 경진대회 발표자료](deliverables/competition2026/README.md) · [코드·표·그림 패키지](deliverables/Transit_OOH_Public_Research_Package.zip). 2024년 점포와 기관 부여 도로–동 코드를 연결한 실제 집계 사례를 추가했습니다. 앱 기본 화면은 **공개자료 · 강건한 후보 선정**입니다. 현장관측은 이번 완료 조건이 아니며, 기존 현장 도구는 선택 기능으로 유지합니다. 새 연구는 후보 행정동 K개 선정의 조건부 효용·최악후회를 비교하며 광고효과나 실제 운행 최적화를 입증하지 않습니다. 아래는 이전 개발 이력도 포함합니다.
