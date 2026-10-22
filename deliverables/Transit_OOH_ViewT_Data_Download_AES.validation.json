@@ -1,0 +1,12 @@
+{
+  "generated_at_utc": "2026-10-22T06:32:43.033964+00:00",
+  "file": "Transit_OOH_ViewT_Data_Download_AES.zip",
+  "bytes": 6541216,
+  "sha256": "99d2e51605b941ef452d03ee72c00841ef2fe38fa55d118c55b1c271a04548d8",
+  "encryption": "WinZip AES-256; password provided separately in user chat",
+  "password_required_verified": true,
+  "decryption_matches_original_archive": true,
+  "decrypted_zip_crc_verified": true,
+  "api_key_included": false,
+  "plaintext_provider_files_committed": false
+}
