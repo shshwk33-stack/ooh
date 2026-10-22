@@ -1,0 +1,7 @@
+# Presentation build versions used on 2026-10-22. LibreOffice and Noto CJK are separate.
+python-pptx==1.0.2
+pandas==2.2.3
+numpy==2.3.5
+matplotlib==3.10.8
+Pillow==12.3.0
+PyMuPDF==1.26.6

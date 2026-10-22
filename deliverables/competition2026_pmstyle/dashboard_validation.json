@@ -1,0 +1,86 @@
+{
+  "browser": "Chromium",
+  "source": "actual_current_public_study",
+  "app_exceptions": 0,
+  "page_errors": [],
+  "candidates": 15,
+  "robust_selected": 5,
+  "columns": [
+    "grid_id",
+    "name",
+    "longitude",
+    "latitude",
+    "stores_mean",
+    "traffic_all_local",
+    "static_score",
+    "mobility_score",
+    "integrated_score",
+    "현재 순위",
+    "강건 선택",
+    "현재 Top-K"
+  ],
+  "console_warnings": [
+    "WARN Scale bindings are currently only supported for scales with unbinned, continuous domains.",
+    "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+    "Error: Failed to fetch\n    at http://127.0.0.1:8510/static/js/DeckGlJsonChart.-LIQnXYn.js:7838:23743"
+  ],
+  "manual_keyboard_slider_checks": [
+    {
+      "weight_percent": 0,
+      "verified_rows": 15,
+      "score_matches_expected": true,
+      "selected_count": 5,
+      "csv": "dashboard_scores_0.csv"
+    },
+    {
+      "weight_percent": 100,
+      "verified_rows": 15,
+      "score_matches_expected": true,
+      "selected_count": 5,
+      "csv": "dashboard_scores_100.csv"
+    },
+    {
+      "weight_percent": 50,
+      "verified_rows": 15,
+      "score_matches_expected": true,
+      "selected_count": 5,
+      "csv": "dashboard_scores_restored50.csv"
+    }
+  ],
+  "source_code_changed": false,
+  "study_results_changed": false,
+  "basemap_limitation": "External CARTO request blocked by tunnel policy; coordinate points and Korean names rendered without bypass",
+  "figure_files": {
+    "dashboard_controls_map_50.png": "145560ee4c550320b7a53443b6664b5ada5b31566cc12aa971c034e47300326e",
+    "dashboard_controls_map_100.png": "cc055b4bbde4b842442c89079a5a3546d8ae923410ace6ebfe0a284f14213c62",
+    "dashboard_controls_map_0.png": "2d4988e63fb069764a810505ae2312a625701f0a3a9f608d1df79ca6457e1524"
+  },
+  "screenshots": {
+    "dashboard_controls_map_50.png": {
+      "width": 1352,
+      "height": 800,
+      "sha256": "145560ee4c550320b7a53443b6664b5ada5b31566cc12aa971c034e47300326e"
+    },
+    "dashboard_controls_map_0.png": {
+      "width": 1352,
+      "height": 800,
+      "sha256": "2d4988e63fb069764a810505ae2312a625701f0a3a9f608d1df79ca6457e1524"
+    },
+    "dashboard_controls_map_100.png": {
+      "width": 1352,
+      "height": 800,
+      "sha256": "cc055b4bbde4b842442c89079a5a3546d8ae923410ace6ebfe0a284f14213c62"
+    },
+    "dashboard_selection_rank_50.png": {
+      "width": 1352,
+      "height": 637,
+      "sha256": "b433f1b1e9954241ea468cdea78ca6466707be4188fe533eeefe700ce1ba4c0c"
+    }
+  },
+  "rank_capture": "Actual Streamlit column visibility UI; only name, integrated score, current rank, robust selection and current Top-K shown",
+  "rank_capture_first_rows_visible": 10,
+  "all_5_robust_selections_visible": true,
+  "rank_capture_computed_values_changed": false,
+  "visual_review": "All four captures inspected, Korean dong labels and selection marks present",
+  "manual_slider_restore": "50 percent verified by actual dashboard CSV"
+}

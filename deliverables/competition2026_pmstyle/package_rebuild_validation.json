@@ -1,0 +1,16 @@
+{
+  "checked_at_utc": "2026-10-22T01:46:39.388526+00:00",
+  "isolated_zip_extraction": true,
+  "packaged_files_sha256_verified": 88,
+  "charts_rebuilt_from_aggregate_tables": true,
+  "chart_input_and_output_hashes_checked": true,
+  "pptx_rebuilt": true,
+  "pptx_converted_to_pdf": true,
+  "pdf_pages": 15,
+  "slide_outline_unchanged": true,
+  "missing_native_paragraphs": 0,
+  "out_of_page_text_spans": 0,
+  "intersecting_text_lines": 0,
+  "identity_tokens_found": [],
+  "note": "Rebuild uses installed presentation dependencies; not a fresh virtual environment and not a new research-model test run. Font rasterization may vary by host."
+}

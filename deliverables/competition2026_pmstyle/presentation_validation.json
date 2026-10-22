@@ -1,0 +1,67 @@
+{
+  "generated_at_utc": "2026-10-22T01:47:28.130047+00:00",
+  "source_report_sha256": "0b4aac5581a8511fdf39a7b411992423e1f88f51bc8d5bbad891bd8f40d4c5ad",
+  "pptx_sha256": "36a974b96a82ad840433989c36a6ce0508a606a7069cbed1ea56a0d70b44c42e",
+  "pdf_sha256": "f929761f875821e68e97bf35973a02049c9a5c47cd9f12ed8066dbcfd8c2426a",
+  "pdf_pages": 15,
+  "pptx_bytes": 694652,
+  "pdf_bytes": 1401650,
+  "under_10mb": true,
+  "conversion": "PPTX converted by LibreOffice soffice, then metadata stripped",
+  "identity_tokens_found": [],
+  "pptx_identity_tokens_found": [],
+  "out_of_page_text_spans": [],
+  "missing_pptx_paragraphs_in_pdf": [],
+  "intersecting_rendered_text_lines": [],
+  "pdf_author": "",
+  "has_pptx_core_properties": true,
+  "actual_data_only": true,
+  "invented_team_contributions": false,
+  "team_roles_confirmation": "User will write collaboration details separately; not a technical completion blocker",
+  "known_limitations": [
+    "Automated bounds check does not prove zero overlap; previews need visual review",
+    "Current revised historical sources; not as-of prospective prediction",
+    "Source citations are public institutions; no affiliation disclosed"
+  ],
+  "variant": "PM_style_native_rebuild",
+  "style_reference_sha256": "1a64b71f5f58115e946080dfe0ca319673a76400d098af915a869398c7a91ba0",
+  "reference_identity_tokens_found": [],
+  "reference_content_images_copied": false,
+  "quantitative_narrative_checked_against_source_tables": true,
+  "chart_input_and_output_hashes_checked": true,
+  "editable_shape_counts": {
+    "text_shapes": 549,
+    "editable_nonpicture_shapes": 889,
+    "pictures": 7
+  },
+  "visual_review": "completed",
+  "visual_review_scope": {
+    "all_pages_reviewed": true,
+    "final_chart_pages_rechecked": [
+      10,
+      11,
+      12
+    ],
+    "reviewed_items": [
+      "title and body spacing",
+      "chart values and labels",
+      "full summation indices",
+      "cover connector placement",
+      "anonymous presentation content"
+    ],
+    "known_display_limitations": [
+      "External CARTO tiles blocked during actual app capture; coordinate points and Korean labels are visible"
+    ],
+    "consistent_model_colors": "A blue / B gray / C50,C60 orange / R teal; final slide 9 rechecked"
+  },
+  "embedded_images_match_distributed_assets": [
+    "pm_portfolio_tradeoff.png",
+    "pm_sensitivity.png",
+    "pm_external_all_quarters.png",
+    "math_constraint_1.png",
+    "math_constraint_2.png",
+    "math_constraint_3.png",
+    "dashboard_controls_map_50.png"
+  ],
+  "visual_review_at_utc": "2026-10-22T01:48:00.953831+00:00"
+}

@@ -1,0 +1,105 @@
+[
+  {
+    "page": 1,
+    "title": "공개 교통·상권자료를 활용한 이동형 광고 후보지역 선정 의사결정 시스템",
+    "english": "Transit OOH"
+  },
+  {
+    "page": 2,
+    "title": "연구 배경 및 문제 정의.",
+    "english": "Research Background & Problem Definition.",
+    "lead": "배송운영에서 생기는 이동정보를, 광고 검토 지역의 선택 근거로 활용할 수 있는가?",
+    "source": "개념도: 반복 순회형 배송운영을 설명하기 위한 도식이며 실제 운행기록이 아님."
+  },
+  {
+    "page": 3,
+    "title": "연구의 전개 및 분석 범위.",
+    "english": "Research Development & Scope.",
+    "lead": "1·2·3차 개발 흐름을 유지하면서, 이번 제출에서는 실제 공개자료의 비교 결과를 검증했다.",
+    "source": ""
+  },
+  {
+    "page": 4,
+    "title": "실제 데이터의 확보 및 연결.",
+    "english": "Acquired Data & Source Alignment.",
+    "lead": "연도·지역·공간키와 측정량을 검사한 뒤, 동일 후보군에서 비교한다.",
+    "source": "자료: 서울시 OA-22172(2024 점포), OA-22175(2025 추정거래), KTDB View-T(2024 교통·도로망). [D1–D3]"
+  },
+  {
+    "page": 5,
+    "title": "공간정보 처리와 정합성 검증.",
+    "english": "Data Engineering & Quality Control.",
+    "lead": "서로 다른 기관 코드를 명칭·연도·고유성으로 대응하고, 기관이 부여한 도로–동 키를 사용한다.",
+    "source": "표시점 출처: 기존 공식 2024 동별 유입 집계표. 지도 좌표는 배송 거점·정차 위치가 아님. [D1,D3]"
+  },
+  {
+    "page": 6,
+    "title": "위치가치 점수와 비교 모델.",
+    "english": "Location-Value Scores & Baseline Models.",
+    "lead": "두 성분을 같은 후보군에서 정규화하고, 차량 맥락의 비중 α를 사용자가 조정한다.",
+    "source": "A는 보고 점포 재고, B는 보유 일반도로의 길이 가중 차량 맥락. 기존 전체 Spatial/GPS Mobility와 구분. [D1,D3]"
+  },
+  {
+    "page": 7,
+    "title": "제안 모델의 수리 정의.",
+    "english": "Mathematical Modeling · Minimax Regret.",
+    "lead": "각 조건의 최선 집합과 비교한 후회를 정의하고, 가장 큰 후회가 최소인 집합을 선택한다.",
+    "source": "최악후회 최소화는 기존 의사결정 방법이다. 이번 기여는 공개자료의 실제 적용·검증·시스템 구현에 있다. [R1,R2]"
+  },
+  {
+    "page": 8,
+    "title": "비교 실험 및 검증 설계.",
+    "english": "Experimental Design & Validation.",
+    "lead": "같은 조건에서의 최적화, 조건을 제외한 재평가, 외부 상권 맥락을 구분한다.",
+    "source": ""
+  },
+  {
+    "page": 9,
+    "title": "주요 결과 및 기준 모델 비교.",
+    "english": "Main Results · Fixed Weights vs. Robust Selection.",
+    "lead": "K=5, 가중치 0~100%의 정해 둔 조건에서 최악후회와 명목 점수의 교환관계를 확인했다.",
+    "source": "후회는 정규화된 선택 효용의 차이이며 광고효과·매출·운영비 개선율을 측정한 값이 아님."
+  },
+  {
+    "page": 10,
+    "title": "선택 결과와 강건성의 대가.",
+    "english": "Selected Regions & Price of Robustness.",
+    "lead": "명목 점수만 최대화하는 선택과, 가정 변화의 위험을 줄이는 선택은 다를 수 있다.",
+    "source": "효용–후회 경계는 가능한 3,003개 조합을 비교한 결과다. 비용·수익의 경제적 경계로 해석하지 않는다."
+  },
+  {
+    "page": 11,
+    "title": "가중치와 자료 표현의 민감도 분석.",
+    "english": "Sensitivity & Held-Out Specification Checks.",
+    "lead": "K와 가중치 범위를 바꾸고, 선택에 쓰지 않은 분기·도로·정규화 조건에서도 확인했다.",
+    "source": ""
+  },
+  {
+    "page": 12,
+    "title": "외부 상권 지표와 결과 해석.",
+    "english": "External Commercial Context & Interpretation.",
+    "lead": "2025년 추정 거래와의 관련성을 탐색적으로 확인하고, 불리한 결과도 함께 공개한다.",
+    "source": "이전 예비값을 접한 뒤 수행한 회고적 재현이다. 외부 사전등록·전향적 예측·실제 광고성과 검증이 아님. [D2]"
+  },
+  {
+    "page": 13,
+    "title": "GIS 대시보드의 구현 및 사용.",
+    "english": "Interactive GIS Dashboard & Decision Support.",
+    "lead": "후보 수·가중치·정규화를 바꾸면 지도, 현재 점수, 순위, 강건 선택을 함께 확인한다.",
+    "source": "화면: 현재 실제 집계자료를 읽은 Streamlit 앱. 동 좌표는 표시점이며 실제 배송 정차 지점이 아님."
+  },
+  {
+    "page": 14,
+    "title": "실무 적용 및 결론.",
+    "english": "Practical Implications & Conclusion.",
+    "lead": "하나의 최적 가중치를 선언하기보다, 기준이 달라질 때 선택 근거가 어떻게 유지되는지 보여 준다.",
+    "source": ""
+  },
+  {
+    "page": 15,
+    "title": "참고문헌 및 데이터 출처.",
+    "english": "References & Data Sources.",
+    "lead": "공식 출처와 재현 가능한 계산 근거를 공개하고, 자료가 측정하지 않은 효과는 주장하지 않는다.",
+    "source": ""
+  }
+]
