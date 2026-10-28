@@ -1,0 +1,22 @@
+{
+  "generated_at_utc": "2026-10-28T08:31:19.921316+00:00",
+  "file": "Transit_OOH_KIIT_2026_AES.zip",
+  "bytes": 23232156,
+  "sha256": "c679fae1a962d71f31605c3c88ae252027ee11c636a05c6451f9dc510c1e1e77",
+  "encryption": "WinZip AES-256; password provided separately in user chat",
+  "password_required_verified": true,
+  "decryption_matches_original_archive": true,
+  "decrypted_zip_crc_verified": true,
+  "api_key_included": false,
+  "plaintext_user_or_provider_files_committed": false,
+  "pdf_pages": 5,
+  "original_project_tests": {
+    "passed": 205,
+    "expected_failure": 1
+  },
+  "extracted_package_tests": {
+    "passed": 69,
+    "failed": 0
+  },
+  "native_editor_visual_reflow_verified": false
+}
