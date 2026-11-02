@@ -1,0 +1,8 @@
+node_modules/
+dist/
+playwright-report/
+test-results/
+*.log
+
+# Separate dashboard output
+dist-dashboard/
