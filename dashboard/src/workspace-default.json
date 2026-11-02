@@ -1,0 +1,2186 @@
+{
+  "schemaVersion": "2.0",
+  "meta": {
+    "id": "mapo-atlas-local",
+    "name": "마포구 통합 분석",
+    "version": "2026.11",
+    "region": "서울특별시 마포구",
+    "period": {
+      "start": "2024-05-01T00:00:00+09:00",
+      "end": "2024-05-03T23:59:59+09:00",
+      "timezone": "Asia/Seoul"
+    },
+    "sources": [
+      {
+        "id": "kostat-boundary-2013",
+        "label": "KOSTAT 2013 행정경계",
+        "kind": "PUBLIC_AGGREGATE",
+        "year": 2013,
+        "url": "https://raw.githubusercontent.com/southkorea/seoul-maps/dbb1dcde2e3c9937684c5a44ab9301888ad63ee6/kostat/2013/json/seoul_submunicipalities_geo_simple.json",
+        "unit": "administrative geometry",
+        "license": "UNKNOWN"
+      },
+      {
+        "id": "candidate-scenario",
+        "label": "후보지역 기준 시나리오",
+        "kind": "SYNTHETIC",
+        "year": 2024,
+        "unit": "normalized relative score",
+        "method": "Provided candidate M/S inputs and manually placed scenario anchor coordinates; not official surveyed/geocoded station locations and not derived from the accompanying GPS points",
+        "description": "정규화 점수·수기 앵커 좌표로 구성한 시나리오 입력입니다. 공식 역사 좌표나 GPS 추정 점수가 아닙니다."
+      },
+      {
+        "id": "gps-scenario",
+        "label": "차량 위치 입력 시나리오",
+        "kind": "SYNTHETIC",
+        "year": 2024,
+        "unit": "position record",
+        "seed": 42
+      }
+    ],
+    "scoreTemporalResolution": "static",
+    "scoreMethod": "V = αM + (1−α)S; supplied normalized inputs",
+    "notes": [
+      "경계는 2013년 일반화 형상입니다.",
+      "차량·시간 필터는 GPS 기록을 조회하며 정적 후보 점수를 임의로 변형하지 않습니다."
+    ],
+    "processing": {
+      "district": {
+        "analysis_scores_generated": false,
+        "bootstrap_performed": false,
+        "dataset_kind": "administrative_boundary",
+        "geometry_only": true,
+        "metadata_sha256": "a322fb62451b0c539142c79da74dd73ee8c2d10c4ba5bf6512c5670297ac7570",
+        "output_kind": "DERIVED",
+        "outputs": {
+          "districts.csv": "cd6688d162746ff32acb12d28a435cf250d4f5a9f252e9b4ec78580e6e20a5a0",
+          "mapo.geojson": "6b6ff78d0824ad01ae348d08f07315ffd6b29831b029d96213901ad4e38c0153",
+          "mapo.projected.csv": "e7cf7866b8c9a371659aa7a59df9d30fcc1a295bb8817bfc349641cf92f0455e",
+          "processing_log.jsonl": "c5e52bc1214b4a48dcf1b4c3e5a8d3e961b76cf121245221e6c0652090ac1485",
+          "quality_report.json": "2f1b0563dc367c956f028720d025c592a5209d68db7f3448e89d705f36a53b97"
+        },
+        "parameters": {
+          "always_xy": true,
+          "analysis_crs": "EPSG:5179",
+          "input_crs": "EPSG:4326",
+          "region_code": "11140",
+          "region_prefix": null,
+          "roundtrip_tolerance_deg": 1e-8,
+          "selection": {
+            "mode": "exact",
+            "value": "11140"
+          },
+          "topology_repair": false
+        },
+        "pipeline_version": "1.0.0",
+        "run_id": "4630c10de816506df7d273e6",
+        "schema_version": "1.0",
+        "scope": "Validated historical administrative geometry only. No GPS, traffic, population, POI, mobility/spatial/integrated scores or statistical validation.",
+        "selected_codes": [
+          "11140"
+        ],
+        "source": {
+          "kind": "PUBLIC_AGGREGATE",
+          "license": "UNKNOWN",
+          "license_note": "공개 미러 README의 Apache v2.0 선언은 확인했습니다. 원기관의 원자료 이용조건은 별도로 재확인하지 못했습니다.",
+          "name": "서울 자치구 단순화 행정경계 (2013)",
+          "observation_period": null,
+          "original_agency_terms_verified": false,
+          "publisher": "KOSTAT, as attributed by southkorea/seoul-maps; repository redistribution",
+          "redistributor_license_declaration": "Apache-2.0 in upstream README (separate LICENSE returned 404)",
+          "reference_year": 2013,
+          "retrieved_on": "2026-11-02",
+          "sha256": "2bb208614451c9f2a096cd62204063d6b27e57dcb7650a35ac19c06f1a84eb03",
+          "simplification": "Visvalingam/weighted area, 5%",
+          "spatial_resolution": "generalized municipal district polygons",
+          "temporal_resolution": "static boundary vintage 2013",
+          "unit": "geometry; not traffic, population or GPS observations",
+          "upstream_commit": "dbb1dcde2e3c9937684c5a44ab9301888ad63ee6",
+          "url": "https://raw.githubusercontent.com/southkorea/seoul-maps/dbb1dcde2e3c9937684c5a44ab9301888ad63ee6/kostat/2013/json/seoul_municipalities_geo_simple.json"
+        },
+        "spatial_contract": {
+          "analysis_crs": "EPSG:5179",
+          "coordinate_order": "longitude_latitude",
+          "crs_basis": "The local GeoJSON has no CRS member. Longitude/latitude EPSG:4326 is an explicit processing input contract, consistent with its coordinate ranges and upstream GeoJSON, not a recovered official source CRS declaration.",
+          "input_crs": "EPSG:4326"
+        }
+      },
+      "dongs": {
+        "analysis_scores_generated": false,
+        "bootstrap_performed": false,
+        "dataset_kind": "administrative_boundary",
+        "geometry_only": true,
+        "metadata_sha256": "dde0a7902dadd60acb8b9fd947795dcb3b365e6028980e1a32b0e6a335012a7f",
+        "output_kind": "DERIVED",
+        "outputs": {
+          "districts.csv": "5a3741e2502ece2366a9045e5d6bd657198c9c16961749041f38066b5a98d978",
+          "mapo.geojson": "80ca6122fcdd6377a99e03dd5684809ef7689871a1bb9a601f8e4bef6ce75ccb",
+          "mapo.projected.csv": "a7ce652f796664e95f8a1bb7adff8e99c5b34195366607091ca1ac88600681d9",
+          "processing_log.jsonl": "76e3144c6b240b46bbcb2458a591680b675c49f6977ef5a066014580b4bddacc",
+          "quality_report.json": "2daeb44c116da907b87a029c084a03e488d75cfe51e710a224f2167b5671ae3f"
+        },
+        "parameters": {
+          "always_xy": true,
+          "analysis_crs": "EPSG:5179",
+          "input_crs": "EPSG:4326",
+          "region_code": null,
+          "region_prefix": "11140",
+          "roundtrip_tolerance_deg": 1e-8,
+          "selection": {
+            "mode": "prefix",
+            "value": "11140"
+          },
+          "topology_repair": false
+        },
+        "pipeline_version": "1.0.0",
+        "run_id": "3ac24940d0f85fac6dc17f18",
+        "schema_version": "1.0",
+        "scope": "Validated historical administrative geometry only. No GPS, traffic, population, POI, mobility/spatial/integrated scores or statistical validation.",
+        "selected_codes": [
+          "1114059",
+          "1114060",
+          "1114061",
+          "1114063",
+          "1114066",
+          "1114068",
+          "1114069",
+          "1114070",
+          "1114071",
+          "1114072",
+          "1114073",
+          "1114074",
+          "1114075",
+          "1114076",
+          "1114077",
+          "1114078"
+        ],
+        "source": {
+          "kind": "PUBLIC_AGGREGATE",
+          "license": "UNKNOWN",
+          "license_note": "공개 미러 README의 Apache v2.0 선언은 확인했습니다. 원기관의 원자료 이용조건은 별도로 재확인하지 못했습니다.",
+          "name": "서울 읍면동 단순화 행정경계 (2013)",
+          "observation_period": null,
+          "original_agency_terms_verified": false,
+          "publisher": "KOSTAT, as attributed by southkorea/seoul-maps; repository redistribution",
+          "redistributor_license_declaration": "Apache-2.0 in upstream README (separate LICENSE returned 404)",
+          "reference_year": 2013,
+          "retrieved_on": "2026-11-02",
+          "sha256": "432bda8622549a53ea51e4a0638baefee9f5214d21065c20457506c9b559291e",
+          "simplification": "Visvalingam/weighted area, 1%",
+          "spatial_resolution": "generalized submunicipal district polygons; Mapo has 16 features",
+          "temporal_resolution": "static boundary vintage 2013",
+          "unit": "geometry; not traffic, population or GPS observations",
+          "upstream_commit": "dbb1dcde2e3c9937684c5a44ab9301888ad63ee6",
+          "url": "https://raw.githubusercontent.com/southkorea/seoul-maps/dbb1dcde2e3c9937684c5a44ab9301888ad63ee6/kostat/2013/json/seoul_submunicipalities_geo_simple.json"
+        },
+        "spatial_contract": {
+          "analysis_crs": "EPSG:5179",
+          "coordinate_order": "longitude_latitude",
+          "crs_basis": "The local GeoJSON has no CRS member. Longitude/latitude EPSG:4326 is an explicit processing input contract, consistent with its coordinate ranges and upstream GeoJSON, not a recovered official source CRS declaration.",
+          "input_crs": "EPSG:4326"
+        }
+      },
+      "gps": {
+        "derived_kind": "DERIVED",
+        "input_sha256": "6d3ee389e18342fe2346fdc61d6c2770f6d9ecc3987d31c4a4cbaae6c50ac96d",
+        "lineage": {
+          "provenance": "Generated by pipeline.scenario; not observed delivery GPS; no real road map matching",
+          "source_kind": "SYNTHETIC",
+          "source_name": "Mapo GPS input-validation fixture"
+        },
+        "max_speed_kmh": 120,
+        "metadata_sha256": "68aa0626706892fabc5a4cbd2b44beaa8c521280825c7d0abb3d1854ec705509",
+        "model_results": {
+          "bootstrap": null,
+          "integrated": null,
+          "mobility": null,
+          "spatial": null
+        },
+        "module_version": "gps-input-1.0.0",
+        "outputs": {
+          "quality_report.json": "e40a60be2ea6b4b3c0264e8c2fc6aa3a9c118a59e35a0ad63fc180fd76e1c9cc",
+          "validated_positions.csv": "0da6c1d780c9331812de8b814374a949e89cc609196c0fcc7d9b6c49cf8ebdd6"
+        },
+        "period": {
+          "end": "2024-05-03T02:11:00+00:00",
+          "start": "2024-05-01T01:00:00+00:00"
+        },
+        "run_id": "072c1dba318dc2c960c4dee5a422cb2ee6dc20e6d04a93092fb13463fda45d88",
+        "scope": "GPS input validation only",
+        "source_kind": "SYNTHETIC"
+      }
+    },
+    "quality": {
+      "district": {
+        "analysis_crs": "EPSG:5179",
+        "analysis_scores_generated": false,
+        "axis_order": "longitude_latitude",
+        "bootstrap_performed": false,
+        "coordinate_count": 1374,
+        "duplicate_region_codes": 0,
+        "errors": [],
+        "feature_count": 25,
+        "geometry_derivation": "Ring winding normalized for RFC 7946 output; no topology repair or coordinate correction.",
+        "geometry_only": true,
+        "input_crs": "EPSG:4326",
+        "max_roundtrip_error_deg": 1.4210854715202004e-14,
+        "missing_rates": {
+          "base_year": 0,
+          "code": 0,
+          "name": 0,
+          "name_eng": 0
+        },
+        "roundtrip_tolerance_deg": 1e-8,
+        "selected_region": {
+          "area_m2": 24573237.172051,
+          "code": "11140",
+          "name": "마포구",
+          "perimeter_m": 26507.907953
+        },
+        "selection": {
+          "codes": [
+            "11140"
+          ],
+          "feature_count": 1,
+          "mode": "exact",
+          "value": "11140"
+        },
+        "source_crs_declaration": null,
+        "source_sha256": "2bb208614451c9f2a096cd62204063d6b27e57dcb7650a35ac19c06f1a84eb03",
+        "status": "passed",
+        "topology_valid_count": 25,
+        "warnings": [
+          {
+            "basis": "The local GeoJSON has no CRS member. Longitude/latitude EPSG:4326 is an explicit processing input contract, consistent with its coordinate ranges and upstream GeoJSON, not a recovered official source CRS declaration.",
+            "code": "CRS_NOT_DECLARED_IN_SOURCE",
+            "message": "The source file has no CRS declaration. EPSG:4326 is an explicit processing contract, not independently verified official source metadata."
+          },
+          {
+            "code": "LICENSE_UNVERIFIED",
+            "message": "Source license/use conditions remain unverified; processing does not grant redistribution rights."
+          }
+        ]
+      },
+      "dongs": {
+        "analysis_crs": "EPSG:5179",
+        "analysis_scores_generated": false,
+        "axis_order": "longitude_latitude",
+        "bootstrap_performed": false,
+        "coordinate_count": 3654,
+        "duplicate_region_codes": 0,
+        "errors": [],
+        "feature_count": 423,
+        "geometry_derivation": "Ring winding normalized for RFC 7946 output; no topology repair or coordinate correction.",
+        "geometry_only": true,
+        "input_crs": "EPSG:4326",
+        "max_roundtrip_error_deg": 2.1316282072803006e-14,
+        "missing_rates": {
+          "base_year": 0,
+          "code": 0,
+          "name": 0,
+          "name_eng": 0
+        },
+        "roundtrip_tolerance_deg": 1e-8,
+        "selected_region": {
+          "code_prefix": "11140",
+          "feature_count": 16,
+          "perimeter_note": "Sum of individual feature perimeters includes shared internal borders; it is not a dissolved district perimeter.",
+          "sum_area_m2": 24428188.437439,
+          "sum_feature_perimeter_m": 83628.004776
+        },
+        "selection": {
+          "codes": [
+            "1114059",
+            "1114060",
+            "1114061",
+            "1114063",
+            "1114066",
+            "1114068",
+            "1114069",
+            "1114070",
+            "1114071",
+            "1114072",
+            "1114073",
+            "1114074",
+            "1114075",
+            "1114076",
+            "1114077",
+            "1114078"
+          ],
+          "feature_count": 16,
+          "mode": "prefix",
+          "value": "11140"
+        },
+        "source_crs_declaration": null,
+        "source_sha256": "432bda8622549a53ea51e4a0638baefee9f5214d21065c20457506c9b559291e",
+        "status": "passed",
+        "topology_valid_count": 423,
+        "warnings": [
+          {
+            "basis": "The local GeoJSON has no CRS member. Longitude/latitude EPSG:4326 is an explicit processing input contract, consistent with its coordinate ranges and upstream GeoJSON, not a recovered official source CRS declaration.",
+            "code": "CRS_NOT_DECLARED_IN_SOURCE",
+            "message": "The source file has no CRS declaration. EPSG:4326 is an explicit processing contract, not independently verified official source metadata."
+          },
+          {
+            "code": "LICENSE_UNVERIFIED",
+            "message": "Source license/use conditions remain unverified; processing does not grant redistribution rights."
+          },
+          {
+            "code": "DUPLICATE_NAME",
+            "message": "Administrative names repeat; region codes remain unique.",
+            "name": "신사동"
+          }
+        ]
+      },
+      "gps": {
+        "dataset_kind": "vehicle_positions",
+        "errors": [],
+        "input_rows": 72,
+        "input_was_sorted": false,
+        "max_inferred_speed_kmh": 1.476196,
+        "max_speed_kmh": 120,
+        "missing_rate": {
+          "latitude": 0,
+          "longitude": 0,
+          "timestamp": 0,
+          "vehicle_id": 0
+        },
+        "missing_required": {
+          "latitude": 0,
+          "longitude": 0,
+          "timestamp": 0,
+          "vehicle_id": 0
+        },
+        "observations": 72,
+        "period": {
+          "end": "2024-05-03T02:11:00+00:00",
+          "start": "2024-05-01T01:00:00+00:00"
+        },
+        "source_kind": "SYNTHETIC",
+        "status": "passed",
+        "transformation": "sort by vehicle and UTC timestamp; normalize timestamps to UTC; trim vehicle ID whitespace; retain coordinate strings; no row deletion or value imputation",
+        "vehicles": 2,
+        "warnings": [
+          "source.kind is a provenance assertion; validation does not certify field observation",
+          "No road map matching, stop detection, M/S/V scoring or Bootstrap was performed",
+          "SYNTHETIC conceptual trajectories: not observed delivery GPS and not constrained to actual roads"
+        ]
+      }
+    }
+  },
+  "geometry": {
+    "crs": "EPSG:4326",
+    "district": {
+      "bbox": [
+        126.85950389772532,
+        37.526617542453366,
+        126.96604189284825,
+        37.588143322880526
+      ],
+      "features": [
+        {
+          "geometry": {
+            "coordinates": [
+              [
+                [
+                  126.90522065831053,
+                  37.57409700522574
+                ],
+                [
+                  126.90373193212757,
+                  37.573123712282076
+                ],
+                [
+                  126.90023584510952,
+                  37.575506080437606
+                ],
+                [
+                  126.89738573904876,
+                  37.578668647687564
+                ],
+                [
+                  126.89532313269488,
+                  37.579420322822145
+                ],
+                [
+                  126.89150044994719,
+                  37.58202374305761
+                ],
+                [
+                  126.88433284773288,
+                  37.588143322880526
+                ],
+                [
+                  126.88237824849728,
+                  37.586847436468204
+                ],
+                [
+                  126.88107183862735,
+                  37.583788024645344
+                ],
+                [
+                  126.87876320682938,
+                  37.581327335058546
+                ],
+                [
+                  126.87918874599603,
+                  37.5796889248137
+                ],
+                [
+                  126.8779661566318,
+                  37.57680133323819
+                ],
+                [
+                  126.87282267062741,
+                  37.574956427500126
+                ],
+                [
+                  126.87008117117851,
+                  37.574598289168996
+                ],
+                [
+                  126.86766286078968,
+                  37.57269227137124
+                ],
+                [
+                  126.86560520354786,
+                  37.57385540098251
+                ],
+                [
+                  126.8638132887273,
+                  37.57306147014704
+                ],
+                [
+                  126.85993476176495,
+                  37.5728262143511
+                ],
+                [
+                  126.85984199399667,
+                  37.571847855292745
+                ],
+                [
+                  126.85950389772532,
+                  37.5682771531189
+                ],
+                [
+                  126.8604929702619,
+                  37.566825621733905
+                ],
+                [
+                  126.86837407967381,
+                  37.56309561411933
+                ],
+                [
+                  126.87997924964915,
+                  37.55510740490174
+                ],
+                [
+                  126.89184663862764,
+                  37.547373974997114
+                ],
+                [
+                  126.90281125423546,
+                  37.54133630026083
+                ],
+                [
+                  126.90829204147958,
+                  37.539206065016785
+                ],
+                [
+                  126.93132557924062,
+                  37.53415416375281
+                ],
+                [
+                  126.93680342222562,
+                  37.53344577095931
+                ],
+                [
+                  126.94566733083212,
+                  37.526617542453366
+                ],
+                [
+                  126.94717864071288,
+                  37.53213495568077
+                ],
+                [
+                  126.95340780191557,
+                  37.533494726370755
+                ],
+                [
+                  126.95926437828754,
+                  37.53897908363236
+                ],
+                [
+                  126.9605977865388,
+                  37.542661954880806
+                ],
+                [
+                  126.96231305253527,
+                  37.543511558047456
+                ],
+                [
+                  126.96401856825223,
+                  37.54584596959762
+                ],
+                [
+                  126.96604189284825,
+                  37.546894141748815
+                ],
+                [
+                  126.96448570553055,
+                  37.548705692021635
+                ],
+                [
+                  126.96380145704283,
+                  37.55254525759954
+                ],
+                [
+                  126.96519694864509,
+                  37.55362533505407
+                ],
+                [
+                  126.96358226710812,
+                  37.55605635475154
+                ],
+                [
+                  126.96080686210321,
+                  37.55386236039188
+                ],
+                [
+                  126.95916768398142,
+                  37.55468176051932
+                ],
+                [
+                  126.94314477022111,
+                  37.5536460848349
+                ],
+                [
+                  126.93898161798973,
+                  37.552310003728124
+                ],
+                [
+                  126.92872097190046,
+                  37.556034533941734
+                ],
+                [
+                  126.92881397392811,
+                  37.558202848902
+                ],
+                [
+                  126.93034243306369,
+                  37.56054720372433
+                ],
+                [
+                  126.92778174854314,
+                  37.562495624023775
+                ],
+                [
+                  126.92189004506,
+                  37.56391798973296
+                ],
+                [
+                  126.90687243065778,
+                  37.57059762097416
+                ],
+                [
+                  126.90370105002282,
+                  37.57266722738834
+                ],
+                [
+                  126.90522065831053,
+                  37.57409700522574
+                ]
+              ]
+            ],
+            "type": "Polygon"
+          },
+          "properties": {
+            "base_year": "2013",
+            "code": "11140",
+            "name": "마포구",
+            "name_eng": "Mapo-gu"
+          },
+          "type": "Feature"
+        }
+      ],
+      "provenance": {
+        "dataset_kind": "administrative_boundary",
+        "geometry_only": true,
+        "output_kind": "DERIVED",
+        "run_id": "4630c10de816506df7d273e6",
+        "source_kind": "PUBLIC_AGGREGATE",
+        "source_reference_year": 2013,
+        "source_sha256": "2bb208614451c9f2a096cd62204063d6b27e57dcb7650a35ac19c06f1a84eb03"
+      },
+      "type": "FeatureCollection"
+    },
+    "units": {
+      "bbox": [
+        126.85984199399667,
+        37.526617542453366,
+        126.9652717698598,
+        37.588143322880526
+      ],
+      "features": [
+        {
+          "geometry": {
+            "coordinates": [
+              [
+                [
+                  126.94282813879478,
+                  37.543815259464886
+                ],
+                [
+                  126.93610231961364,
+                  37.533536049459336
+                ],
+                [
+                  126.93918377413196,
+                  37.531505495586806
+                ],
+                [
+                  126.9527948485397,
+                  37.54059877152098
+                ],
+                [
+                  126.95274019493613,
+                  37.54062324687825
+                ],
+                [
+                  126.95177926379607,
+                  37.54101988041011
+                ],
+                [
+                  126.94662536351,
+                  37.54234918830361
+                ],
+                [
+                  126.94282813879478,
+                  37.543815259464886
+                ]
+              ]
+            ],
+            "type": "Polygon"
+          },
+          "properties": {
+            "base_year": "2013",
+            "code": "1114059",
+            "name": "용강동",
+            "name_eng": "Yonggang-dong"
+          },
+          "type": "Feature"
+        },
+        {
+          "geometry": {
+            "coordinates": [
+              [
+                [
+                  126.94890961943955,
+                  37.55405181915151
+                ],
+                [
+                  126.93896393713574,
+                  37.552305488685015
+                ],
+                [
+                  126.93580310019456,
+                  37.55058433409703
+                ],
+                [
+                  126.93581430873347,
+                  37.550311759319506
+                ],
+                [
+                  126.94282813879478,
+                  37.543815259464886
+                ],
+                [
+                  126.94662536351,
+                  37.54234918830361
+                ],
+                [
+                  126.94890961943955,
+                  37.55405181915151
+                ]
+              ]
+            ],
+            "type": "Polygon"
+          },
+          "properties": {
+            "base_year": "2013",
+            "code": "1114060",
+            "name": "대흥동",
+            "name_eng": "Daeheung-dong"
+          },
+          "type": "Feature"
+        },
+        {
+          "geometry": {
+            "coordinates": [
+              [
+                [
+                  126.95095658775557,
+                  37.55417382175528
+                ],
+                [
+                  126.9509325367384,
+                  37.55417268480662
+                ],
+                [
+                  126.94890961943955,
+                  37.55405181915151
+                ],
+                [
+                  126.94662536351,
+                  37.54234918830361
+                ],
+                [
+                  126.95177926379607,
+                  37.54101988041011
+                ],
+                [
+                  126.95274582000921,
+                  37.55017655149721
+                ],
+                [
+                  126.95095658775557,
+                  37.55417382175528
+                ]
+              ]
+            ],
+            "type": "Polygon"
+          },
+          "properties": {
+            "base_year": "2013",
+            "code": "1114061",
+            "name": "염리동",
+            "name_eng": "Yeomni-dong"
+          },
+          "type": "Feature"
+        },
+        {
+          "geometry": {
+            "coordinates": [
+              [
+                [
+                  126.94282813879478,
+                  37.543815259464886
+                ],
+                [
+                  126.93581430873347,
+                  37.550311759319506
+                ],
+                [
+                  126.93399987234109,
+                  37.54266210521482
+                ],
+                [
+                  126.92756072062444,
+                  37.53502278894361
+                ],
+                [
+                  126.93610231961364,
+                  37.533536049459336
+                ],
+                [
+                  126.94282813879478,
+                  37.543815259464886
+                ]
+              ]
+            ],
+            "type": "Polygon"
+          },
+          "properties": {
+            "base_year": "2013",
+            "code": "1114063",
+            "name": "신수동",
+            "name_eng": "Sinsu-dong"
+          },
+          "type": "Feature"
+        },
+        {
+          "geometry": {
+            "coordinates": [
+              [
+                [
+                  126.9196968926503,
+                  37.55604119213395
+                ],
+                [
+                  126.910891567876,
+                  37.55462163192281
+                ],
+                [
+                  126.91375243141232,
+                  37.55142212606801
+                ],
+                [
+                  126.91510197285156,
+                  37.54701762849355
+                ],
+                [
+                  126.92239058787995,
+                  37.545515177227784
+                ],
+                [
+                  126.92761372790474,
+                  37.55053349777882
+                ],
+                [
+                  126.93580310019456,
+                  37.55058433409703
+                ],
+                [
+                  126.93896393713574,
+                  37.552305488685015
+                ],
+                [
+                  126.92872097190046,
+                  37.556034533941734
+                ],
+                [
+                  126.92923858493053,
+                  37.558954401174645
+                ],
+                [
+                  126.9196968926503,
+                  37.55604119213395
+                ]
+              ]
+            ],
+            "type": "Polygon"
+          },
+          "properties": {
+            "base_year": "2013",
+            "code": "1114066",
+            "name": "서교동",
+            "name_eng": "Seogyo-dong"
+          },
+          "type": "Feature"
+        },
+        {
+          "geometry": {
+            "coordinates": [
+              [
+                [
+                  126.92239058787995,
+                  37.545515177227784
+                ],
+                [
+                  126.91510197285156,
+                  37.54701762849355
+                ],
+                [
+                  126.91375243141232,
+                  37.55142212606801
+                ],
+                [
+                  126.90477679372508,
+                  37.548625558278545
+                ],
+                [
+                  126.89884901883059,
+                  37.54351915927068
+                ],
+                [
+                  126.90613928523919,
+                  37.54004262194344
+                ],
+                [
+                  126.90980671398273,
+                  37.53886879435198
+                ],
+                [
+                  126.91660453024498,
+                  37.537356735757825
+                ],
+                [
+                  126.92239058787995,
+                  37.545515177227784
+                ]
+              ]
+            ],
+            "type": "Polygon"
+          },
+          "properties": {
+            "base_year": "2013",
+            "code": "1114068",
+            "name": "합정동",
+            "name_eng": "Hapjeong-dong"
+          },
+          "type": "Feature"
+        },
+        {
+          "geometry": {
+            "coordinates": [
+              [
+                [
+                  126.91028294748949,
+                  37.55525051389034
+                ],
+                [
+                  126.89899211864251,
+                  37.552912917072085
+                ],
+                [
+                  126.89184663862764,
+                  37.547373974997114
+                ],
+                [
+                  126.89884901883059,
+                  37.54351915927068
+                ],
+                [
+                  126.90477679372508,
+                  37.548625558278545
+                ],
+                [
+                  126.91375243141232,
+                  37.55142212606801
+                ],
+                [
+                  126.910891567876,
+                  37.55462163192281
+                ],
+                [
+                  126.91028294748949,
+                  37.55525051389034
+                ]
+              ]
+            ],
+            "type": "Polygon"
+          },
+          "properties": {
+            "base_year": "2013",
+            "code": "1114069",
+            "name": "망원1동",
+            "name_eng": "Mangwon 1(il)-dong"
+          },
+          "type": "Feature"
+        },
+        {
+          "geometry": {
+            "coordinates": [
+              [
+                [
+                  126.89641426300079,
+                  37.557093666794856
+                ],
+                [
+                  126.88525790116067,
+                  37.5516677871273
+                ],
+                [
+                  126.89184663862764,
+                  37.547373974997114
+                ],
+                [
+                  126.89899211864251,
+                  37.552912917072085
+                ],
+                [
+                  126.91028294748949,
+                  37.55525051389034
+                ],
+                [
+                  126.9056776475048,
+                  37.560576216232505
+                ],
+                [
+                  126.89641426300079,
+                  37.557093666794856
+                ]
+              ]
+            ],
+            "type": "Polygon"
+          },
+          "properties": {
+            "base_year": "2013",
+            "code": "1114070",
+            "name": "망원2동",
+            "name_eng": "Mangwon 2(i)-dong"
+          },
+          "type": "Feature"
+        },
+        {
+          "geometry": {
+            "coordinates": [
+              [
+                [
+                  126.91875769824924,
+                  37.56414276186601
+                ],
+                [
+                  126.9196968926503,
+                  37.55604119213395
+                ],
+                [
+                  126.92923858493053,
+                  37.558954401174645
+                ],
+                [
+                  126.92929457368359,
+                  37.55903243698079
+                ],
+                [
+                  126.92778174854314,
+                  37.562495624023775
+                ],
+                [
+                  126.9198367834445,
+                  37.56464729290465
+                ],
+                [
+                  126.91875769824924,
+                  37.56414276186601
+                ]
+              ]
+            ],
+            "type": "Polygon"
+          },
+          "properties": {
+            "base_year": "2013",
+            "code": "1114071",
+            "name": "연남동",
+            "name_eng": "Yeonnam-dong"
+          },
+          "type": "Feature"
+        },
+        {
+          "geometry": {
+            "coordinates": [
+              [
+                [
+                  126.9056776475048,
+                  37.560576216232505
+                ],
+                [
+                  126.91028294748949,
+                  37.55525051389034
+                ],
+                [
+                  126.910891567876,
+                  37.55462163192281
+                ],
+                [
+                  126.9196968926503,
+                  37.55604119213395
+                ],
+                [
+                  126.91875769824924,
+                  37.56414276186601
+                ],
+                [
+                  126.9056776475048,
+                  37.560576216232505
+                ]
+              ]
+            ],
+            "type": "Polygon"
+          },
+          "properties": {
+            "base_year": "2013",
+            "code": "1114072",
+            "name": "성산1동",
+            "name_eng": "Seongsan 1(il)-dong"
+          },
+          "type": "Feature"
+        },
+        {
+          "geometry": {
+            "coordinates": [
+              [
+                [
+                  126.91189786775719,
+                  37.56828466933316
+                ],
+                [
+                  126.90370105002282,
+                  37.57266722738834
+                ],
+                [
+                  126.90119444468941,
+                  37.57045601318688
+                ],
+                [
+                  126.89423687994895,
+                  37.57005784010207
+                ],
+                [
+                  126.89395971183399,
+                  37.565309112473116
+                ],
+                [
+                  126.89719378018647,
+                  37.56240490268481
+                ],
+                [
+                  126.89641426300079,
+                  37.557093666794856
+                ],
+                [
+                  126.9056776475048,
+                  37.560576216232505
+                ],
+                [
+                  126.91875769824924,
+                  37.56414276186601
+                ],
+                [
+                  126.9198367834445,
+                  37.56464729290465
+                ],
+                [
+                  126.9189492508714,
+                  37.56509129800692
+                ],
+                [
+                  126.91189786775719,
+                  37.56828466933316
+                ]
+              ]
+            ],
+            "type": "Polygon"
+          },
+          "properties": {
+            "base_year": "2013",
+            "code": "1114073",
+            "name": "성산2동",
+            "name_eng": "Seongsan 2(i)-dong"
+          },
+          "type": "Feature"
+        },
+        {
+          "geometry": {
+            "coordinates": [
+              [
+                [
+                  126.9002933918596,
+                  37.57546698933881
+                ],
+                [
+                  126.88433284773288,
+                  37.588143322880526
+                ],
+                [
+                  126.87876320682938,
+                  37.581327335058546
+                ],
+                [
+                  126.8779661566318,
+                  37.57680133323819
+                ],
+                [
+                  126.85984199399667,
+                  37.571847855292745
+                ],
+                [
+                  126.86242039016902,
+                  37.56591332261665
+                ],
+                [
+                  126.87134888695947,
+                  37.56109009293546
+                ],
+                [
+                  126.88525790116067,
+                  37.5516677871273
+                ],
+                [
+                  126.89641426300079,
+                  37.557093666794856
+                ],
+                [
+                  126.89719378018647,
+                  37.56240490268481
+                ],
+                [
+                  126.89395971183399,
+                  37.565309112473116
+                ],
+                [
+                  126.89423687994895,
+                  37.57005784010207
+                ],
+                [
+                  126.90119444468941,
+                  37.57045601318688
+                ],
+                [
+                  126.90370105002282,
+                  37.57266722738834
+                ],
+                [
+                  126.90522065831053,
+                  37.57409700522574
+                ],
+                [
+                  126.9002933918596,
+                  37.57546698933881
+                ]
+              ]
+            ],
+            "type": "Polygon"
+          },
+          "properties": {
+            "base_year": "2013",
+            "code": "1114074",
+            "name": "상암동",
+            "name_eng": "Sangam-dong"
+          },
+          "type": "Feature"
+        },
+        {
+          "geometry": {
+            "coordinates": [
+              [
+                [
+                  126.9527948485397,
+                  37.54059877152098
+                ],
+                [
+                  126.93918377413196,
+                  37.531505495586806
+                ],
+                [
+                  126.94566733083212,
+                  37.526617542453366
+                ],
+                [
+                  126.94717864071288,
+                  37.53213495568077
+                ],
+                [
+                  126.95510588488571,
+                  37.53504756564974
+                ],
+                [
+                  126.95849894380981,
+                  37.53778540853926
+                ],
+                [
+                  126.9527948485397,
+                  37.54059877152098
+                ]
+              ]
+            ],
+            "type": "Polygon"
+          },
+          "properties": {
+            "base_year": "2013",
+            "code": "1114075",
+            "name": "도화동",
+            "name_eng": "Dohwa-dong"
+          },
+          "type": "Feature"
+        },
+        {
+          "geometry": {
+            "coordinates": [
+              [
+                [
+                  126.93581430873347,
+                  37.550311759319506
+                ],
+                [
+                  126.93580310019456,
+                  37.55058433409703
+                ],
+                [
+                  126.92761372790474,
+                  37.55053349777882
+                ],
+                [
+                  126.92239058787995,
+                  37.545515177227784
+                ],
+                [
+                  126.91660453024498,
+                  37.537356735757825
+                ],
+                [
+                  126.92756072062444,
+                  37.53502278894361
+                ],
+                [
+                  126.93399987234109,
+                  37.54266210521482
+                ],
+                [
+                  126.93581430873347,
+                  37.550311759319506
+                ]
+              ]
+            ],
+            "type": "Polygon"
+          },
+          "properties": {
+            "base_year": "2013",
+            "code": "1114076",
+            "name": "서강동",
+            "name_eng": "Seogangdong"
+          },
+          "type": "Feature"
+        },
+        {
+          "geometry": {
+            "coordinates": [
+              [
+                [
+                  126.96358226710812,
+                  37.55605635475154
+                ],
+                [
+                  126.96080686210321,
+                  37.55386236039188
+                ],
+                [
+                  126.95274019493613,
+                  37.54062324687825
+                ],
+                [
+                  126.9527948485397,
+                  37.54059877152098
+                ],
+                [
+                  126.95849894380981,
+                  37.53778540853926
+                ],
+                [
+                  126.95860566778204,
+                  37.53790540710785
+                ],
+                [
+                  126.9605977865388,
+                  37.542661954880806
+                ],
+                [
+                  126.9652717698598,
+                  37.545857357585284
+                ],
+                [
+                  126.96448570553055,
+                  37.548705692021635
+                ],
+                [
+                  126.96358226710812,
+                  37.55605635475154
+                ]
+              ]
+            ],
+            "type": "Polygon"
+          },
+          "properties": {
+            "base_year": "2013",
+            "code": "1114077",
+            "name": "공덕동",
+            "name_eng": "Gongdeok-dong"
+          },
+          "type": "Feature"
+        },
+        {
+          "geometry": {
+            "coordinates": [
+              [
+                [
+                  126.96080686210321,
+                  37.55386236039188
+                ],
+                [
+                  126.95095658775557,
+                  37.55417382175528
+                ],
+                [
+                  126.95274582000921,
+                  37.55017655149721
+                ],
+                [
+                  126.95177926379607,
+                  37.54101988041011
+                ],
+                [
+                  126.95274019493613,
+                  37.54062324687825
+                ],
+                [
+                  126.96080686210321,
+                  37.55386236039188
+                ]
+              ]
+            ],
+            "type": "Polygon"
+          },
+          "properties": {
+            "base_year": "2013",
+            "code": "1114078",
+            "name": "아현동",
+            "name_eng": "Ahyeon-dong"
+          },
+          "type": "Feature"
+        }
+      ],
+      "provenance": {
+        "dataset_kind": "administrative_boundary",
+        "geometry_only": true,
+        "output_kind": "DERIVED",
+        "run_id": "3ac24940d0f85fac6dc17f18",
+        "source_kind": "PUBLIC_AGGREGATE",
+        "source_reference_year": 2013,
+        "source_sha256": "432bda8622549a53ea51e4a0638baefee9f5214d21065c20457506c9b559291e"
+      },
+      "type": "FeatureCollection"
+    },
+    "roads": {
+      "type": "FeatureCollection",
+      "features": []
+    },
+    "routes": {
+      "type": "FeatureCollection",
+      "features": []
+    },
+    "population": {
+      "type": "FeatureCollection",
+      "features": []
+    },
+    "poi": {
+      "type": "FeatureCollection",
+      "features": []
+    }
+  },
+  "candidates": [
+    {
+      "id": "TA-001",
+      "name": "홍대입구역 일대",
+      "short": "홍대입구역",
+      "longitude": 126.9245,
+      "latitude": 37.5572,
+      "unitCode": "1114066",
+      "coordinateMethod": "manual_scenario_anchor",
+      "mobility": 0.94,
+      "spatial": 0.78,
+      "sourceId": "candidate-scenario",
+      "metrics": {
+        "traffic": 24891,
+        "population": 312406,
+        "poi": 1247,
+        "activity": 0.918
+      },
+      "reason": "제공된 이동·공간 지표의 가중 기여도로 후보지역을 비교합니다."
+    },
+    {
+      "id": "TA-002",
+      "name": "공덕역 일대",
+      "short": "공덕역",
+      "longitude": 126.9515,
+      "latitude": 37.5445,
+      "unitCode": "1114061",
+      "coordinateMethod": "manual_scenario_anchor",
+      "mobility": 0.78,
+      "spatial": 0.96,
+      "sourceId": "candidate-scenario",
+      "metrics": {
+        "traffic": 21372,
+        "population": 286510,
+        "poi": 1106,
+        "activity": 0.887
+      },
+      "reason": "제공된 이동·공간 지표의 가중 기여도로 후보지역을 비교합니다."
+    },
+    {
+      "id": "TA-003",
+      "name": "망원역 일대",
+      "short": "망원역",
+      "longitude": 126.9105,
+      "latitude": 37.556,
+      "unitCode": "1114072",
+      "coordinateMethod": "manual_scenario_anchor",
+      "mobility": 0.89,
+      "spatial": 0.69,
+      "sourceId": "candidate-scenario",
+      "metrics": {
+        "traffic": 18204,
+        "population": 219742,
+        "poi": 864,
+        "activity": 0.851
+      },
+      "reason": "제공된 이동·공간 지표의 가중 기여도로 후보지역을 비교합니다."
+    },
+    {
+      "id": "TA-004",
+      "name": "상수역 일대",
+      "short": "상수역",
+      "longitude": 126.9229,
+      "latitude": 37.5477,
+      "unitCode": "1114066",
+      "coordinateMethod": "manual_scenario_anchor",
+      "mobility": 0.81,
+      "spatial": 0.69,
+      "sourceId": "candidate-scenario",
+      "metrics": {
+        "traffic": 16805,
+        "population": 198364,
+        "poi": 738,
+        "activity": 0.813
+      },
+      "reason": "제공된 이동·공간 지표의 가중 기여도로 후보지역을 비교합니다."
+    },
+    {
+      "id": "TA-005",
+      "name": "합정역 일대",
+      "short": "합정역",
+      "longitude": 126.9139,
+      "latitude": 37.5496,
+      "unitCode": "1114068",
+      "coordinateMethod": "manual_scenario_anchor",
+      "mobility": 0.8,
+      "spatial": 0.62,
+      "sourceId": "candidate-scenario",
+      "metrics": {
+        "traffic": 15992,
+        "population": 184093,
+        "poi": 694,
+        "activity": 0.796
+      },
+      "reason": "제공된 이동·공간 지표의 가중 기여도로 후보지역을 비교합니다."
+    },
+    {
+      "id": "TA-006",
+      "name": "대흥역 일대",
+      "short": "대흥역",
+      "longitude": 126.9425,
+      "latitude": 37.5478,
+      "unitCode": "1114060",
+      "coordinateMethod": "manual_scenario_anchor",
+      "mobility": 0.62,
+      "spatial": 0.85,
+      "sourceId": "candidate-scenario",
+      "metrics": {
+        "traffic": 13682,
+        "population": 172538,
+        "poi": 603,
+        "activity": 0.752
+      },
+      "reason": "제공된 이동·공간 지표의 가중 기여도로 후보지역을 비교합니다."
+    },
+    {
+      "id": "TA-007",
+      "name": "마포역 일대",
+      "short": "마포역",
+      "longitude": 126.9459,
+      "latitude": 37.5396,
+      "unitCode": "1114059",
+      "coordinateMethod": "manual_scenario_anchor",
+      "mobility": 0.66,
+      "spatial": 0.76,
+      "sourceId": "candidate-scenario",
+      "metrics": {
+        "traffic": 12184,
+        "population": 165427,
+        "poi": 552,
+        "activity": 0.734
+      },
+      "reason": "제공된 이동·공간 지표의 가중 기여도로 후보지역을 비교합니다."
+    },
+    {
+      "id": "TA-008",
+      "name": "연남동 일대",
+      "short": "연남동",
+      "longitude": 126.9257,
+      "latitude": 37.5627,
+      "unitCode": "1114071",
+      "coordinateMethod": "manual_scenario_anchor",
+      "mobility": 0.58,
+      "spatial": 0.88,
+      "sourceId": "candidate-scenario",
+      "metrics": {
+        "traffic": 11597,
+        "population": 159806,
+        "poi": 528,
+        "activity": 0.715
+      },
+      "reason": "제공된 이동·공간 지표의 가중 기여도로 후보지역을 비교합니다."
+    }
+  ],
+  "gps": {
+    "sourceId": "gps-scenario",
+    "positions": [
+      {
+        "id": "GPS-0001",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-01T01:00:00Z",
+        "longitude": 126.9245041828,
+        "latitude": 37.5571857503,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0002",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-01T01:01:00Z",
+        "longitude": 126.9247132509,
+        "latitude": 37.5572816963,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0003",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-01T01:02:00Z",
+        "longitude": 126.9249470941,
+        "latitude": 37.557385301,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0004",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-01T01:03:00Z",
+        "longitude": 126.9251717654,
+        "latitude": 37.5574576082,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0005",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-01T01:04:00Z",
+        "longitude": 126.9253776577,
+        "latitude": 37.5575458939,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0006",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-01T01:05:00Z",
+        "longitude": 126.9255915591,
+        "latitude": 37.5576501607,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0007",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-01T01:06:00Z",
+        "longitude": 126.9258057961,
+        "latitude": 37.5577309651,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0008",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-01T01:07:00Z",
+        "longitude": 126.9260444965,
+        "latitude": 37.5578313482,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0009",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-01T01:08:00Z",
+        "longitude": 126.9260316132,
+        "latitude": 37.557832678,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0010",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-01T01:09:00Z",
+        "longitude": 126.9260492829,
+        "latitude": 37.557815195,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0011",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-01T01:10:00Z",
+        "longitude": 126.9260491746,
+        "latitude": 37.5578359442,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0012",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-01T01:11:00Z",
+        "longitude": 126.9260352075,
+        "latitude": 37.5578196644,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0013",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-02T01:00:00Z",
+        "longitude": 126.9245040705,
+        "latitude": 37.557195945,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0014",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-02T01:01:00Z",
+        "longitude": 126.9247161054,
+        "latitude": 37.5572812852,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0015",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-02T01:02:00Z",
+        "longitude": 126.9249330093,
+        "latitude": 37.5573930996,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0016",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-02T01:03:00Z",
+        "longitude": 126.9251644411,
+        "latitude": 37.5574732739,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0017",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-02T01:04:00Z",
+        "longitude": 126.9253701342,
+        "latitude": 37.5575668738,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0018",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-02T01:05:00Z",
+        "longitude": 126.9255899021,
+        "latitude": 37.5576463837,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0019",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-02T01:06:00Z",
+        "longitude": 126.9258346857,
+        "latitude": 37.5577442,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0020",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-02T01:07:00Z",
+        "longitude": 126.9260417085,
+        "latitude": 37.5578355384,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0021",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-02T01:08:00Z",
+        "longitude": 126.9260502856,
+        "latitude": 37.55783828,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0022",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-02T01:09:00Z",
+        "longitude": 126.9260318714,
+        "latitude": 37.557815963,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0023",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-02T01:10:00Z",
+        "longitude": 126.9260344636,
+        "latitude": 37.5578230322,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0024",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-02T01:11:00Z",
+        "longitude": 126.9260313295,
+        "latitude": 37.5578432873,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0025",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-03T01:00:00Z",
+        "longitude": 126.9245148836,
+        "latitude": 37.5572008734,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0026",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-03T01:01:00Z",
+        "longitude": 126.9247341324,
+        "latitude": 37.5573008234,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0027",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-03T01:02:00Z",
+        "longitude": 126.9249253444,
+        "latitude": 37.5573866217,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0028",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-03T01:03:00Z",
+        "longitude": 126.9251654513,
+        "latitude": 37.5574711091,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0029",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-03T01:04:00Z",
+        "longitude": 126.9253730048,
+        "latitude": 37.5575642289,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0030",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-03T01:05:00Z",
+        "longitude": 126.9255883466,
+        "latitude": 37.557648043,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0031",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-03T01:06:00Z",
+        "longitude": 126.9258186117,
+        "latitude": 37.5577536145,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0032",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-03T01:07:00Z",
+        "longitude": 126.9260512756,
+        "latitude": 37.5578229017,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0033",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-03T01:08:00Z",
+        "longitude": 126.9260400176,
+        "latitude": 37.5578203596,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0034",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-03T01:09:00Z",
+        "longitude": 126.9260523788,
+        "latitude": 37.5578411156,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0035",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-03T01:10:00Z",
+        "longitude": 126.9260339533,
+        "latitude": 37.5578341685,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0036",
+        "vehicleId": "SYNTH-VEH-01",
+        "timestamp": "2024-05-03T01:11:00Z",
+        "longitude": 126.9260432691,
+        "latitude": 37.5578195852,
+        "unitCode": "1114066"
+      },
+      {
+        "id": "GPS-0037",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-01T02:00:00Z",
+        "longitude": 126.9515137164,
+        "latitude": 37.5444950978,
+        "unitCode": "1114061"
+      },
+      {
+        "id": "GPS-0038",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-01T02:01:00Z",
+        "longitude": 126.9517077824,
+        "latitude": 37.5445779015,
+        "unitCode": "1114061"
+      },
+      {
+        "id": "GPS-0039",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-01T02:02:00Z",
+        "longitude": 126.9519504248,
+        "latitude": 37.5446831118,
+        "unitCode": "1114061"
+      },
+      {
+        "id": "GPS-0040",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-01T02:03:00Z",
+        "longitude": 126.9521692138,
+        "latitude": 37.544776892,
+        "unitCode": "1114061"
+      },
+      {
+        "id": "GPS-0041",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-01T02:04:00Z",
+        "longitude": 126.9523810868,
+        "latitude": 37.5448741935,
+        "unitCode": "1114078"
+      },
+      {
+        "id": "GPS-0042",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-01T02:05:00Z",
+        "longitude": 126.952596356,
+        "latitude": 37.5449515612,
+        "unitCode": "1114078"
+      },
+      {
+        "id": "GPS-0043",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-01T02:06:00Z",
+        "longitude": 126.9528298821,
+        "latitude": 37.5450435556,
+        "unitCode": "1114078"
+      },
+      {
+        "id": "GPS-0044",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-01T02:07:00Z",
+        "longitude": 126.9530508512,
+        "latitude": 37.5451323206,
+        "unitCode": "1114078"
+      },
+      {
+        "id": "GPS-0045",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-01T02:08:00Z",
+        "longitude": 126.9530461372,
+        "latitude": 37.5451163747,
+        "unitCode": "1114078"
+      },
+      {
+        "id": "GPS-0046",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-01T02:09:00Z",
+        "longitude": 126.9530318369,
+        "latitude": 37.5451236816,
+        "unitCode": "1114078"
+      },
+      {
+        "id": "GPS-0047",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-01T02:10:00Z",
+        "longitude": 126.9530273938,
+        "latitude": 37.5451219837,
+        "unitCode": "1114078"
+      },
+      {
+        "id": "GPS-0048",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-01T02:11:00Z",
+        "longitude": 126.95302803,
+        "latitude": 37.5451233392,
+        "unitCode": "1114078"
+      },
+      {
+        "id": "GPS-0049",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-02T02:00:00Z",
+        "longitude": 126.951511291,
+        "latitude": 37.5444944403,
+        "unitCode": "1114061"
+      },
+      {
+        "id": "GPS-0050",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-02T02:01:00Z",
+        "longitude": 126.9517246632,
+        "latitude": 37.544586869,
+        "unitCode": "1114061"
+      },
+      {
+        "id": "GPS-0051",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-02T02:02:00Z",
+        "longitude": 126.9519524364,
+        "latitude": 37.5446787656,
+        "unitCode": "1114061"
+      },
+      {
+        "id": "GPS-0052",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-02T02:03:00Z",
+        "longitude": 126.9521529464,
+        "latitude": 37.5447623988,
+        "unitCode": "1114061"
+      },
+      {
+        "id": "GPS-0053",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-02T02:04:00Z",
+        "longitude": 126.952381841,
+        "latitude": 37.5448528822,
+        "unitCode": "1114078"
+      },
+      {
+        "id": "GPS-0054",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-02T02:05:00Z",
+        "longitude": 126.9526025376,
+        "latitude": 37.5449619347,
+        "unitCode": "1114078"
+      },
+      {
+        "id": "GPS-0055",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-02T02:06:00Z",
+        "longitude": 126.952816982,
+        "latitude": 37.5450315796,
+        "unitCode": "1114078"
+      },
+      {
+        "id": "GPS-0056",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-02T02:07:00Z",
+        "longitude": 126.9530549261,
+        "latitude": 37.5451302858,
+        "unitCode": "1114078"
+      },
+      {
+        "id": "GPS-0057",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-02T02:08:00Z",
+        "longitude": 126.9530277273,
+        "latitude": 37.5451164135,
+        "unitCode": "1114078"
+      },
+      {
+        "id": "GPS-0058",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-02T02:09:00Z",
+        "longitude": 126.9530282895,
+        "latitude": 37.5451338234,
+        "unitCode": "1114078"
+      },
+      {
+        "id": "GPS-0059",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-02T02:10:00Z",
+        "longitude": 126.9530487624,
+        "latitude": 37.5451276648,
+        "unitCode": "1114078"
+      },
+      {
+        "id": "GPS-0060",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-02T02:11:00Z",
+        "longitude": 126.9530269058,
+        "latitude": 37.5451264486,
+        "unitCode": "1114078"
+      },
+      {
+        "id": "GPS-0061",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-03T02:00:00Z",
+        "longitude": 126.9515078753,
+        "latitude": 37.5445011814,
+        "unitCode": "1114061"
+      },
+      {
+        "id": "GPS-0062",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-03T02:01:00Z",
+        "longitude": 126.9517283588,
+        "latitude": 37.5445909106,
+        "unitCode": "1114061"
+      },
+      {
+        "id": "GPS-0063",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-03T02:02:00Z",
+        "longitude": 126.9519250172,
+        "latitude": 37.5446747247,
+        "unitCode": "1114061"
+      },
+      {
+        "id": "GPS-0064",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-03T02:03:00Z",
+        "longitude": 126.9521455843,
+        "latitude": 37.544782873,
+        "unitCode": "1114061"
+      },
+      {
+        "id": "GPS-0065",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-03T02:04:00Z",
+        "longitude": 126.9523913617,
+        "latitude": 37.54486995,
+        "unitCode": "1114078"
+      },
+      {
+        "id": "GPS-0066",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-03T02:05:00Z",
+        "longitude": 126.9525942254,
+        "latitude": 37.5449367378,
+        "unitCode": "1114078"
+      },
+      {
+        "id": "GPS-0067",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-03T02:06:00Z",
+        "longitude": 126.9528313403,
+        "latitude": 37.5450534085,
+        "unitCode": "1114078"
+      },
+      {
+        "id": "GPS-0068",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-03T02:07:00Z",
+        "longitude": 126.9530275696,
+        "latitude": 37.5451295797,
+        "unitCode": "1114078"
+      },
+      {
+        "id": "GPS-0069",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-03T02:08:00Z",
+        "longitude": 126.9530270764,
+        "latitude": 37.5451378181,
+        "unitCode": "1114078"
+      },
+      {
+        "id": "GPS-0070",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-03T02:09:00Z",
+        "longitude": 126.953047975,
+        "latitude": 37.5451188517,
+        "unitCode": "1114078"
+      },
+      {
+        "id": "GPS-0071",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-03T02:10:00Z",
+        "longitude": 126.9530392585,
+        "latitude": 37.5451314941,
+        "unitCode": "1114078"
+      },
+      {
+        "id": "GPS-0072",
+        "vehicleId": "SYNTH-VEH-02",
+        "timestamp": "2024-05-03T02:11:00Z",
+        "longitude": 126.9530329517,
+        "latitude": 37.545141173,
+        "unitCode": "1114078"
+      }
+    ]
+  },
+  "bootstrap": null
+}

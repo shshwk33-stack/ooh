@@ -1,62 +1,43 @@
-# TRANSIT ATLAS — 연결형 대시보드
+# TRANSIT ATLAS — 통합 워크스페이스
 
-기존 녹색·화이트 UI에 Python 파이프라인의 실제 경계·품질·출처·실행 결과를 연결했습니다. 기본 화면은 **공개자료 · 운행 탐색**, 기존 가중치·순위 기능은 **예시 점수 비교**에서 사용할 수 있습니다.
+기존 화면의 가중치·후보지·비교 그래프와 실제 좌표 GIS·품질·데이터 연결을 단일 제품으로 통합했습니다. 별도 예시 화면으로 전환할 필요 없이 같은 후보 선택·가중치·입력 데이터를 공유합니다.
 
-## 설치 없이 열기
+## 기능
 
-[실행용 ZIP](https://github.com/shshwk33-stack/ooh/raw/refs/heads/transit-atlas-download/downloads/TRANSIT_ATLAS_CONNECTED_RUN.zip)을 다운로드하고 압축을 푼 뒤 `TRANSIT_ATLAS_CONNECTED.html`을 Chrome/Edge에서 여세요. React 코드·CSS·폰트·공간 형상·GPS·품질 보고서를 포함하며 서버나 인터넷 연결이 필요하지 않습니다.
+- 통합 위치가치 / 이동특성 / 공간특성 / 차량 경로 / 행정경계 지도
+- 실제 좌표의 후보 마커·행정동별 후보 점수 평균, 가중치에 따른 동시 갱신
+- Mobility/Spatial 합계 100%, 프리셋, 시나리오 저장·복원·삭제
+- 후보 상세 4개 탭, 기여도·입력 지표·단위·출처
+- Spatial/Mobility/Integrated 비교·가중치 순위·검증 결과 연결
+- 실제 도로·POI·인구 레이어 입력 시 활성화, 미확보 레이어는 비활성
+- GPS 차량·운행일·시간대 조회, 기간 밖 자료와 빈 결과 처리
+- JSON 전체 입력 / CSV 후보지 입력 / HTTP GET API 연결
+- 오류·취소·시간 초과·늦은 응답에서 기존 자료 유지
+- CSV·전체 JSON·세션 JSON·인쇄 저장
+- 키보드·데스크톱·모바일·오프라인 단일 HTML 실행
 
-## 연결된 기능
+## 실행
 
-- 실제 마포구 및 16개 행정동 선택·형상·면적·둘레: 2013년 공개 경계.
-- 실제 EPSG:5179 투영좌표 기반 지도, 미터 축척, 확대·축소·드래그·전체화면.
-- 합성 GPS 72개, 차량 2대, 가상 3일의 좌표를 실제 행정동에 공간결합.
-- 차량·날짜·시간대에 따른 KPI·지도·집계표·상세의 공통 상태 갱신.
-- 실제 값이 없는 조건은 0과 빈 상태로 표시.
-- 경계·이름·합성 경로·GPS 레이어 제어, 운행 범위·선택 동 확대.
-- 선택 행정동의 공간정보 / 합성 GPS / 자료 출처 탭.
-- 실제 원천·메타데이터·파생 결과의 해시, 형상 위상·좌표 품질·처리 run ID.
-- 현재 필터와 자료 분류·출처 ID를 보존하는 CSV, 세션 JSON, 실제 GeoJSON 저장.
-- 운행일 비교, 모델 연결 상태, 자료 관리, 보고서·인쇄 화면.
+루트에서 `npm ci`, `npm run dev`를 실행합니다. `npm run build:standalone`은 `docs/TRANSIT_ATLAS_FINAL.html`을 만듭니다. 배포 ZIP의 HTML은 Chrome/Edge에서 열면 됩니다.
 
-## 자료 해석
+## 연결 구조
 
-경계는 KOSTAT 유래 공개 미러의 **2013년 단순화 형상**입니다. 현행 법정 경계나 공식 면적 통계가 아닙니다. GPS는 seed 42로 만든 **SYNTHETIC 입력**이며 실제 배송차량 경로나 도로망이 아닙니다. 공간집계의 기록 수를 방문 횟수·정차·광고 노출량으로 해석하지 않습니다.
+`workspace-default.json` → `workspaceData.js` → `workspaceContract.js` 검증 → `workspaceModel.js` 공통 계산 → `UnifiedWorkspace` / `UnifiedMap` / `UnifiedPanels`.
 
-실제 M/S/V·Bootstrap은 산출하지 않았습니다. 예시 점수 비교 화면은 기존 `demo.js`·`demoModel.js` 입력을 사용하며 원천 기반 연구결과와 분리했습니다. 기존 DEMO 60:40·30:70 계산, 슬라이더·후보지·민감도·레이어·CSV 기능을 유지합니다.
+JSON과 API는 같은 schemaVersion 2.0을 사용합니다. CSV 양식은 데이터 관리에서 저장할 수 있습니다. API 비밀키는 HTML에 저장하지 않으며 서버 프록시에서 관리합니다. [연결 계약](docs/WORKSPACE_DATA_CONTRACT.md)을 참고하세요.
 
-## 개발·빌드
+## 자료와 해석
 
-프로젝트 루트에서 Node.js 24로 검증했습니다.
+기본 입력은 실제 2013년 행정경계, 수기 시나리오 후보 앵커·M/S, 합성 GPS로 구성되며 분류는 데이터 관리에 명시됩니다. 현재 M/S는 제공된 정규화 입력이며 동반 GPS로 계산한 값이 아닙니다. 차량·날짜·시간 조건은 GPS에 적용하고 정적인 M/S를 임의 배율로 바꾸지 않습니다.
 
-```sh
-npm ci
-npm run dev
-npm run build
-npm run build:standalone
-```
+지도 색상은 해당 행정동에 속한 후보 점수의 산술평균입니다. 임의 원형 효과를 밀도나 광고 노출량으로 표시하지 않습니다. 미확보 도로 수·지표·Bootstrap은 값이 연결되기 전까지 비워 둡니다. 실측·집계·추정·합성·파생 출처를 혼용하지 않습니다.
 
-개발 서버는 5180 포트이며 빌드는 `dist-dashboard/`, 단일 파일은 `dashboard/docs/TRANSIT_ATLAS_CONNECTED.html`에 생성됩니다.
+브라우저에서는 EPSG:4326 입력을 EPSG:3857로 표시하고 위도를 보정한 축척을 제공합니다. 과학적 미터 공간 연산·위상 검증은 별도 Python 파이프라인이 담당합니다. 프런트엔드 입력 검증은 형식·좌표·출처·참조·기간을 검사하며 원천 진위를 인증하지 않습니다.
 
-Python 파이프라인을 다시 실행한 뒤 입력을 새로 묶으려면 [연구 실행 문서](../docs/research/README.md)를 따라 결과를 검증하고 exporter의 검증 대상 경로를 명시적으로 갱신합니다.
+## 검사·제출물
 
-```sh
-.venv-analysis/bin/python scripts/export_dashboard_data.py
-.venv-analysis/bin/python scripts/export_dashboard_data.py --check
-```
+`npm run test:models`: 30개 검사 통과. `npm run test:unified`: 12개 통합 브라우저 그룹 통과. 최종 HTML의 오프라인 검사도 같은 12개 그룹을 통과했습니다. 브라우저 정책상 file URL을 직접 실행한 것이 아니라 HTML 내용을 브라우저에 렌더링해 확인했습니다.
 
-이 exporter는 원천·메타데이터·결과의 SHA-256과 파이프라인 상태를 확인한 뒤 미터 좌표·공간결합·출처를 내보냅니다. 원본을 덮어쓰지 않고 `dashboard/src/research-data.json`만 생성합니다. 원본이 바뀌면 기존 해시로 통과시키거나 조용히 예시값으로 대체하지 않습니다.
+[최종 통합 보고](docs/FINAL_INTEGRATION.md), [1440px 캡처](docs/unified/dashboard-unified-1440.png), [검증 기록](docs/unified/standalone-verification.json).
 
-## 검증
-
-```sh
-npm test
-npm run test:demo
-npm run test:connected
-npm run test:dashboard
-ATLAS_STANDALONE=dashboard/docs/TRANSIT_ATLAS_CONNECTED.html npm run test:connected
-```
-
-브라우저 검사는 개발 서버와 Chromium을 사용합니다. 마지막 명령은 서버 대신 완성된 단일 HTML을 렌더링하고 화면 조작과 외부 요청 부재를 검사합니다. 이 환경의 Chromium은 file URL을 정책상 열 수 없으므로 로컬 파일 더블클릭 자체를 검증했다고 보고하지 않습니다. 검사는 파일 내용을 같은 브라우저에 직접 렌더링하는 방식입니다.
-
-실제 캡처·결과는 `dashboard/docs/connected/`, 변경 및 검증 보고는 [DASHBOARD_INTEGRATION.md](../docs/research/DASHBOARD_INTEGRATION.md)에 있습니다. 기존 루트 `src/`, 연구 `pipeline/`, 원천 `public/`는 수정하지 않았습니다.
+기존 연구 코드·API 인증정보·DB는 변경하지 않았습니다. 작업 전 백업은 `/workspace/backups/transit-atlas-before-unified/`에 있습니다.
