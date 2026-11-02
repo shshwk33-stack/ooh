@@ -1,103 +1,62 @@
-# TRANSIT ATLAS · Transit OOH Analytics
+# TRANSIT ATLAS — 연결형 대시보드
 
-녹색·화이트 연구 대시보드를 기반으로 정보 가독성과 프런트엔드 시연 동작을 고도화한 React 화면입니다. 기존 연구 코드·실데이터·API와 분리되어 있습니다.
+기존 녹색·화이트 UI에 Python 파이프라인의 실제 경계·품질·출처·실행 결과를 연결했습니다. 기본 화면은 **공개자료 · 운행 탐색**, 기존 가중치·순위 기능은 **예시 점수 비교**에서 사용할 수 있습니다.
 
-## 실행
+## 설치 없이 열기
 
-프로젝트 루트 `/workspace/ooh`에서 실행합니다. Node.js 24에서 검증했습니다.
+[실행용 ZIP](https://github.com/shshwk33-stack/ooh/raw/refs/heads/transit-atlas-download/downloads/TRANSIT_ATLAS_CONNECTED_RUN.zip)을 다운로드하고 압축을 푼 뒤 `TRANSIT_ATLAS_CONNECTED.html`을 Chrome/Edge에서 여세요. React 코드·CSS·폰트·공간 형상·GPS·품질 보고서를 포함하며 서버나 인터넷 연결이 필요하지 않습니다.
+
+## 연결된 기능
+
+- 실제 마포구 및 16개 행정동 선택·형상·면적·둘레: 2013년 공개 경계.
+- 실제 EPSG:5179 투영좌표 기반 지도, 미터 축척, 확대·축소·드래그·전체화면.
+- 합성 GPS 72개, 차량 2대, 가상 3일의 좌표를 실제 행정동에 공간결합.
+- 차량·날짜·시간대에 따른 KPI·지도·집계표·상세의 공통 상태 갱신.
+- 실제 값이 없는 조건은 0과 빈 상태로 표시.
+- 경계·이름·합성 경로·GPS 레이어 제어, 운행 범위·선택 동 확대.
+- 선택 행정동의 공간정보 / 합성 GPS / 자료 출처 탭.
+- 실제 원천·메타데이터·파생 결과의 해시, 형상 위상·좌표 품질·처리 run ID.
+- 현재 필터와 자료 분류·출처 ID를 보존하는 CSV, 세션 JSON, 실제 GeoJSON 저장.
+- 운행일 비교, 모델 연결 상태, 자료 관리, 보고서·인쇄 화면.
+
+## 자료 해석
+
+경계는 KOSTAT 유래 공개 미러의 **2013년 단순화 형상**입니다. 현행 법정 경계나 공식 면적 통계가 아닙니다. GPS는 seed 42로 만든 **SYNTHETIC 입력**이며 실제 배송차량 경로나 도로망이 아닙니다. 공간집계의 기록 수를 방문 횟수·정차·광고 노출량으로 해석하지 않습니다.
+
+실제 M/S/V·Bootstrap은 산출하지 않았습니다. 예시 점수 비교 화면은 기존 `demo.js`·`demoModel.js` 입력을 사용하며 원천 기반 연구결과와 분리했습니다. 기존 DEMO 60:40·30:70 계산, 슬라이더·후보지·민감도·레이어·CSV 기능을 유지합니다.
+
+## 개발·빌드
+
+프로젝트 루트에서 Node.js 24로 검증했습니다.
 
 ```sh
 npm ci
 npm run dev
+npm run build
+npm run build:standalone
 ```
 
-개발 서버는 **5180 포트**입니다. 운영용 빌드는 다음과 같습니다.
+개발 서버는 5180 포트이며 빌드는 `dist-dashboard/`, 단일 파일은 `dashboard/docs/TRANSIT_ATLAS_CONNECTED.html`에 생성됩니다.
+
+Python 파이프라인을 다시 실행한 뒤 입력을 새로 묶으려면 [연구 실행 문서](../docs/research/README.md)를 따라 결과를 검증하고 exporter의 검증 대상 경로를 명시적으로 갱신합니다.
 
 ```sh
-npm run build
-npm run preview
+.venv-analysis/bin/python scripts/export_dashboard_data.py
+.venv-analysis/bin/python scripts/export_dashboard_data.py --check
 ```
 
-결과는 `dist-dashboard/`에 생성되며 확인 서버는 5181 포트입니다. 기존 화면은 `npm run dev:legacy`, 기존 빌드는 `npm run build:legacy`로 실행할 수 있습니다.
-
-## 구현한 기능
-
-- 녹색 사이드바, 헤더 조건 선택, 동일 DEMO 데이터에서 파생되는 KPI 5개
-- Mobility·Spatial 합계 100% 유지, 프리셋 30:70 / 50:50 / 60:40 / 80:20, 설정 초기화
-- 가중치에 따른 Integrated Score·후보지 순위·KPI·기여도·비교표·지도 마커 동기화
-- SVG 개념도와 5개 분석 모드: 위치가치, 차량 경로, 인구 통행, 밀크런, POI·상권
-- 7개 지도 레이어의 실제 표시·숨김, 확대·축소·드래그·전체화면
-- 후보지 선택 공유: 지도·표·상세 패널·차트 범례
-- 상세 탭 4개: 개요 / 이동특성 / 공간특성 / 안정성
-- 이동 시간대 미니 차트, M·S 막대와 가중 기여도, 조건별 순위
-- Top-5 Static(S)·Mobility(M)·Integrated(V) 비교 및 선택 후보 예외 행
-- 기본 30–80% 순위 민감도 차트, 범위 밖 가중치에서 0–100%로 자동 확장
-- 그래프 마우스·키보드 툴팁, 현재 가중치 수직 기준선
-- 별도 고정 DEMO Bootstrap 표와 선정률 막대
-- 시나리오 비교·데이터 관리·보고서 화면, 현재 가중치의 DEMO CSV, 인쇄/PDF
-- 키보드 지도·차트·탭 조작, 대화상자 포커스 제어, 모바일 메뉴
-
-## DEMO 데이터와 계산 범위
-
-`src/demo.js`는 후보지 ID, 표시 좌표, M/S, 시연 지표와 별도 Bootstrap 예시를 정의합니다. `src/demoModel.js`는 이 샘플에 한정해 다음을 계산합니다.
-
-```text
-V = (Mobility 가중치 / 100) × M + (Spatial 가중치 / 100) × S
-```
-
-점수 내림차순으로 순위를 정하며 동점은 후보 ID로 정렬합니다. 최고 점수, 평균 점수, 표와 지도 순위는 같은 결과를 사용합니다. Static은 공간 단독 기준, 즉 **Static = S**입니다. 예를 들어 기본 60:40에서는 홍대입구역 1위, 30:70에서는 공덕역 1위로 바뀝니다.
-
-상위 후보지 안정성 KPI는 현재 Top 5에 포함된 후보들의 **별도 DEMO 선정확률 평균**입니다. Bootstrap 값은 고정된 표시 예시이며 실제 재표본추출이나 통계적 검증을 수행하지 않습니다. 이동량 미니 차트와 인구·시설 지표도 시연용 입력입니다.
-
-지역·연도·기간·시간대·운행 시나리오는 UI 조건으로 선택·초기화할 수 있습니다. 실제 연구 계산에 적용하지 않으며 점수 재계산은 **가중치만** 사용합니다. 전체 화면은 DEMO 표시를 유지합니다.
-
-지도는 자체 SVG 개념도입니다. 실제 서울 도로 좌표나 View-T, GPS, 인구 데이터 API를 연결하지 않았으며 지도에 `DEMO / SCHEMATIC MAP`을 명시했습니다. 축척은 UI 예시로 실제 거리 측정에 사용할 수 없습니다.
-
-## 이번 단계에서 연결하지 않은 기능
-
-- 실측 GIS·View-T API·GPS 궤적 처리
-- 기존 Python·OR-Tools 연구 엔진 및 실제 점수 재계산
-- 실제 Bootstrap·통계적 유의성·광고 효과 검증
-- 데이터베이스·인증·서버 보고서 생성
-
-이 항목들은 프런트엔드 작업 범위 밖이며 연결된 것처럼 표시하지 않습니다.
+이 exporter는 원천·메타데이터·결과의 SHA-256과 파이프라인 상태를 확인한 뒤 미터 좌표·공간결합·출처를 내보냅니다. 원본을 덮어쓰지 않고 `dashboard/src/research-data.json`만 생성합니다. 원본이 바뀌면 기존 해시로 통과시키거나 조용히 예시값으로 대체하지 않습니다.
 
 ## 검증
 
 ```sh
-npm test                # 기존 연구 코드 테스트 6개
-npm run test:demo       # 프런트엔드 DEMO 일관성 테스트 6개
-npm run test:dashboard  # 개발 서버 실행 중 실제 Chromium UI 검증
+npm test
+npm run test:demo
+npm run test:connected
+npm run test:dashboard
+ATLAS_STANDALONE=dashboard/docs/TRANSIT_ATLAS_CONNECTED.html npm run test:connected
 ```
 
-브라우저 검증은 12개 검증 묶음으로 수치 일관성, 순위 역전, 선택 공유, 지도 모드·레이어, 상세 탭, 차트 툴팁, 설정 초기화, CSV, 메뉴, PDF, 반응형 및 외부 요청 부재를 확인합니다. 기본 Chromium은 `/usr/bin/chromium`이며 `CHROMIUM_PATH`로 변경할 수 있습니다. 검증 주소는 `DASHBOARD_URL`로 설정할 수 있습니다.
+브라우저 검사는 개발 서버와 Chromium을 사용합니다. 마지막 명령은 서버 대신 완성된 단일 HTML을 렌더링하고 화면 조작과 외부 요청 부재를 검사합니다. 이 환경의 Chromium은 file URL을 정책상 열 수 없으므로 로컬 파일 더블클릭 자체를 검증했다고 보고하지 않습니다. 검사는 파일 내용을 같은 브라우저에 직접 렌더링하는 방식입니다.
 
-## 제출물
-
-- [레퍼런스 기준 1536×1024 캡처](docs/dashboard-1536.png)
-- [1440×900 전체 캡처](docs/dashboard-1440.png) / [뷰포트 캡처](docs/dashboard-1440-viewport.png)
-- [1920×1080 전체 캡처](docs/dashboard-1920.png)
-- [모바일 화면](docs/dashboard-mobile.png)
-- [인쇄용 DEMO PDF](docs/dashboard-report-demo.pdf)
-- [구현·미연결 범위 및 영향 보고서](docs/IMPACT_REPORT.md)
-- [전체 소스코드 ZIP](docs/TRANSIT_ATLAS_SOURCE.zip)
-
-이미지는 실제 Chromium 화면입니다. 목업이나 생성 이미지로 대체하지 않았습니다.
-
-## 구성
-
-React 19 / Vite 6 / Lucide / 로컬 Noto Sans KR·DM Sans를 활용했습니다. 기존 라이브러리를 유지하고 지도·차트는 상호작용 가능한 SVG로 구현했습니다. Tailwind·shadcn·Recharts를 추가하지 않아도 현재 요구사항을 충족하므로 불필요한 의존성을 늘리지 않았습니다.
-
-기존 `src/`, `tests/`, `public/`, 루트 `index.html`, `package-lock.json`은 수정하지 않았습니다. 실행 진입점과 소스 영향은 영향 보고서를 참고하세요.
-
-## 최신 레퍼런스 화면 반영
-
-1536×1024 이미지의 헤더·KPI 높이, 3열 패널 폭, 하단 Top-5 표와 그래프 배치를 맞췄습니다. `src/reference.css`가 레퍼런스용 화면 스킨입니다. 오른쪽 상세 패널은 3개 점수 박스, 실제 기여 비율의 녹색·황색 누적 막대, 활동 지표 4개와 선정 이유로 구성합니다. 지도는 같은 계열의 파랑·보라·노랑·빨강 히트맵, 청록색 경로, 선택 후보의 빨간 마커를 사용합니다.
-
-기능과 수치는 공통 DEMO 상태를 유지합니다. 이미지에 적힌 M/S/V가 가중합과 일치하지 않는 부분은 그대로 복제하지 않았습니다. 예를 들어 현재 기본값은 M0.940, S0.780, 가중치60:40으로 V0.876이며, 안정성 KPI는 별도 DEMO 결과의 동일한 집계 기준을 유지합니다.
-
-## 설치 없는 단일 HTML 실행
-
-[실행용 ZIP](docs/TRANSIT_ATLAS_RUN.zip)을 내려받고 압축을 푼 뒤 `TRANSIT_ATLAS.html`을 Chrome/Edge에서 열면 됩니다. React 코드·CSS·한글/영문 폰트까지 파일 안에 포함합니다. 외부 서버나 설치가 필요하지 않습니다.
-
-재생성: `npm run build:standalone`. 생성 위치는 `dashboard/docs/TRANSIT_ATLAS.html`입니다. 네트워크가 꺼진 브라우저에서 HTML 내용을 직접 렌더링하여 화면·슬라이더·지도 모드·상세 탭을 검증했습니다. 이 클라우드 Chromium의 정책상 file URL 자체는 열 수 없어, 로컬 파일 더블클릭 동작을 직접 검증한 것은 아닙니다.
+실제 캡처·결과는 `dashboard/docs/connected/`, 변경 및 검증 보고는 [DASHBOARD_INTEGRATION.md](../docs/research/DASHBOARD_INTEGRATION.md)에 있습니다. 기존 루트 `src/`, 연구 `pipeline/`, 원천 `public/`는 수정하지 않았습니다.

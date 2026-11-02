@@ -5,7 +5,7 @@ import path from 'node:path';
 // Self-contained distribution of the built frontend: no server or npm needed.
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const dist = path.join(root, 'dist-dashboard');
-const output = path.join(root, 'dashboard/docs/TRANSIT_ATLAS.html');
+const output = path.join(root, 'dashboard/docs/TRANSIT_ATLAS_CONNECTED.html');
 let html = await readFile(path.join(dist, 'index.html'), 'utf8');
 const assetPath = (url) => {
   const resolved = path.resolve(dist, url.replace(/^\//, ''));

@@ -65,6 +65,7 @@ async function consistent(weight) {
 }
 try {
   await page.goto(origin, { waitUntil: "networkidle" });
+  await page.getByRole("button", { name: "예시 점수 비교", exact: true }).first().click();
   await page.evaluate(() => document.fonts.ready);
   assert.equal(await page.locator(".kpi-card").count(), 5);
   assert.equal(await page.locator(".kpi-card>.demo-badge").count(), 5);
@@ -317,6 +318,7 @@ try {
   await page.getByRole("button", { name: "닫기", exact: true }).click();
   pass("guide and data source dialogs");
   await page.reload({ waitUntil: "networkidle" });
+  await page.getByRole("button", { name: "예시 점수 비교", exact: true }).first().click();
   await page.setViewportSize({ width: 1920, height: 1080 });
   await screenshot("dashboard-1920.png");
   assert.ok(
@@ -341,6 +343,7 @@ try {
   pass("1920×1080/mobile layout and mobile navigation");
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.reload({ waitUntil: "networkidle" });
+  await page.getByRole("button", { name: "예시 점수 비교", exact: true }).first().click();
   await page.evaluate(() => document.fonts.ready);
   await page.emulateMedia({ media: "print" });
   await page.pdf({

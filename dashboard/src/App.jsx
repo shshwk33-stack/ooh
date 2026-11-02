@@ -36,6 +36,7 @@ import DesignMap from "./DesignMap";
 import CandidateDetail from "./CandidateDetail";
 import { deriveDemo, rankAtWeight } from "./demoModel";
 import { PRESETS } from "./demo";
+import ResearchWorkspace from "./ResearchWorkspace";
 import {
   BootstrapTable,
   ComparisonTable,
@@ -76,6 +77,7 @@ function Sidebar({
   onGuide,
   mobileOpen,
   setMobileOpen,
+  research = false,
 }) {
   return (
     <aside className={"sidebar " + (mobileOpen ? "mobile-open" : "")}>
@@ -110,7 +112,7 @@ function Sidebar({
             >
               <Icon size={17} strokeWidth={1.65} />
               <span>
-                {label}
+                {research && id === "scenarios" ? "운행조건 비교" : research && id === "sensitivity" ? "모델 및 검증 현황" : label}
                 {suffix && <small> ({suffix})</small>}
               </span>
             </button>
@@ -138,7 +140,7 @@ function Sidebar({
           </div>
           <div>
             <Clock3 size={13} />
-            <dt>분석기간</dt>
+            <dt>{research ? "운행기간" : "분석기간"}</dt>
             <dd>
               {settings.period} ·{" "}
               {settings.time.startsWith("전체 시간대") ? "전체" : settings.time}
@@ -147,12 +149,12 @@ function Sidebar({
           <div>
             <Layers3 size={13} />
             <dt>데이터 출처</dt>
-            <dd>View-T + 공간정보</dd>
+            <dd>{research ? "KOSTAT 공개 경계" : "View-T + 공간정보"}</dd>
           </div>
           <div>
             <Database size={13} />
             <dt>데이터 유형</dt>
-            <dd>디자인용 예시</dd>
+            <dd>{research ? "공개 경계 · 합성 GPS" : "디자인용 예시"}</dd>
           </div>
         </dl>
       </section>
@@ -162,12 +164,12 @@ function Sidebar({
         </h2>
         <div>
           <span className="status-light" />
-          <span>DEMO 데이터</span>
+          <span>{research ? "공간자료 검증" : "DEMO 데이터"}</span>
           <b>정상</b>
         </div>
         <div>
           <span className="status-light" />
-          <span>UI 점수 계산</span>
+          <span>{research ? "GPS 입력 검증" : "UI 점수 계산"}</span>
           <b>정상</b>
         </div>
         <div>
@@ -388,6 +390,7 @@ function SettingsPanel({
   );
 }
 export default function App() {
+  const [workspace, setWorkspace] = useState("research");
   const [active, setActive] = useState("dashboard"),
     [mobility, setMobility] = useState(60),
     [mapMode, setMapMode] = useState("value"),
@@ -520,6 +523,10 @@ export default function App() {
   const showDashboard = ["dashboard", "spatial", "sensitivity"].includes(
     active,
   );
+  if (workspace === "research") {
+    return <ResearchWorkspace Sidebar={Sidebar} HeaderSelect={HeaderSelect}
+      onOpenDemo={() => setWorkspace("demo")} />;
+  }
   return (
     <div className="atlas-app">
       <Sidebar
@@ -595,6 +602,13 @@ export default function App() {
           </div>
         </header>
         <main>
+          <div className="workspace-mode-bar demo-workspace-mode-bar">
+            <div className="workspace-mode-switch" aria-label="워크스페이스 선택">
+              <button onClick={() => setWorkspace("research")}>공개자료 · 운행 탐색</button>
+              <button className="selected" aria-pressed="true">예시 점수 비교</button>
+            </div>
+            <span className="workspace-scope-note">DEMO 입력 · 기존 가중치 계산 화면</span>
+          </div>
           <div className="workspace-strip">
             <div>
               <span className="workspace-dot" /> RESEARCH WORKSPACE <i />{" "}

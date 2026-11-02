@@ -13,6 +13,7 @@
     "build:legacy": "vite build",
     "preview:legacy": "vite preview --host 0.0.0.0 --port 5183",
     "test:dashboard": "node dashboard/tests/browser.mjs",
+    "test:connected": "node dashboard/tests/research-browser.mjs",
     "test:demo": "node --test --test-isolation=none dashboard/tests/*.test.js",
     "build:standalone": "npm run build && node dashboard/scripts/build-standalone.mjs"
   },
