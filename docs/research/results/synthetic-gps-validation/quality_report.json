@@ -1,0 +1,34 @@
+{
+  "dataset_kind": "vehicle_positions",
+  "errors": [],
+  "input_rows": 72,
+  "input_was_sorted": false,
+  "max_inferred_speed_kmh": 1.476196,
+  "max_speed_kmh": 120.0,
+  "missing_rate": {
+    "latitude": 0.0,
+    "longitude": 0.0,
+    "timestamp": 0.0,
+    "vehicle_id": 0.0
+  },
+  "missing_required": {
+    "latitude": 0,
+    "longitude": 0,
+    "timestamp": 0,
+    "vehicle_id": 0
+  },
+  "observations": 72,
+  "period": {
+    "end": "2024-05-03T02:11:00+00:00",
+    "start": "2024-05-01T01:00:00+00:00"
+  },
+  "source_kind": "SYNTHETIC",
+  "status": "passed",
+  "transformation": "sort by vehicle and UTC timestamp; normalize timestamps to UTC; trim vehicle ID whitespace; retain coordinate strings; no row deletion or value imputation",
+  "vehicles": 2,
+  "warnings": [
+    "source.kind is a provenance assertion; validation does not certify field observation",
+    "No road map matching, stop detection, M/S/V scoring or Bootstrap was performed",
+    "SYNTHETIC conceptual trajectories: not observed delivery GPS and not constrained to actual roads"
+  ]
+}

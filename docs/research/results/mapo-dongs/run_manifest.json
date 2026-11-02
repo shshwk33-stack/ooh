@@ -1,0 +1,75 @@
+{
+  "analysis_scores_generated": false,
+  "bootstrap_performed": false,
+  "dataset_kind": "administrative_boundary",
+  "geometry_only": true,
+  "metadata_sha256": "dde0a7902dadd60acb8b9fd947795dcb3b365e6028980e1a32b0e6a335012a7f",
+  "output_kind": "DERIVED",
+  "outputs": {
+    "districts.csv": "5a3741e2502ece2366a9045e5d6bd657198c9c16961749041f38066b5a98d978",
+    "mapo.geojson": "80ca6122fcdd6377a99e03dd5684809ef7689871a1bb9a601f8e4bef6ce75ccb",
+    "mapo.projected.csv": "a7ce652f796664e95f8a1bb7adff8e99c5b34195366607091ca1ac88600681d9",
+    "processing_log.jsonl": "76e3144c6b240b46bbcb2458a591680b675c49f6977ef5a066014580b4bddacc",
+    "quality_report.json": "2daeb44c116da907b87a029c084a03e488d75cfe51e710a224f2167b5671ae3f"
+  },
+  "parameters": {
+    "always_xy": true,
+    "analysis_crs": "EPSG:5179",
+    "input_crs": "EPSG:4326",
+    "region_code": null,
+    "region_prefix": "11140",
+    "roundtrip_tolerance_deg": 1e-08,
+    "selection": {
+      "mode": "prefix",
+      "value": "11140"
+    },
+    "topology_repair": false
+  },
+  "pipeline_version": "1.0.0",
+  "run_id": "3ac24940d0f85fac6dc17f18",
+  "schema_version": "1.0",
+  "scope": "Validated historical administrative geometry only. No GPS, traffic, population, POI, mobility/spatial/integrated scores or statistical validation.",
+  "selected_codes": [
+    "1114059",
+    "1114060",
+    "1114061",
+    "1114063",
+    "1114066",
+    "1114068",
+    "1114069",
+    "1114070",
+    "1114071",
+    "1114072",
+    "1114073",
+    "1114074",
+    "1114075",
+    "1114076",
+    "1114077",
+    "1114078"
+  ],
+  "source": {
+    "kind": "PUBLIC_AGGREGATE",
+    "license": "UNKNOWN",
+    "license_note": "공개 미러 README의 Apache v2.0 선언은 확인했습니다. 원기관의 원자료 이용조건은 별도로 재확인하지 못했습니다.",
+    "name": "서울 읍면동 단순화 행정경계 (2013)",
+    "observation_period": null,
+    "original_agency_terms_verified": false,
+    "publisher": "KOSTAT, as attributed by southkorea/seoul-maps; repository redistribution",
+    "redistributor_license_declaration": "Apache-2.0 in upstream README (separate LICENSE returned 404)",
+    "reference_year": 2013,
+    "retrieved_on": "2026-11-02",
+    "sha256": "432bda8622549a53ea51e4a0638baefee9f5214d21065c20457506c9b559291e",
+    "simplification": "Visvalingam/weighted area, 1%",
+    "spatial_resolution": "generalized submunicipal district polygons; Mapo has 16 features",
+    "temporal_resolution": "static boundary vintage 2013",
+    "unit": "geometry; not traffic, population or GPS observations",
+    "upstream_commit": "dbb1dcde2e3c9937684c5a44ab9301888ad63ee6",
+    "url": "https://raw.githubusercontent.com/southkorea/seoul-maps/dbb1dcde2e3c9937684c5a44ab9301888ad63ee6/kostat/2013/json/seoul_submunicipalities_geo_simple.json"
+  },
+  "spatial_contract": {
+    "analysis_crs": "EPSG:5179",
+    "coordinate_order": "longitude_latitude",
+    "crs_basis": "The local GeoJSON has no CRS member. Longitude/latitude EPSG:4326 is an explicit processing input contract, consistent with its coordinate ranges and upstream GeoJSON, not a recovered official source CRS declaration.",
+    "input_crs": "EPSG:4326"
+  }
+}

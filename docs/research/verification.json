@@ -1,0 +1,14 @@
+{
+  "checked_on": "2026-11-02",
+  "phase": 1,
+  "python_tests": {"boundary": 44, "gps_input": 15, "passed": 59, "failed": 0},
+  "existing_node_tests": {"legacy_passed": 6, "dashboard_demo_passed": 6},
+  "browser_regression": {"passed_groups": 12, "runtime_errors": 0},
+  "frontend_build": "passed",
+  "integration": {"runs": 2, "matching_deterministic_artifacts": 16, "execution_context_excluded": true},
+  "original_code_data_integrity": {"checked_files": 27, "changed_files": 0},
+  "observed_gps_available": false,
+  "model_scores_computed": false,
+  "bootstrap_performed": false,
+  "dashboard_connected_to_pipeline": false
+}

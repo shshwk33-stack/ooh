@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "dataset_kind": "administrative_boundary",
+  "geometry_only": true,
+  "source": {
+    "kind": "PUBLIC_AGGREGATE",
+    "name": "서울 읍면동 단순화 행정경계 (2013)",
+    "publisher": "KOSTAT, as attributed by southkorea/seoul-maps; repository redistribution",
+    "url": "https://raw.githubusercontent.com/southkorea/seoul-maps/dbb1dcde2e3c9937684c5a44ab9301888ad63ee6/kostat/2013/json/seoul_submunicipalities_geo_simple.json",
+    "reference_year": 2013,
+    "sha256": "432bda8622549a53ea51e4a0638baefee9f5214d21065c20457506c9b559291e",
+    "license": "UNKNOWN",
+    "license_note": "공개 미러 README의 Apache v2.0 선언은 확인했습니다. 원기관의 원자료 이용조건은 별도로 재확인하지 못했습니다.",
+    "observation_period": null,
+    "temporal_resolution": "static boundary vintage 2013",
+    "spatial_resolution": "generalized submunicipal district polygons; Mapo has 16 features",
+    "unit": "geometry; not traffic, population or GPS observations",
+    "upstream_commit": "dbb1dcde2e3c9937684c5a44ab9301888ad63ee6",
+    "retrieved_on": "2026-11-02",
+    "redistributor_license_declaration": "Apache-2.0 in upstream README (separate LICENSE returned 404)",
+    "original_agency_terms_verified": false,
+    "simplification": "Visvalingam/weighted area, 1%"
+  },
+  "spatial": {
+    "input_crs": "EPSG:4326",
+    "coordinate_order": "longitude_latitude",
+    "analysis_crs": "EPSG:5179",
+    "crs_basis": "The local GeoJSON has no CRS member. Longitude/latitude EPSG:4326 is an explicit processing input contract, consistent with its coordinate ranges and upstream GeoJSON, not a recovered official source CRS declaration."
+  },
+  "restrictions": [
+    "Historical generalized boundary, not a current legal or cadastral boundary",
+    "PUBLIC_AGGREGATE is the requested provenance category; this dataset contains geometry only, not aggregate mobility observations",
+    "Do not use derived polygon area as an official administrative area statistic",
+    "No delivery GPS, traffic counts, population, POI, Mobility Score or Spatial Score are present"
+  ]
+}

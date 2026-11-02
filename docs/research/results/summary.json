@@ -1,0 +1,23 @@
+{
+  "bootstrap_performed": false,
+  "dashboard_connected_to_pipeline": false,
+  "model_scores_computed": false,
+  "observed_delivery_gps_available": false,
+  "phase": 1,
+  "runs": {
+    "mapo-district": {
+      "run_id": "4630c10de816506df7d273e6",
+      "source_kind": "PUBLIC_AGGREGATE"
+    },
+    "mapo-dongs": {
+      "run_id": "3ac24940d0f85fac6dc17f18",
+      "source_kind": "PUBLIC_AGGREGATE"
+    },
+    "synthetic-gps-validation": {
+      "run_id": "072c1dba318dc2c960c4dee5a422cb2ee6dc20e6d04a93092fb13463fda45d88",
+      "source_kind": "SYNTHETIC"
+    }
+  },
+  "scope": "Historical real boundary processing and isolated synthetic GPS input validation",
+  "status": "passed"
+}

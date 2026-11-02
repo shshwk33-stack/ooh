@@ -6,3 +6,10 @@ test-results/
 
 # Separate dashboard output
 dist-dashboard/
+
+# Isolated research environment and local execution outputs
+.venv-analysis/
+__pycache__/
+*.pyc
+research_data/runs/
+research_data/private/

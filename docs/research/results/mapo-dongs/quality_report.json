@@ -1,0 +1,71 @@
+{
+  "analysis_crs": "EPSG:5179",
+  "analysis_scores_generated": false,
+  "axis_order": "longitude_latitude",
+  "bootstrap_performed": false,
+  "coordinate_count": 3654,
+  "duplicate_region_codes": 0,
+  "errors": [],
+  "feature_count": 423,
+  "geometry_derivation": "Ring winding normalized for RFC 7946 output; no topology repair or coordinate correction.",
+  "geometry_only": true,
+  "input_crs": "EPSG:4326",
+  "max_roundtrip_error_deg": 2.1316282072803006e-14,
+  "missing_rates": {
+    "base_year": 0.0,
+    "code": 0.0,
+    "name": 0.0,
+    "name_eng": 0.0
+  },
+  "roundtrip_tolerance_deg": 1e-08,
+  "selected_region": {
+    "code_prefix": "11140",
+    "feature_count": 16,
+    "perimeter_note": "Sum of individual feature perimeters includes shared internal borders; it is not a dissolved district perimeter.",
+    "sum_area_m2": 24428188.437439,
+    "sum_feature_perimeter_m": 83628.004776
+  },
+  "selection": {
+    "codes": [
+      "1114059",
+      "1114060",
+      "1114061",
+      "1114063",
+      "1114066",
+      "1114068",
+      "1114069",
+      "1114070",
+      "1114071",
+      "1114072",
+      "1114073",
+      "1114074",
+      "1114075",
+      "1114076",
+      "1114077",
+      "1114078"
+    ],
+    "feature_count": 16,
+    "mode": "prefix",
+    "value": "11140"
+  },
+  "source_crs_declaration": null,
+  "source_sha256": "432bda8622549a53ea51e4a0638baefee9f5214d21065c20457506c9b559291e",
+  "status": "passed",
+  "topology_valid_count": 423,
+  "warnings": [
+    {
+      "basis": "The local GeoJSON has no CRS member. Longitude/latitude EPSG:4326 is an explicit processing input contract, consistent with its coordinate ranges and upstream GeoJSON, not a recovered official source CRS declaration.",
+      "code": "CRS_NOT_DECLARED_IN_SOURCE",
+      "message": "The source file has no CRS declaration. EPSG:4326 is an explicit processing contract, not independently verified official source metadata."
+    },
+    {
+      "code": "LICENSE_UNVERIFIED",
+      "message": "Source license/use conditions remain unverified; processing does not grant redistribution rights."
+    },
+    {
+      "code": "DUPLICATE_NAME",
+      "message": "Administrative names repeat; region codes remain unique.",
+      "name": "신사동"
+    }
+  ]
+}

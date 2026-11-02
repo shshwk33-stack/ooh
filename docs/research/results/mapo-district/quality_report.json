@@ -1,0 +1,50 @@
+{
+  "analysis_crs": "EPSG:5179",
+  "analysis_scores_generated": false,
+  "axis_order": "longitude_latitude",
+  "bootstrap_performed": false,
+  "coordinate_count": 1374,
+  "duplicate_region_codes": 0,
+  "errors": [],
+  "feature_count": 25,
+  "geometry_derivation": "Ring winding normalized for RFC 7946 output; no topology repair or coordinate correction.",
+  "geometry_only": true,
+  "input_crs": "EPSG:4326",
+  "max_roundtrip_error_deg": 1.4210854715202004e-14,
+  "missing_rates": {
+    "base_year": 0.0,
+    "code": 0.0,
+    "name": 0.0,
+    "name_eng": 0.0
+  },
+  "roundtrip_tolerance_deg": 1e-08,
+  "selected_region": {
+    "area_m2": 24573237.172051,
+    "code": "11140",
+    "name": "마포구",
+    "perimeter_m": 26507.907953
+  },
+  "selection": {
+    "codes": [
+      "11140"
+    ],
+    "feature_count": 1,
+    "mode": "exact",
+    "value": "11140"
+  },
+  "source_crs_declaration": null,
+  "source_sha256": "2bb208614451c9f2a096cd62204063d6b27e57dcb7650a35ac19c06f1a84eb03",
+  "status": "passed",
+  "topology_valid_count": 25,
+  "warnings": [
+    {
+      "basis": "The local GeoJSON has no CRS member. Longitude/latitude EPSG:4326 is an explicit processing input contract, consistent with its coordinate ranges and upstream GeoJSON, not a recovered official source CRS declaration.",
+      "code": "CRS_NOT_DECLARED_IN_SOURCE",
+      "message": "The source file has no CRS declaration. EPSG:4326 is an explicit processing contract, not independently verified official source metadata."
+    },
+    {
+      "code": "LICENSE_UNVERIFIED",
+      "message": "Source license/use conditions remain unverified; processing does not grant redistribution rights."
+    }
+  ]
+}

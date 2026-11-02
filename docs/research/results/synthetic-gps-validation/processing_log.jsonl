@@ -1,0 +1,2 @@
+{"errors":[],"input_rows":72,"source_kind":"SYNTHETIC","stage":"validation","status":"passed"}
+{"outputs":["quality_report.json","validated_positions.csv"],"run_id":"072c1dba318dc2c960c4dee5a422cb2ee6dc20e6d04a93092fb13463fda45d88","stage":"export","status":"passed"}

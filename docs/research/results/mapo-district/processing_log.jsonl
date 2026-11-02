@@ -1,0 +1,5 @@
+{"event": "inputs_read", "metadata_sha256": "a322fb62451b0c539142c79da74dd73ee8c2d10c4ba5bf6512c5670297ac7570", "sequence": 1, "source_sha256": "2bb208614451c9f2a096cd62204063d6b27e57dcb7650a35ac19c06f1a84eb03"}
+{"event": "source_hash_verified", "sequence": 2}
+{"event": "input_validated", "feature_count": 25, "sequence": 3}
+{"analysis_crs": "EPSG:5179", "event": "metric_geometry_computed", "sequence": 4}
+{"event": "outputs_ready", "geometry_only": true, "output_kind": "DERIVED", "selected_codes": ["11140"], "selection": {"mode": "exact", "value": "11140"}, "sequence": 5}

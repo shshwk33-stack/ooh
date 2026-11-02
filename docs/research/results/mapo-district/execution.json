@@ -1,0 +1,21 @@
+{
+  "completed_at": "2026-11-02T03:23:09.519309+00:00",
+  "deterministic_artifacts": [
+    "districts.csv",
+    "mapo.geojson",
+    "mapo.projected.csv",
+    "processing_log.jsonl",
+    "quality_report.json",
+    "run_manifest.json"
+  ],
+  "input_filename": "seoul-districts-2013.geojson",
+  "metadata_filename": "seoul-districts-2013.metadata.json",
+  "note": "Execution context is intentionally excluded from deterministic analysis artifacts.",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "proj": "9.5.1",
+  "pyproj": "3.7.2",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "run_id": "4630c10de816506df7d273e6",
+  "shapely": "2.1.2",
+  "started_at": "2026-11-02T03:23:09.357807+00:00"
+}
